@@ -4,13 +4,6 @@ const Contact = () => (
 
     <div className="glass-card text-center">
       <div className="space-y-8">
-        <p className="text-xl">
-          <strong className="font-mono">Email:</strong>{" "}
-          <a href="mailto:harshpreet0402@gmail.com" className="text-white">
-            harshpreet0402@gmail.com
-          </a>
-        </p>
-
         <div className="flex gap-8 justify-center text-lg font-mono uppercase tracking-wider">
           <a href="https://github.com/harshpreet931" target="_blank" rel="noopener noreferrer">
             GitHub

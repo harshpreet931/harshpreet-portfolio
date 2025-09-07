@@ -180,7 +180,6 @@ const jsonLd = {
     "Data Structures",
     "Algorithms",
   ],
-  email: "harshpreet0402@gmail.com",
   address: {
     "@type": "PostalAddress",
     addressCountry: "IN",

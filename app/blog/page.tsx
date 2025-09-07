@@ -293,14 +293,7 @@ export default function BlogPage() {
             <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
               Want to discuss any of these topics or collaborate on something exciting?
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="mailto:harshpreet0402@gmail.com" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 bg-opacity-20 rounded-full text-blue-300 border border-blue-500 border-opacity-30 hover:bg-opacity-30 transition-all font-medium"
-              >
-                Send Email
-                <span>📧</span>
-              </a>
+            <div className="flex justify-center">
               <a 
                 href="https://linkedin.com/in/harshpreetsingh0402" 
                 target="_blank" 
