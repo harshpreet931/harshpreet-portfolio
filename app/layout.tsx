@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
+import { Analytics } from '@vercel/analytics/react'
 import "./globals.css"
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -221,6 +222,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
