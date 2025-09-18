@@ -14,21 +14,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Z.ai Code Scaffold - AI-Powered Development",
-  description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
-  keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
-  authors: [{ name: "Z.ai Team" }],
+  title: "Harshpreet Singh - SDE Intern @ Juspay",
+  description: "Portfolio of Harshpreet Singh, Software Development Engineer Intern at Juspay. Specializing in AI systems, full-stack development, and innovative tech solutions.",
+  keywords: ["Harshpreet Singh", "Software Engineer", "Juspay", "AI", "Full-stack", "React", "Next.js", "TypeScript"],
+  authors: [{ name: "Harshpreet Singh" }],
   openGraph: {
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
-    url: "https://chat.z.ai",
-    siteName: "Z.ai",
+    title: "Harshpreet Singh - Portfolio",
+    description: "SDE Intern @ Juspay",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "Harshpreet Singh - Portfolio",
+    description: "SDE Intern @ Juspay",
   },
 };
 
@@ -39,6 +37,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
