@@ -154,7 +154,7 @@ export default function Portfolio() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="min-h-screen flex items-center justify-center relative"
+            className="min-h-screen flex items-center justify-center relative overflow-hidden"
           >
             {/* Background elements */}
             <div className="absolute inset-0">
@@ -163,34 +163,34 @@ export default function Portfolio() {
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-black/3 rounded-full" />
             </div>
             
-            <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
+            <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-20 sm:pt-24 md:pt-28">
               <motion.div
                 initial={{ opacity: 0, y: 60 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, delay: 0.2 }}
               >
                 {/* Large decorative elements */}
-                <div className="mb-12">
-                  <div className="w-32 h-px bg-black mx-auto mb-8" />
-                  <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-12xl font-thin tracking-tighter leading-none mb-2 sm:mb-4">
+                <div className="mb-8 sm:mb-10 md:mb-12">
+                  <div className="w-16 sm:w-24 md:w-32 h-px bg-black mx-auto mb-6 sm:mb-8" />
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-thin tracking-tighter leading-none mb-2 sm:mb-4 break-words overflow-hidden">
                     HARSHPREET
                   </h1>
-                  <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-9xl font-bold tracking-tight leading-none mb-8 sm:mb-12">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold tracking-tight leading-none mb-6 sm:mb-8 md:mb-12 break-words overflow-hidden">
                     SINGH
                   </h2>
-                  <div className="w-24 sm:w-32 md:w-48 h-px bg-black mx-auto mb-8 sm:mb-12 md:mb-16" />
+                  <div className="w-16 sm:w-24 md:w-32 lg:w-48 h-px bg-black mx-auto mb-6 sm:mb-8 md:mb-12 lg:mb-16" />
                 </div>
                 
                 {/* Subtitle with decorative elements */}
-                <div className="relative mb-12 sm:mb-16 md:mb-20">
-                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 border border-black/10 rounded-full" />
+                <div className="relative mb-8 sm:mb-12 md:mb-16 lg:mb-20">
+                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 border border-black/10 rounded-full" />
                   <p className="text-sm sm:text-base md:text-lg lg:text-xl font-light tracking-widest uppercase relative z-10">
                     SDE Intern @ Juspay
                   </p>
                 </div>
                 
                 {/* Social links with minimal presentation */}
-                <div className="flex justify-center gap-6 sm:gap-8 md:gap-12 mt-8 sm:mt-12 md:mt-16">
+                <div className="flex justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 mt-6 sm:mt-8 md:mt-12 lg:mt-16">
                   {['LinkedIn', 'GitHub', 'LeetCode'].map((platform, index) => (
                     <motion.a
                       key={platform}
@@ -213,8 +213,8 @@ export default function Portfolio() {
                 </div>
                 
                 {/* Decorative bottom element */}
-                <div className="mt-12 sm:mt-16 md:mt-24">
-                  <div className="w-16 h-16 border border-black/20 rounded-full mx-auto flex items-center justify-center">
+                <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24">
+                  <div className="w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 border border-black/20 rounded-full mx-auto flex items-center justify-center">
                     <div className="w-2 h-2 bg-black rounded-full" />
                   </div>
                 </div>
@@ -576,7 +576,7 @@ export default function Portfolio() {
       
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 py-4 sm:py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-3 sm:py-4 md:py-6">
           <div className="flex justify-between items-center">
             <button 
               onClick={() => setActiveSection('hero')}
@@ -584,12 +584,12 @@ export default function Portfolio() {
             >
               H.S.
             </button>
-            <div className="flex gap-3 sm:gap-4 md:gap-8 overflow-x-auto">
+            <div className="flex gap-2 sm:gap-3 md:gap-6 lg:gap-8 overflow-x-auto">
               {navigation.filter(item => item.label).map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveSection(item.id)}
-                  className={`text-xs font-light tracking-wider transition-all duration-200 relative pb-1 whitespace-nowrap ${
+                  className={`text-xs font-light tracking-wider transition-all duration-200 relative pb-1 whitespace-nowrap px-1 sm:px-0 ${
                     activeSection === item.id 
                       ? 'opacity-100' 
                       : 'opacity-30 hover:opacity-70'
