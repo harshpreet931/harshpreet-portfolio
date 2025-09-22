@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Harshpreet Singh - Software Development Engineer | AI & Full-Stack Developer",
+  title: "Harshpreet Singh - Software Development Engineer Intern | AI & Full-Stack Developer",
   description: "Harshpreet Singh - SDE Intern at Juspay specializing in AI systems, agentic frameworks, and full-stack development. Building innovative solutions with React, Next.js, and modern technologies.",
   keywords: [
     "Harshpreet Singh", 
@@ -40,19 +40,28 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Harshpreet Singh - Software Development Engineer",
+    title: "Harshpreet Singh - Software Development Engineer Intern",
     description: "SDE Intern at Juspay specializing in AI systems and full-stack development. Expert in React, Next.js, and modern web technologies.",
     type: "website",
     siteName: "Harshpreet Singh Portfolio",
     url: "https://harshpreet.com",
     locale: "en_US",
+    images: [
+      {
+        url: "https://harshpreet.com/logo.svg",
+        width: 1200,
+        height: 630,
+        alt: "Harshpreet Singh - Software Development Engineer Intern",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Harshpreet Singh - Software Development Engineer",
+    title: "Harshpreet Singh - Software Development Engineer Intern",
     description: "SDE Intern at Juspay specializing in AI systems and full-stack development",
     creator: "@harshpreet931",
     site: "@harshpreet931",
+    images: ["https://harshpreet.com/logo.svg"],
   },
   robots: {
     index: true,
@@ -80,6 +89,9 @@ export default function RootLayout({
         <link rel="icon" href="/logo.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="canonical" href="https://harshpreet.com" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}

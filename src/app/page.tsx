@@ -204,6 +204,7 @@ export default function Portfolio() {
                       }`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Visit Harshpreet Singh's ${platform} profile`}
                       className="text-xs font-light tracking-[0.2em] uppercase opacity-40 hover:opacity-100 transition-all duration-300 hover:tracking-[0.25em]"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 0.4, y: 0 }}
@@ -399,6 +400,7 @@ export default function Portfolio() {
                             href={project.link} 
                             target="_blank" 
                             rel="noopener noreferrer"
+                            aria-label={`View ${project.name} project`}
                             className="hover:opacity-60 transition-opacity"
                           >
                             {project.name}
@@ -566,10 +568,12 @@ export default function Portfolio() {
             "jobTitle": "Software Development Engineer Intern",
             "worksFor": {
               "@type": "Organization",
-              "name": "Juspay"
+              "name": "Juspay",
+              "url": "https://juspay.in"
             },
             "description": "Software Development Engineer Intern at Juspay specializing in AI systems, agentic frameworks, and full-stack development",
             "url": "https://harshpreet.com",
+            "image": "https://harshpreet.com/logo.svg",
             "sameAs": [
               "https://linkedin.com/in/harshpreet931",
               "https://github.com/harshpreet931",
@@ -583,8 +587,24 @@ export default function Portfolio() {
               "AI Development",
               "Machine Learning",
               "Full-stack Development",
-              "Software Engineering"
-            ]
+              "Software Engineering",
+              "Agentic AI",
+              "Python",
+              "Java",
+              "C++"
+            ],
+            "alumniOf": {
+              "@type": "CollegeOrUniversity",
+              "name": "Chitkara University"
+            },
+            "hasOccupation": {
+              "@type": "Occupation",
+              "name": "Software Development Engineer Intern",
+              "occupationLocation": {
+                "@type": "City",
+                "name": "Bengaluru"
+              }
+            }
           })
         }}
       />
@@ -615,6 +635,7 @@ export default function Portfolio() {
           <div className="flex justify-between items-center">
             <button 
               onClick={() => setActiveSection('hero')}
+              aria-label="Navigate to home section"
               className="text-xs font-light tracking-widest opacity-40 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
             >
               H.S.
@@ -624,6 +645,8 @@ export default function Portfolio() {
                 <button
                   key={item.id}
                   onClick={() => setActiveSection(item.id)}
+                  aria-label={`Navigate to ${item.label} section`}
+                  aria-current={activeSection === item.id ? 'page' : undefined}
                   className={`text-xs font-light tracking-wider transition-all duration-200 relative pb-1 whitespace-nowrap px-1 sm:px-0 ${
                     activeSection === item.id 
                       ? 'opacity-100' 
