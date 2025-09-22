@@ -14,19 +14,56 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Harshpreet Singh - SDE Intern @ Juspay",
-  description: "Portfolio of Harshpreet Singh, Software Development Engineer Intern at Juspay. Specializing in AI systems, full-stack development, and innovative tech solutions.",
-  keywords: ["Harshpreet Singh", "Software Engineer", "Juspay", "AI", "Full-stack", "React", "Next.js", "TypeScript"],
+  title: "Harshpreet Singh - Software Development Engineer | AI & Full-Stack Developer",
+  description: "Harshpreet Singh - SDE Intern at Juspay specializing in AI systems, agentic frameworks, and full-stack development. Building innovative solutions with React, Next.js, and modern technologies.",
+  keywords: [
+    "Harshpreet Singh", 
+    "Software Engineer", 
+    "SDE", 
+    "Juspay", 
+    "AI Developer", 
+    "Full-stack Developer", 
+    "React", 
+    "Next.js", 
+    "TypeScript", 
+    "JavaScript", 
+    "Machine Learning",
+    "Agentic AI",
+    "Web Development",
+    "Portfolio"
+  ],
   authors: [{ name: "Harshpreet Singh" }],
+  creator: "Harshpreet Singh",
+  publisher: "Harshpreet Singh",
+  metadataBase: new URL('https://harshpreet.com'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: "Harshpreet Singh - Portfolio",
-    description: "SDE Intern @ Juspay",
+    title: "Harshpreet Singh - Software Development Engineer",
+    description: "SDE Intern at Juspay specializing in AI systems and full-stack development. Expert in React, Next.js, and modern web technologies.",
     type: "website",
+    siteName: "Harshpreet Singh Portfolio",
+    url: "https://harshpreet.com",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Harshpreet Singh - Portfolio",
-    description: "SDE Intern @ Juspay",
+    title: "Harshpreet Singh - Software Development Engineer",
+    description: "SDE Intern at Juspay specializing in AI systems and full-stack development",
+    creator: "@harshpreet931",
+    site: "@harshpreet931",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 

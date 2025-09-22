@@ -150,11 +150,15 @@ export default function Portfolio() {
     switch (activeSection) {
       case 'hero':
         return (
+          <section 
+            className="min-h-screen flex items-center justify-center relative overflow-hidden"
+            aria-label="Hero section"
+          >
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="min-h-screen flex items-center justify-center relative overflow-hidden"
+            className="w-full"
           >
             {/* Background elements */}
             <div className="absolute inset-0">
@@ -169,28 +173,27 @@ export default function Portfolio() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.2, delay: 0.2 }}
               >
-                {/* Large decorative elements */}
-                <div className="mb-8 sm:mb-10 md:mb-12">
-                  <div className="w-16 sm:w-24 md:w-32 h-px bg-black mx-auto mb-6 sm:mb-8" />
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-thin tracking-tighter leading-none mb-2 sm:mb-4 break-words overflow-hidden">
+                {/* Refined minimal name display */}
+                <div className="mb-12 sm:mb-16 md:mb-20">
+                  <div className="w-8 h-px bg-black mx-auto mb-8 opacity-30" />
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-thin tracking-[0.2em] leading-none mb-1 break-words overflow-hidden">
                     HARSHPREET
                   </h1>
-                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold tracking-tight leading-none mb-6 sm:mb-8 md:mb-12 break-words overflow-hidden">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light tracking-[0.15em] leading-none mb-8 sm:mb-12 break-words overflow-hidden opacity-90">
                     SINGH
                   </h2>
-                  <div className="w-16 sm:w-24 md:w-32 lg:w-48 h-px bg-black mx-auto mb-6 sm:mb-8 md:mb-12 lg:mb-16" />
+                  <div className="w-12 h-px bg-black mx-auto opacity-20" />
                 </div>
                 
-                {/* Subtitle with decorative elements */}
-                <div className="relative mb-8 sm:mb-12 md:mb-16 lg:mb-20">
-                  <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 sm:w-16 md:w-20 h-12 sm:h-16 md:h-20 border border-black/10 rounded-full" />
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl font-light tracking-widest uppercase relative z-10">
+                {/* Refined subtitle */}
+                <div className="mb-16 sm:mb-20 md:mb-24">
+                  <p className="text-xs sm:text-sm md:text-base font-light tracking-[0.3em] uppercase opacity-60">
                     SDE Intern @ Juspay
                   </p>
                 </div>
                 
-                {/* Social links with minimal presentation */}
-                <div className="flex justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 mt-6 sm:mt-8 md:mt-12 lg:mt-16">
+                {/* Minimal social links */}
+                <div className="flex justify-center gap-8 sm:gap-12 md:gap-16">
                   {['LinkedIn', 'GitHub', 'LeetCode'].map((platform, index) => (
                     <motion.a
                       key={platform}
@@ -201,26 +204,25 @@ export default function Portfolio() {
                       }`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs font-light tracking-widest opacity-60 hover:opacity-100 transition-opacity duration-200"
+                      className="text-xs font-light tracking-[0.2em] uppercase opacity-40 hover:opacity-100 transition-all duration-300 hover:tracking-[0.25em]"
                       initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 0.6, y: 0 }}
-                      transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                      whileHover={{ opacity: 1 }}
+                      animate={{ opacity: 0.4, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                      whileHover={{ opacity: 1, scale: 1.05 }}
                     >
                       {platform}
                     </motion.a>
                   ))}
                 </div>
                 
-                {/* Decorative bottom element */}
-                <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24">
-                  <div className="w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 border border-black/20 rounded-full mx-auto flex items-center justify-center">
-                    <div className="w-2 h-2 bg-black rounded-full" />
-                  </div>
+                {/* Minimal scroll indicator */}
+                <div className="mt-20 sm:mt-24 md:mt-32">
+                  <div className="w-1 h-8 bg-black opacity-20 mx-auto" />
                 </div>
               </motion.div>
             </div>
           </motion.div>
+          </section>
         )
       
       case 'about':
@@ -553,6 +555,39 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-white text-black overflow-x-hidden">
+      {/* JSON-LD Schema for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Harshpreet Singh",
+            "jobTitle": "Software Development Engineer Intern",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Juspay"
+            },
+            "description": "Software Development Engineer Intern at Juspay specializing in AI systems, agentic frameworks, and full-stack development",
+            "url": "https://harshpreet.com",
+            "sameAs": [
+              "https://linkedin.com/in/harshpreet931",
+              "https://github.com/harshpreet931",
+              "https://leetcode.com/harshpreet931/"
+            ],
+            "knowsAbout": [
+              "JavaScript",
+              "TypeScript", 
+              "React",
+              "Next.js",
+              "AI Development",
+              "Machine Learning",
+              "Full-stack Development",
+              "Software Engineering"
+            ]
+          })
+        }}
+      />
       {/* Smooth cursor using CSS transforms (desktop only) */}
       {!isMobileDevice && (
         <div 
@@ -575,7 +610,7 @@ export default function Portfolio() {
       </div>
       
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5">
+      <nav className="fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-b border-black/5" role="navigation" aria-label="Main navigation">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 py-3 sm:py-4 md:py-6">
           <div className="flex justify-between items-center">
             <button 
@@ -616,7 +651,7 @@ export default function Portfolio() {
       </nav>
 
       {/* Main Content */}
-      <main ref={containerRef}>
+      <main ref={containerRef} role="main">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeSection}
