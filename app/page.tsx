@@ -92,12 +92,12 @@ export default function Home() {
               </button>
               
               {/* Enhanced tooltip with smooth entrance */}
-              <div className="absolute left-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out transform translate-x-2 group-hover:translate-x-0 pointer-events-none">
-                <div className="bg-background/95 backdrop-blur-md border border-border/50 rounded-lg px-3 py-2 text-xs text-foreground whitespace-nowrap shadow-xl shadow-black/20">
+              <div className="absolute left-12 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out transform translate-x-2 group-hover:translate-x-0 pointer-events-none z-50">
+                <div className="bg-background/95 backdrop-blur-md border border-border/50 rounded-lg px-3 py-2 text-xs text-foreground whitespace-nowrap shadow-xl shadow-black/20 min-w-max">
                   <div className="relative">
                     {section.label}
                     {/* Tooltip arrow */}
-                    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-background/95 border-l border-b border-border/50 rotate-45 backdrop-blur-md"></div>
+                    <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-2 h-2 bg-background/95 border-l border-b border-border/50 rotate-45 backdrop-blur-md"></div>
                   </div>
                 </div>
               </div>
