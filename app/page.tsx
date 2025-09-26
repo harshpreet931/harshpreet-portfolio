@@ -71,7 +71,7 @@ export default function Home() {
       <main className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-16">
         <header
           id="intro"
-          ref={(el) => (sectionsRef.current[0] = el)}
+          ref={(el) => { sectionsRef.current[0] = el }}
           className="min-h-screen flex items-center opacity-0"
         >
           <div className="grid lg:grid-cols-5 gap-12 sm:gap-16 w-full">
@@ -87,7 +87,7 @@ export default function Home() {
 
               <div className="space-y-6 max-w-md">
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-                  SDE Intern building production-grade agentic AI systems, developer tooling, and data-driven solutions
+                  SDE Intern building production grade agentic AI systems, developer tooling, and data driven solutions
                   with a focus on reliability and performance.
                 </p>
 
@@ -130,7 +130,7 @@ export default function Home() {
 
         <section
           id="work"
-          ref={(el) => (sectionsRef.current[1] = el)}
+          ref={(el) => { sectionsRef.current[1] = el }}
           className="min-h-screen py-20 sm:py-32 opacity-0"
         >
           <div className="space-y-12 sm:space-y-16">
@@ -155,7 +155,7 @@ export default function Home() {
                   company: "SCL (MeitY, Govt. of India)",
                   description:
                     "Worked on data analytics and ML; developed ARIMA-based forecasting for predicting claims and financial requirements.",
-                  tech: ["ARIMA", "Forecasting", "Machine Learning"],
+                  tech: ["ARIMA", "ML", "Python"],
                 },
               ]
 
@@ -200,7 +200,7 @@ export default function Home() {
 
         <section
           id="thoughts"
-          ref={(el) => (sectionsRef.current[2] = el)}
+          ref={(el) => { sectionsRef.current[2] = el }}
           className="min-h-screen py-20 sm:py-32 opacity-0"
         >
           <div className="space-y-12 sm:space-y-16">
@@ -213,21 +213,21 @@ export default function Home() {
                   excerpt:
                     "Comprehensive platform for CSE students to access study materials; 200,000+ views and 15+ contributors (May–Sep 2025).",
                   date: "2025",
-                  readTime: "TypeScript, Postgres",
+                  readTime: "TypeScript • Postgres",
                 },
                 {
                   title: "Spam Email Classification",
                   excerpt:
                     "Lightweight Naive Bayes spam classifier implemented entirely in C; achieved high accuracy for spam detection.",
                   date: "2024",
-                  readTime: "C, Naive Bayes",
+                  readTime: "C • Naive Bayes",
                 },
                 {
                   title: "Agent Spotlight",
                   excerpt:
-                    "Cross-platform desktop AI agent using MCP; integrates with local tools/APIs via Rust + Tauri, global hotkeys, real-time status, and extensible custom MCP servers.",
+                    "Cross-platform desktop AI agent built with Rust and Tauri. Features MCP integration for local tools/APIs, global hotkeys, real-time status monitoring, and extensible custom MCP server architecture.",
                   date: "2025",
-                  readTime: "Rust, Tauri, Next.js, React, Tailwind, MCP",
+                  readTime: "Rust • Tauri • MCP • React",
                 },
               ].map((post, index) => (
                 <article
@@ -269,7 +269,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="connect" ref={(el) => (sectionsRef.current[3] = el)} className="py-20 sm:py-32 opacity-0">
+        <section id="connect" ref={(el) => { sectionsRef.current[3] = el }} className="py-20 sm:py-32 opacity-0">
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-16">
             <div className="space-y-6 sm:space-y-8">
               <h2 className="text-3xl sm:text-4xl font-light">Let's Connect</h2>
@@ -280,20 +280,9 @@ export default function Home() {
                 </p>
 
                 <div className="space-y-4">
-                  <Link
-                    href="mailto:harshpreet0402@gmail.com"
-                    className="group flex items-center gap-3 text-foreground hover:text-muted-foreground transition-colors duration-300"
-                  >
-                    <span className="text-base sm:text-lg">harshpreet0402@gmail.com</span>
-                    <svg
-                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <span className="text-base sm:text-lg font-mono">harshpreet.singh.0402@gmail.com</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -336,7 +325,7 @@ export default function Home() {
                     <div className="text-sm text-muted-foreground">Send email</div>
                     <div className="mt-2 flex items-center gap-3">
                       <Link
-                        href={`mailto:harshpreet0402@gmail.com?subject=${encodeURIComponent(
+                        href={`mailto:harshpreet.singh.0402@gmail.com?subject=${encodeURIComponent(
                           "Hello Harshpreet",
                         )}&body=${encodeURIComponent("Hi Harshpreet,\n\n")}`}
                         className="rounded-md border border-border px-2.5 py-1.5 text-xs text-foreground/90 hover:text-foreground hover:border-muted-foreground/50 transition-colors"
@@ -345,17 +334,6 @@ export default function Home() {
                       >
                         Compose
                       </Link>
-                      {/* inline mono address for quick read */}
-                      <span className="text-xs text-muted-foreground font-mono select-all">
-                        harshpreet0402@gmail.com
-                      </span>
-                      {/* copy button */}
-                      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                      <span className="ml-auto">
-                        {/* import at top not shown due to editing comment */}
-                        {/* eslint-disable-next-line react/no-unknown-property */}
-                        <CopyEmailButton email="harshpreet0402@gmail.com" />
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -382,8 +360,7 @@ export default function Home() {
         <footer className="py-12 sm:py-16 border-t border-border">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 sm:gap-8">
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">© 2025 Harshpreet Singh. All rights reserved.</div>
-              <div className="text-xs text-muted-foreground">Built with v0.dev by Harshpreet Singh</div>
+              <div className="text-sm text-muted-foreground">Made with ❤️ by Harshpreet Singh.</div>
             </div>
 
             <div className="flex items-center gap-4">
@@ -413,22 +390,6 @@ export default function Home() {
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                   </svg>
                 )}
-              </button>
-
-              <button className="group p-3 rounded-lg border border-border hover:border-muted-foreground/50 transition-all duration-300">
-                <svg
-                  className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
               </button>
             </div>
           </div>
@@ -465,9 +426,9 @@ export default function Home() {
           },
           {
             id: "open-email",
-            label: "Email: harshpreet0402@gmail.com",
+            label: "Email: harshpreet.singh.0402@gmail.com",
             sub: "Compose a new email",
-            onSelect: () => (window.location.href = "mailto:harshpreet0402@gmail.com"),
+            onSelect: () => (window.location.href = "mailto:harshpreet.singh.0402@gmail.com"),
           },
           { id: "open-linkedin", label: "LinkedIn", sub: "Open profile", onSelect: () => window.open("#", "_blank") },
           { id: "open-github", label: "GitHub", sub: "View repositories", onSelect: () => window.open("#", "_blank") },
