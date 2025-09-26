@@ -288,9 +288,9 @@ export default function Home() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { name: "LinkedIn", handle: "View profile", url: "#" },
-                  { name: "GitHub", handle: "View repositories", url: "#" },
-                  { name: "LeetCode", handle: "View stats", url: "#" },
+                  { name: "LinkedIn", handle: "View profile", url: "https://www.linkedin.com/in/harshpreet931/" },
+                  { name: "GitHub", handle: "View repositories", url: "https://github.com/harshpreet931" },
+                  { name: "LeetCode", handle: "View stats", url: "https://leetcode.com/u/harshpreet931/" },
                 ].map((social) => (
                   <Link
                     key={social.name}
