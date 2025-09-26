@@ -153,7 +153,7 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="text-sm text-muted-foreground font-mono">FOCUS</div>
                 <div className="flex flex-wrap gap-2">
-                  {["Python", "Java", "C", "TypeScript", "Node.js"].map((skill) => (
+                  {["Python", "Java", "C", "TypeScript", "Rust"].map((skill) => (
                     <span
                       key={skill}
                       className="px-3 py-1 text-xs border border-border rounded-full hover:border-muted-foreground/50 transition-colors duration-300"
