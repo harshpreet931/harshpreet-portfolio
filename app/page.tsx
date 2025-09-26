@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import CommandPalette from "../components/command-palette"
-import CopyEmailButton from "../components/copy-email-button"
 
 export default function Home() {
   const [isDark, setIsDark] = useState(true)
@@ -37,7 +36,7 @@ export default function Home() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const isMac = navigator.platform.toUpperCase().includes("MAC")
+      const isMac = navigator.userAgent.toUpperCase().includes("MAC")
       if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault()
         setPaletteOpen((v) => !v)
@@ -53,7 +52,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
-      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden md:block">
+      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden md:block" role="navigation" aria-label="Page sections navigation">
         <div className="flex flex-col gap-3">
           {[
             { id: "intro", label: "Intro" },
@@ -116,6 +115,8 @@ export default function Home() {
           id="intro"
           ref={(el) => { sectionsRef.current[0] = el }}
           className="min-h-screen flex items-center opacity-0"
+          role="banner"
+          aria-label="Introduction section"
         >
           <div className="grid lg:grid-cols-5 gap-12 sm:gap-16 w-full">
             <div className="lg:col-span-3 space-y-6 sm:space-y-8">
@@ -171,10 +172,12 @@ export default function Home() {
           id="work"
           ref={(el) => { sectionsRef.current[1] = el }}
           className="min-h-screen py-20 sm:py-32 opacity-0"
+          role="main"
+          aria-labelledby="work-heading"
         >
           <div className="space-y-12 sm:space-y-16">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-              <h2 className="text-3xl sm:text-4xl font-light">Experience</h2>
+              <h2 id="work-heading" className="text-3xl sm:text-4xl font-light">Experience</h2>
               <div className="text-sm text-muted-foreground font-mono">2024 — 2025</div>
             </div>
 
@@ -241,9 +244,11 @@ export default function Home() {
           id="thoughts"
           ref={(el) => { sectionsRef.current[2] = el }}
           className="min-h-screen py-20 sm:py-32 opacity-0"
+          role="main"
+          aria-labelledby="projects-heading"
         >
           <div className="space-y-12 sm:space-y-16">
-            <h2 className="text-3xl sm:text-4xl font-light">Projects</h2>
+            <h2 id="projects-heading" className="text-3xl sm:text-4xl font-light">Projects</h2>
 
             <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
               {[
@@ -308,10 +313,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="connect" ref={(el) => { sectionsRef.current[3] = el }} className="py-20 sm:py-32 opacity-0">
+        <section id="connect" ref={(el) => { sectionsRef.current[3] = el }} className="py-20 sm:py-32 opacity-0" role="complementary" aria-labelledby="connect-heading">
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-16">
             <div className="space-y-6 sm:space-y-8">
-              <h2 className="text-3xl sm:text-4xl font-light">Let's Connect</h2>
+              <h2 id="connect-heading" className="text-3xl sm:text-4xl font-light">Let's Connect</h2>
 
               <div className="space-y-6">
                 <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
@@ -331,6 +336,9 @@ export default function Home() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
+                  { name: "About", handle: "Learn more", url: "/about" },
+                  { name: "Experience", handle: "Work history", url: "/experience" },
+                  { name: "Projects", handle: "View all projects", url: "/projects" },
                   { name: "LinkedIn", handle: "View profile", url: "https://www.linkedin.com/in/harshpreet931/" },
                   { name: "GitHub", handle: "View repositories", url: "https://github.com/harshpreet931" },
                   { name: "LeetCode", handle: "View stats", url: "https://leetcode.com/u/harshpreet931/" },
@@ -396,7 +404,7 @@ export default function Home() {
           </button>
         </div>
 
-        <footer className="py-12 sm:py-16 border-t border-border">
+        <footer className="py-12 sm:py-16 border-t border-border" role="contentinfo">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 sm:gap-8">
             <div className="space-y-2">
               <div className="text-sm text-muted-foreground">Made with ❤️ by Harshpreet Singh.</div>
@@ -469,9 +477,27 @@ export default function Home() {
             sub: "Compose a new email",
             onSelect: () => (window.location.href = "mailto:harshpreet.singh.0402@gmail.com"),
           },
-          { id: "open-linkedin", label: "LinkedIn", sub: "Open profile", onSelect: () => window.open("#", "_blank") },
-          { id: "open-github", label: "GitHub", sub: "View repositories", onSelect: () => window.open("#", "_blank") },
-          { id: "open-leetcode", label: "LeetCode", sub: "View stats", onSelect: () => window.open("#", "_blank") },
+          {
+            id: "go-about",
+            label: "About Page",
+            sub: "Learn more about me",
+            onSelect: () => (window.location.href = "/about"),
+          },
+          {
+            id: "go-experience-page",
+            label: "Experience Page",
+            sub: "Detailed work history",
+            onSelect: () => (window.location.href = "/experience"),
+          },
+          {
+            id: "go-projects-page",
+            label: "Projects Page",
+            sub: "All projects with details",
+            onSelect: () => (window.location.href = "/projects"),
+          },
+          { id: "open-linkedin", label: "LinkedIn", sub: "Open profile", onSelect: () => window.open("https://www.linkedin.com/in/harshpreet931/", "_blank") },
+          { id: "open-github", label: "GitHub", sub: "View repositories", onSelect: () => window.open("https://github.com/harshpreet931", "_blank") },
+          { id: "open-leetcode", label: "LeetCode", sub: "View stats", onSelect: () => window.open("https://leetcode.com/u/harshpreet931/", "_blank") },
         ]}
       />
 
