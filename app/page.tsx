@@ -53,17 +53,60 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative">
-      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
-        <div className="flex flex-col gap-4">
-          {["intro", "work", "thoughts", "connect"].map((section) => (
-            <button
-              key={section}
-              onClick={() => document.getElementById(section)?.scrollIntoView({ behavior: "smooth" })}
-              className={`w-2 h-8 rounded-full transition-all duration-500 ${
-                activeSection === section ? "bg-foreground" : "bg-muted-foreground/30 hover:bg-muted-foreground/60"
-              }`}
-              aria-label={`Navigate to ${section}`}
-            />
+      <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-10 hidden md:block">
+        <div className="flex flex-col gap-3">
+          {[
+            { id: "intro", label: "Intro" },
+            { id: "work", label: "Work" },
+            { id: "thoughts", label: "Projects" },
+            { id: "connect", label: "Connect" }
+          ].map((section) => (
+            <div key={section.id} className="relative group">
+              {/* Enhanced aurora glow with multiple layers */}
+              {activeSection === section.id && (
+                <>
+                  <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 rounded-xl blur-md animate-pulse"></div>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/20 via-violet-500/20 to-fuchsia-500/20 rounded-lg blur-sm animate-pulse delay-300"></div>
+                </>
+              )}
+              
+              <button
+                onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth" })}
+                className={`relative w-2 h-8 rounded-full transition-all duration-700 ease-out transform ${
+                  activeSection === section.id 
+                    ? "bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 shadow-2xl scale-110 shadow-purple-500/50" 
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/60 hover:shadow-lg hover:scale-105 hover:shadow-blue-500/20"
+                }`}
+                aria-label={`Navigate to ${section.label}`}
+              >
+                {/* Enhanced active indicator with shimmer */}
+                {activeSection === section.id && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full animate-pulse opacity-70"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-transparent rounded-full animate-shimmer"></div>
+                  </>
+                )}
+                
+                {/* Ripple effect on click */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/0 via-purple-400/0 to-pink-400/0 group-active:from-blue-400/30 group-active:via-purple-400/30 group-active:to-pink-400/30 transition-all duration-300 animate-ping opacity-0 group-active:opacity-100"></div>
+              </button>
+              
+              {/* Enhanced tooltip with smooth entrance */}
+              <div className="absolute left-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out transform translate-x-2 group-hover:translate-x-0 pointer-events-none">
+                <div className="bg-background/95 backdrop-blur-md border border-border/50 rounded-lg px-3 py-2 text-xs text-foreground whitespace-nowrap shadow-xl shadow-black/20">
+                  <div className="relative">
+                    {section.label}
+                    {/* Tooltip arrow */}
+                    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-background/95 border-l border-b border-border/50 rotate-45 backdrop-blur-md"></div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Connecting line animation */}
+              {activeSection === section.id && (
+                <div className="absolute left-4 top-1/2 w-8 h-px bg-gradient-to-r from-purple-400/60 to-transparent animate-pulse"></div>
+              )}
+            </div>
           ))}
         </div>
       </nav>
