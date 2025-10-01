@@ -48,7 +48,24 @@ export const metadata: Metadata = {
     "Technology",
     "Computer Science",
     "Engineer",
-    "Tech Professional"
+    "Tech Professional",
+    "System Design",
+    "Data Structures",
+    "Algorithms",
+    "Coding Interviews",
+    "Technical Blog",
+    "Programming Tutorials",
+    "Software Engineering Blog",
+    "Tech Articles",
+    "YouTube Tutorials",
+    "Medium Articles",
+    "Backtracking Algorithm",
+    "Binary Trees",
+    "Event-Driven Concurrency",
+    "Operating Systems",
+    "Microservices",
+    "Scalability",
+    "ThatNotesGuy"
   ],
   authors: [{ name: "Harshpreet Singh", url: "https://www.harshpreet.com" }],
   creator: "Harshpreet Singh",
@@ -134,7 +151,9 @@ export default function RootLayout({
     "sameAs": [
       "https://www.linkedin.com/in/harshpreet931/",
       "https://github.com/harshpreet931",
-      "https://leetcode.com/u/harshpreet931/"
+      "https://leetcode.com/u/harshpreet931/",
+      "https://medium.com/@harshpreet0402",
+      "https://youtube.com/@ThatNotesGuy"
     ],
     "knowsAbout": [
       "Software Development",

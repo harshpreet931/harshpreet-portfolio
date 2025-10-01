@@ -339,9 +339,12 @@ export default function Home() {
                   { name: "About", handle: "Learn more", url: "/about" },
                   { name: "Experience", handle: "Work history", url: "/experience" },
                   { name: "Projects", handle: "View all projects", url: "/projects" },
+                  { name: "Blog", handle: "Articles & videos", url: "/blog" },
                   { name: "LinkedIn", handle: "View profile", url: "https://www.linkedin.com/in/harshpreet931/" },
                   { name: "GitHub", handle: "View repositories", url: "https://github.com/harshpreet931" },
                   { name: "LeetCode", handle: "View stats", url: "https://leetcode.com/u/harshpreet931/" },
+                  { name: "Medium", handle: "Read articles", url: "https://medium.com/@harshpreet0402" },
+                  { name: "YouTube", handle: "Watch videos", url: "https://youtube.com/@ThatNotesGuy" },
                 ].map((social) => (
                   <Link
                     key={social.name}
@@ -495,9 +498,17 @@ export default function Home() {
             sub: "All projects with details",
             onSelect: () => (window.location.href = "/projects"),
           },
+          {
+            id: "go-blog-page",
+            label: "Blog Page",
+            sub: "Articles and videos",
+            onSelect: () => (window.location.href = "/blog"),
+          },
           { id: "open-linkedin", label: "LinkedIn", sub: "Open profile", onSelect: () => window.open("https://www.linkedin.com/in/harshpreet931/", "_blank") },
           { id: "open-github", label: "GitHub", sub: "View repositories", onSelect: () => window.open("https://github.com/harshpreet931", "_blank") },
           { id: "open-leetcode", label: "LeetCode", sub: "View stats", onSelect: () => window.open("https://leetcode.com/u/harshpreet931/", "_blank") },
+          { id: "open-medium", label: "Medium", sub: "Read articles", onSelect: () => window.open("https://medium.com/@harshpreet0402", "_blank") },
+          { id: "open-youtube", label: "YouTube", sub: "Watch videos", onSelect: () => window.open("https://youtube.com/@ThatNotesGuy", "_blank") },
         ]}
       />
 
