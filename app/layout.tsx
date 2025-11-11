@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.harshpreet.com'),
   title: {
-    default: "Harshpreet Singh - SDE Intern @Juspay | AI & Data Systems Expert",
+    default: "Harshpreet Singh - SDE Intern @Juspay",
     template: "%s | Harshpreet Singh"
   },
   description: "Software Development Engineer specializing in production-grade agentic AI systems, developer tooling, and data-driven solutions. Expert in Python, TypeScript, Rust, and Java with experience at Juspay.",
@@ -95,7 +95,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.harshpreet.com",
     siteName: "Harshpreet Singh Portfolio",
-    title: "Harshpreet Singh - SDE Intern @Juspay | AI & Data Systems Expert",
+    title: "Harshpreet Singh - SDE Intern @Juspay",
     description: "Software Development Engineer specializing in production-grade agentic AI systems, developer tooling, and data-driven solutions. Expert in Python, TypeScript, Rust, and Java.",
     images: [
       {
@@ -111,7 +111,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@harshpreet931",
     creator: "@harshpreet931",
-    title: "Harshpreet Singh - SDE Intern @Juspay | AI & Data Systems Expert",
+    title: "Harshpreet Singh - SDE Intern @Juspay",
     description: "Software Development Engineer specializing in production-grade agentic AI systems, developer tooling, and data-driven solutions.",
     images: ["https://www.harshpreet.com/og-image.png"],
   },
