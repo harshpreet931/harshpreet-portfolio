@@ -64,30 +64,30 @@ export default function Home() {
               {/* Enhanced aurora glow with multiple layers */}
               {activeSection === section.id && (
                 <>
-                  <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30 rounded-xl blur-md animate-pulse"></div>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400/20 via-violet-500/20 to-fuchsia-500/20 rounded-lg blur-sm animate-pulse delay-300"></div>
+                  <div className="absolute -inset-2 bg-gradient-to-r from-red-500/30 via-pink-500/30 to-rose-500/30 rounded-xl blur-md animate-pulse"></div>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-red-400/20 via-pink-500/20 to-rose-400/20 rounded-lg blur-sm animate-pulse delay-300"></div>
                 </>
               )}
               
               <button
                 onClick={() => document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth" })}
                 className={`relative w-2 h-8 rounded-full transition-all duration-700 ease-out transform ${
-                  activeSection === section.id 
-                    ? "bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 shadow-2xl scale-110 shadow-purple-500/50" 
-                    : "bg-muted-foreground/30 hover:bg-muted-foreground/60 hover:shadow-lg hover:scale-105 hover:shadow-blue-500/20"
+                  activeSection === section.id
+                    ? "bg-gradient-to-b from-red-400 via-pink-400 to-rose-400 shadow-2xl scale-110 shadow-pink-500/50"
+                    : "bg-muted-foreground/30 hover:bg-muted-foreground/60 hover:shadow-lg hover:scale-105 hover:shadow-red-500/20"
                 }`}
                 aria-label={`Navigate to ${section.label}`}
               >
                 {/* Enhanced active indicator with shimmer */}
                 {activeSection === section.id && (
                   <>
-                    <div className="absolute inset-0 bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full animate-pulse opacity-70"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-red-400 via-pink-400 to-rose-400 rounded-full animate-pulse opacity-70"></div>
                     <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-transparent rounded-full animate-shimmer"></div>
                   </>
                 )}
                 
                 {/* Ripple effect on click */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/0 via-purple-400/0 to-pink-400/0 group-active:from-blue-400/30 group-active:via-purple-400/30 group-active:to-pink-400/30 transition-all duration-300 animate-ping opacity-0 group-active:opacity-100"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-400/0 via-pink-400/0 to-rose-400/0 group-active:from-red-400/30 group-active:via-pink-400/30 group-active:to-rose-400/30 transition-all duration-300 animate-ping opacity-0 group-active:opacity-100"></div>
               </button>
               
               {/* Enhanced tooltip with smooth entrance */}
@@ -103,7 +103,7 @@ export default function Home() {
               
               {/* Connecting line animation */}
               {activeSection === section.id && (
-                <div className="absolute left-4 top-1/2 w-8 h-px bg-gradient-to-r from-purple-400/60 to-transparent animate-pulse"></div>
+                <div className="absolute left-4 top-1/2 w-8 h-px bg-gradient-to-r from-pink-400/60 to-transparent animate-pulse"></div>
               )}
             </div>
           ))}
@@ -137,6 +137,36 @@ export default function Home() {
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
                   <div>Bengaluru, India</div>
+                </div>
+
+                <div className="pt-2">
+                  <div className="relative inline-block group/blog">
+                    {/* Aurora glow effect on hover */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-500/30 via-pink-500/30 to-rose-500/30 rounded-lg blur-md opacity-0 group-hover/blog:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-red-400/20 via-pink-500/20 to-rose-400/20 rounded-lg blur-sm opacity-0 group-hover/blog:opacity-100 transition-opacity duration-500 animate-pulse delay-150"></div>
+
+                    <Link
+                      href="/blog"
+                      className="relative inline-flex items-center gap-2 px-4 py-2.5 text-sm border border-border rounded-lg hover:border-pink-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/20 bg-background group"
+                    >
+                      <span className="text-foreground group-hover:text-pink-400 transition-colors duration-300">
+                        Read my blog
+                      </span>
+                      <svg
+                        className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300 text-muted-foreground group-hover:text-pink-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
