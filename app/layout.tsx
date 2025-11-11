@@ -99,11 +99,11 @@ export const metadata: Metadata = {
     description: "Software Development Engineer specializing in production-grade agentic AI systems, developer tooling, and data-driven solutions. Expert in Python, TypeScript, Rust, and Java.",
     images: [
       {
-        url: "https://www.harshpreet.com/logo.svg",
+        url: "https://www.harshpreet.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Harshpreet Singh - SDE Intern @Juspay Portfolio",
-        type: "image/svg+xml",
+        type: "image/png",
       },
     ],
   },
@@ -113,7 +113,7 @@ export const metadata: Metadata = {
     creator: "@harshpreet931",
     title: "Harshpreet Singh - SDE Intern @Juspay | AI & Data Systems Expert",
     description: "Software Development Engineer specializing in production-grade agentic AI systems, developer tooling, and data-driven solutions.",
-    images: ["https://www.harshpreet.com/logo.svg"],
+    images: ["https://www.harshpreet.com/og-image.png"],
   },
   verification: {
     google: "your-google-verification-code",
