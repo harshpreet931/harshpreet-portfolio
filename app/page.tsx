@@ -41,7 +41,7 @@ export default function Home() {
 
       <nav className="fixed top-0 left-0 w-full z-40 bg-background/90 backdrop-blur-sm border-b border-foreground px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <div className="font-heading font-bold text-lg tracking-tighter">HS/25</div>
+          <div className="font-heading font-bold text-lg tracking-tighter">HS/{new Date().getFullYear().toString().slice(-2)}</div>
           <div className="hidden md:block w-px h-4 bg-foreground/20"></div>
           <div className="hidden md:block">
             <SwissClock />
