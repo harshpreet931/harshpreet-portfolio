@@ -10,12 +10,11 @@ export function SwissClock() {
     setMounted(true)
     const update = () => {
       const now = new Date()
-      // Swiss format: HH:MM:SS (24h)
-      setTime(now.toLocaleTimeString('en-GB', { 
-        hour12: false, 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' 
+      setTime(now.toLocaleTimeString('en-GB', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
       }))
     }
     update()
@@ -23,7 +22,7 @@ export function SwissClock() {
     return () => clearInterval(i)
   }, [])
 
-  if (!mounted) return <div className="w-[4.5rem]" /> // Prevent hydration mismatch
+  if (!mounted) return <div className="w-[4.5rem]" />
 
   return (
     <div className="font-mono text-xs font-bold tracking-widest tabular-nums opacity-50 hover:opacity-100 transition-opacity cursor-default">

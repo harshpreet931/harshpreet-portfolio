@@ -12,7 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'Googlebot',
         allow: '/',
         disallow: ['/private/', '/admin/'],
-        // Crawl the blog page more frequently for fresh content
         crawlDelay: 1,
       },
       {

@@ -34,7 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.95,
     },
-    // Blog articles - helps Google index individual content
     {
       url: `${baseUrl}/blog?article=master-trees`,
       lastModified: new Date('2024-10-27'),
@@ -59,7 +58,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.85,
     },
-    // Video content
     {
       url: `${baseUrl}/blog?type=videos`,
       lastModified: new Date(),

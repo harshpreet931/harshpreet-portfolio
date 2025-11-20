@@ -9,15 +9,6 @@ export default function Blog() {
   const [contentTab, setContentTab] = useState<"articles" | "videos">("articles")
   const [paletteOpen, setPaletteOpen] = useState(false)
 
-  // Ensure dark mode matches the system/home preference (defaulting to dark for consistency if not set)
-  useEffect(() => {
-    // In this Swiss theme, we are handling theme via the root layout/page state usually, 
-    // but for the blog page we'll assume it inherits or defaults. 
-    // The home page toggles 'dark' class on documentElement.
-    // We'll leave the global theme management to the user's preference if persisted, 
-    // but here we just render the structure.
-  }, [])
-
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const isMac = navigator.userAgent.toUpperCase().includes("MAC")
@@ -32,7 +23,6 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground">
-      {/* Swiss Grid Overlay (Subtle Guide) */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="h-full border-x border-foreground"></div>
@@ -55,7 +45,6 @@ export default function Blog() {
       </nav>
 
       <main className="pt-32 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-        {/* HEADER SECTION */}
         <header className="min-h-[40vh] flex flex-col justify-end border-b border-foreground pb-12">
           <div className="grid lg:grid-cols-12 gap-4">
             <div className="lg:col-span-12">
@@ -81,7 +70,6 @@ export default function Blog() {
           </div>
         </header>
 
-        {/* TABS */}
         <div className="sticky top-[73px] z-30 bg-background border-b border-foreground">
           <div className="flex">
             <button
@@ -108,7 +96,6 @@ export default function Blog() {
           </div>
         </div>
 
-        {/* CONTENT LIST */}
         <div className="min-h-[50vh]">
           {contentTab === "articles" && (
             <div className="space-y-0">
@@ -266,7 +253,6 @@ export default function Blog() {
           )}
         </div>
 
-        {/* FOOTER */}
         <footer className="py-24 border-t border-foreground mt-0">
           <div className="grid lg:grid-cols-12 gap-8">
             <div className="lg:col-span-3">

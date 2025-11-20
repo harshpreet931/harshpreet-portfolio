@@ -37,7 +37,6 @@ export function CommandPalette({
     if (open) {
       setQuery("")
       setActiveIndex(0)
-      // Focus search on open
       requestAnimationFrame(() => {
         inputRef.current?.focus()
       })

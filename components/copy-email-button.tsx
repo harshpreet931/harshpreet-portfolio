@@ -10,10 +10,8 @@ export default function CopyEmailButton({ email }: { email: string }) {
       await navigator.clipboard.writeText(email)
       setCopied(true)
       const t = setTimeout(() => setCopied(false), 1200)
-      // @ts-expect-error allow clearTimeout type
       return () => clearTimeout(t)
     } catch {
-      // Fallback for older browsers
       const el = document.createElement("textarea")
       el.value = email
       document.body.appendChild(el)

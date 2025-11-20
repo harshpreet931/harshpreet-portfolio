@@ -33,7 +33,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground">
-      {/* Swiss Grid Overlay (Subtle Guide) */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="h-full border-x border-foreground"></div>
@@ -64,7 +63,6 @@ export default function Home() {
       </nav>
 
       <main className="pt-32 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-        {/* HERO SECTION */}
         <header className="min-h-[70vh] flex flex-col justify-between border-b border-foreground pb-12">
           <div className="grid lg:grid-cols-12 gap-4">
             <div className="lg:col-span-12">
@@ -91,8 +89,7 @@ export default function Home() {
                 Building agentic AI systems.
                </p>
             </div>
-            
-            {/* Geometric Accent: Rotating Swiss Cross */}
+
             <div className="hidden lg:flex lg:col-span-4 justify-center items-center opacity-20">
               <div className="relative w-24 h-24 animate-[spin_10s_linear_infinite]">
                 <div className="absolute top-1/2 left-0 w-full h-1 bg-foreground -translate-y-1/2"></div>
@@ -108,7 +105,6 @@ export default function Home() {
           </div>
         </header>
 
-        {/* EXPERIENCE SECTION - Strict Grid */}
         <section id="work" className="py-24 border-b border-foreground">
           <div className="grid lg:grid-cols-12 gap-8 mb-16">
             <div className="lg:col-span-3">
@@ -157,7 +153,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PROJECTS SECTION - Modular Grid */}
         <section id="projects" className="py-24 border-b border-foreground">
           <div className="grid lg:grid-cols-12 gap-8 mb-16">
             <div className="lg:col-span-3">
@@ -205,7 +200,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CONNECT SECTION - Typographic List */}
         <section id="connect" className="py-24">
           <div className="grid lg:grid-cols-12 gap-8">
             <div className="lg:col-span-3">
