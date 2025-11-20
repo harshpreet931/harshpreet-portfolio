@@ -136,7 +136,7 @@ export default function Home() {
                 tags: ["ML", "ARIMA", "Python"]
               }
             ].map((job, i) => (
-              <div key={i} className="group border-t border-foreground py-12 hover:bg-foreground hover:text-background transition-colors duration-300">
+              <div key={i} className="group border-t border-foreground py-12 px-6 hover:bg-foreground hover:text-background transition-colors duration-300">
                 <div className="grid lg:grid-cols-12 gap-8">
                   <div className="lg:col-span-3 font-mono text-sm text-muted-foreground pt-1 group-hover:text-background/60 transition-colors">{job.year}</div>
                   <div className="lg:col-span-4">
