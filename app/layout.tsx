@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Space_Grotesk, Inter } from "next/font/google"
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google"
 import { Analytics } from '@vercel/analytics/react'
 import "./globals.css"
 
@@ -10,7 +10,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
 })
 
-const inter = Inter({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
@@ -176,7 +176,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
       <head>
         <script
           type="application/ld+json"

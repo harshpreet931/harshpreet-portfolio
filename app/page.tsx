@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Sun, Moon } from "lucide-react"
 import CommandPalette from "../components/command-palette"
 import { SwissClock } from "../components/swiss-clock"
 import { RollingText } from "../components/rolling-text"
@@ -33,7 +32,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground">
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.06] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="h-full border-x border-foreground"></div>
         ))}
@@ -54,10 +53,10 @@ export default function Home() {
           <Link href="#connect" className="hover:text-accent transition-colors hidden sm:block">Connect</Link>
           <button 
             onClick={toggleTheme} 
-            className="hover:text-accent transition-colors"
+            className="hover:text-accent transition-colors font-mono text-xs uppercase tracking-widest"
             aria-label="Toggle theme"
           >
-            {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {isDark ? "[ LIGHT ]" : "[ DARK ]"}
           </button>
         </div>
       </nav>
@@ -66,7 +65,7 @@ export default function Home() {
         <header className="min-h-[70vh] flex flex-col justify-between border-b border-foreground pb-12">
           <div className="grid lg:grid-cols-12 gap-4">
             <div className="lg:col-span-12">
-              <h1 className="text-huge font-heading font-bold uppercase leading-[0.8] tracking-tighter mb-8">
+              <h1 className="text-huge font-heading font-bold uppercase leading-[0.8] tracking-tighter mb-4">
                 <div className="reveal-container">
                   <div className="reveal-text" style={{ animationDelay: "0.1s" }}>
                     <RollingText text="Harshpreet" />
@@ -84,7 +83,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-4 items-end reveal-text" style={{ animationDelay: "0.4s" }}>
             <div className="lg:col-span-4">
                <div className="w-12 h-1 bg-accent mb-6"></div>
-               <p className="text-lg font-medium leading-tight max-w-xs">
+               <p className="text-xl font-medium leading-tight max-w-xs">
                 Software Development Engineer.<br/>
                 Building agentic AI systems.
                </p>
@@ -109,13 +108,13 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-8 mb-16">
             <div className="lg:col-span-3">
               <h2 className="text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2">
-                <span className="w-2 h-2 bg-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-accent"></span>
                 Experience
               </h2>
             </div>
           </div>
 
-          <div className="space-y-0">
+          <div className="space-y-0 border-b border-foreground">
             {[
               {
                 year: "2025 — Present",
@@ -157,7 +156,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-8 mb-16">
             <div className="lg:col-span-3">
                <h2 className="text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2">
-                <span className="w-2 h-2 bg-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-accent"></span>
                 Selected Works
               </h2>
             </div>
@@ -190,9 +189,9 @@ export default function Home() {
                   <h3 className="text-3xl font-heading font-bold uppercase mb-4 leading-none">{project.title}</h3>
                   <p className="text-base text-muted-foreground leading-relaxed group-hover:text-background/80 transition-colors">{project.desc}</p>
                 </div>
-                <div className="w-8 h-8 border border-foreground rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:border-background">
+                <div className="w-8 h-8 border border-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:bg-accent group-hover:border-accent">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" strokeWidth="1.5"/>
+                    <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" strokeWidth="2"/>
                   </svg>
                 </div>
               </div>
@@ -200,11 +199,30 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="border-b border-foreground py-8 overflow-hidden bg-foreground text-background">
+          <div className="marquee-container">
+            <div className="marquee-content text-4xl font-heading font-bold uppercase tracking-tight">
+              {["PYTHON", "TYPESCRIPT", "RUST", "JAVA", "AI AGENTS", "MACHINE LEARNING", "SYSTEM DESIGN", "NEXT.JS", "POSTGRESQL"].map((tech, i) => (
+                <span key={i} className="flex items-center gap-8">
+                  {tech} <span className="text-accent">•</span>
+                </span>
+              ))}
+            </div>
+            <div className="marquee-content text-4xl font-heading font-bold uppercase tracking-tight" aria-hidden="true">
+              {["PYTHON", "TYPESCRIPT", "RUST", "JAVA", "AI AGENTS", "MACHINE LEARNING", "SYSTEM DESIGN", "NEXT.JS", "POSTGRESQL"].map((tech, i) => (
+                <span key={i} className="flex items-center gap-8">
+                  {tech} <span className="text-accent">•</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <section id="connect" className="py-24">
           <div className="grid lg:grid-cols-12 gap-8">
             <div className="lg:col-span-3">
               <h2 className="text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2">
-                <span className="w-2 h-2 bg-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-accent"></span>
                 Contact
               </h2>
             </div>

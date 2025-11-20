@@ -100,7 +100,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans tabular-nums;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading font-bold uppercase tracking-tight;
@@ -124,22 +124,28 @@
   }
   
   .text-huge {
-    font-size: clamp(3rem, 9vw, 10rem);
-    line-height: 0.85;
+    font-size: 12vw;
+    line-height: 0.9;
     letter-spacing: -0.04em;
+    text-transform: uppercase;
   }
 
-  /* Staggered Reveal Animation */
   .reveal-text {
     animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
     transform: translateY(100%);
   }
-  
+
+  .reveal-text {
+    animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
   .reveal-container {
     overflow: hidden;
   }
-
+  
   @keyframes reveal {
     from {
       opacity: 0;
@@ -148,6 +154,31 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+  
+  /* Marquee Animation */
+  .marquee-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+  }
+  
+  .marquee-content {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    min-width: 100%;
+    gap: 2rem;
+    animation: scroll 20s linear infinite;
+  }
+  
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 2rem));
     }
   }
 }
