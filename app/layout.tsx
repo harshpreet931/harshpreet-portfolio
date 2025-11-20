@@ -1,19 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Space_Grotesk, Inter } from "next/font/google"
 import { Analytics } from '@vercel/analytics/react'
 import "./globals.css"
 
-const geist = Geist({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist",
+  variable: "--font-heading",
 })
 
-const geistMono = Geist_Mono({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist-mono",
+  variable: "--font-body",
 })
 
 export const metadata: Metadata = {
@@ -176,7 +176,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -185,7 +185,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-background text-foreground">
         {children}
         <Analytics />
       </body>

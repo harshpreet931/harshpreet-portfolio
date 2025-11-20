@@ -79,31 +79,31 @@ export function CommandPalette({
       role="dialog"
       aria-modal="true"
       aria-label="Command Palette"
-      className="fixed inset-0 z-50 flex items-start justify-center bg-background/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-background/95 backdrop-blur-sm"
       onClick={() => onOpenChange(false)}
     >
       <div
-        className="mt-24 w-full max-w-xl rounded-lg border border-border bg-card shadow-lg"
+        className="mt-24 w-full max-w-xl border border-foreground bg-card shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="border-b border-border px-4 py-3">
+        <div className="border-b border-foreground px-6 py-6">
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Type to search — jump to a section or open a link"
-            className="w-full bg-transparent text-base outline-none placeholder:text-muted-foreground"
+            placeholder="Type to search..."
+            className="w-full bg-transparent text-2xl font-heading font-bold uppercase outline-none placeholder:text-muted-foreground/50"
             aria-label="Search commands"
           />
         </div>
         <div
           ref={listRef}
-          className="max-h-[50vh] overflow-auto py-2"
+          className="max-h-[50vh] overflow-auto py-0"
           role="listbox"
           aria-activedescendant={filtered[activeIndex]?.id}
         >
           {filtered.length === 0 ? (
-            <div className="px-4 py-6 text-sm text-muted-foreground">No matches. Try another term.</div>
+            <div className="px-6 py-8 text-sm font-bold uppercase text-muted-foreground">No matches found.</div>
           ) : (
             filtered.map((it, i) => (
               <button
@@ -116,23 +116,21 @@ export function CommandPalette({
                   it.onSelect()
                   onOpenChange(false)
                 }}
-                className={`w-full text-left px-4 py-3 transition-colors ${
-                  i === activeIndex ? "bg-secondary text-foreground" : "hover:bg-secondary/70"
+                className={`w-full text-left px-6 py-4 transition-colors border-b border-border last:border-0 flex items-center justify-between group ${
+                  i === activeIndex ? "bg-secondary" : "hover:bg-secondary/50"
                 }`}
               >
-                <div className="text-sm">{it.label}</div>
-                {it.sub ? <div className="text-xs text-muted-foreground">{it.sub}</div> : null}
+                <div>
+                  <div className="text-sm font-bold uppercase tracking-widest">{it.label}</div>
+                  {it.sub ? <div className="text-xs font-mono mt-1 text-muted-foreground">{it.sub}</div> : null}
+                </div>
+                {i === activeIndex && <span className="text-accent">↵</span>}
               </button>
             ))
           )}
         </div>
-        <div className="flex items-center justify-between border-t border-border px-4 py-2 text-xs text-muted-foreground">
-          <div>Press Enter to select • Escape to close</div>
-          <div className="flex items-center gap-2">
-            <kbd className="rounded border border-border px-1.5 py-0.5">↑</kbd>
-            <kbd className="rounded border border-border px-1.5 py-0.5">↓</kbd>
-            <span>to navigate</span>
-          </div>
+        <div className="flex items-center justify-between border-t border-foreground px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground bg-secondary/20">
+          <div>Enter to select • Esc to close</div>
         </div>
       </div>
     </div>

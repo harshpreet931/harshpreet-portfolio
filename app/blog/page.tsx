@@ -2,543 +2,321 @@
 
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { SwissClock } from "../../components/swiss-clock"
+import CommandPalette from "../../components/command-palette"
 
 export default function Blog() {
   const [contentTab, setContentTab] = useState<"articles" | "videos">("articles")
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [paletteOpen, setPaletteOpen] = useState(false)
 
-  // Set dark mode on mount and trigger animations
+  // Ensure dark mode matches the system/home preference (defaulting to dark for consistency if not set)
   useEffect(() => {
-    document.documentElement.classList.add("dark")
-    // Trigger fade-in animation after mount
-    setTimeout(() => setIsLoaded(true), 100)
+    // In this Swiss theme, we are handling theme via the root layout/page state usually, 
+    // but for the blog page we'll assume it inherits or defaults. 
+    // The home page toggles 'dark' class on documentElement.
+    // We'll leave the global theme management to the user's preference if persisted, 
+    // but here we just render the structure.
   }, [])
 
-  // Handle scroll-to-top button visibility
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Add structured data for SEO
-  useEffect(() => {
-    // Remove any existing structured data
-    const existingScript = document.getElementById('blog-structured-data')
-    if (existingScript) {
-      existingScript.remove()
-    }
-
-    // Add new structured data
-    const script = document.createElement('script')
-    script.id = 'blog-structured-data'
-    script.type = 'application/ld+json'
-    script.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Blog",
-      "name": "Harshpreet Singh's Blog",
-      "description": "Technical articles and video content on AI, system design, and software engineering",
-      "url": "https://harshpreet.com/blog",
-      "author": {
-        "@type": "Person",
-        "name": "Harshpreet Singh",
-        "url": "https://harshpreet.com",
-        "jobTitle": "SDE Intern @ Juspay",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Juspay"
-        }
-      },
-      "blogPost": [
-        {
-          "@type": "BlogPosting",
-          "headline": "Master Trees: The Complete Guide to Crush Your Coding Interviews",
-          "description": "From basic traversals to complex dynamic programming solutions trees can be found everywhere, yes even in your interviews.",
-          "datePublished": "2024-10-27",
-          "author": {
-            "@type": "Person",
-            "name": "Harshpreet Singh"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Medium"
-          },
-          "url": "https://medium.com/@harshpreet0402/master-trees-the-complete-guide-to-crush-your-coding-interviews-binary-tree-bonus-interview-a362271544b4"
-        },
-        {
-          "@type": "BlogPosting",
-          "headline": "BACKTRACKING in 15 Minutes",
-          "description": "This is a ppt I made for the class I never got to present, but I felt it was worthwhile sharing :)!",
-          "datePublished": "2024-08-27",
-          "author": {
-            "@type": "Person",
-            "name": "Harshpreet Singh"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Medium"
-          },
-          "url": "https://medium.com/@harshpreet0402/backtracking-in-15-minutes-800de323e00f"
-        },
-        {
-          "@type": "BlogPosting",
-          "headline": "The Hidden Genius of Event Based Concurrency",
-          "description": "In the world of concurrent programming, threads are king. We are taught to spin up threads to handle multiple tasks at once...",
-          "datePublished": "2024-07-28",
-          "author": {
-            "@type": "Person",
-            "name": "Harshpreet Singh"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Medium"
-          },
-          "url": "https://medium.com/@harshpreet0402/the-hidden-genius-of-event-based-concurrency-3f2b81a0847e"
-        },
-        {
-          "@type": "BlogPosting",
-          "headline": "All the Operating System Concepts You Need to Know",
-          "description": "This article gives you all the information you need to know about Operating Systems and the crucial concepts on them.",
-          "datePublished": "2024-02-28",
-          "author": {
-            "@type": "Person",
-            "name": "Harshpreet Singh"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Medium"
-          },
-          "url": "https://medium.com/@harshpreet0402/all-the-operating-system-concepts-you-need-to-know-b697bfeb3f9f"
-        }
-      ],
-      "video": [
-        {
-          "@type": "VideoObject",
-          "name": "Understanding Stateless vs Stateful Architecture Matters at Scale",
-          "description": "Why Architecture Matters at Scale - Deep dive into stateless vs stateful systems and their implications.",
-          "thumbnailUrl": "https://i.ytimg.com/vi/placeholder/maxresdefault.jpg",
-          "uploadDate": "2024-01-01",
-          "duration": "PT11M3S",
-          "contentUrl": "https://youtube.com/@ThatNotesGuy"
-        },
-        {
-          "@type": "VideoObject",
-          "name": "Horizontal vs Vertical Scaling Explained with Real Examples",
-          "description": "System Design fundamentals: Learn the difference between horizontal and vertical scaling with practical examples.",
-          "thumbnailUrl": "https://i.ytimg.com/vi/placeholder/maxresdefault.jpg",
-          "uploadDate": "2024-01-01",
-          "duration": "PT11M46S",
-          "contentUrl": "https://youtube.com/@ThatNotesGuy"
-        }
-      ]
-    })
-    document.head.appendChild(script)
-
-    // Update meta tags
-    document.title = "Blog - Harshpreet Singh | Technical Articles & Videos"
-
-    const updateMetaTag = (property: string, content: string) => {
-      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement
-      if (!meta) {
-        meta = document.createElement('meta')
-        meta.setAttribute('property', property)
-        document.head.appendChild(meta)
-      }
-      meta.content = content
-    }
-
-    const updateNameMetaTag = (name: string, content: string) => {
-      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement
-      if (!meta) {
-        meta = document.createElement('meta')
-        meta.setAttribute('name', name)
-        document.head.appendChild(meta)
-      }
-      meta.content = content
-    }
-
-    // Open Graph tags
-    updateMetaTag('og:title', 'Blog - Harshpreet Singh | Technical Articles & Videos')
-    updateMetaTag('og:description', 'Technical articles on AI, system design, data structures, and software engineering. Plus video tutorials on system design fundamentals.')
-    updateMetaTag('og:type', 'website')
-    updateMetaTag('og:url', 'https://harshpreet.com/blog')
-    updateMetaTag('og:site_name', 'Harshpreet Singh Portfolio')
-
-    // Twitter Card tags
-    updateNameMetaTag('twitter:card', 'summary_large_image')
-    updateNameMetaTag('twitter:title', 'Blog - Harshpreet Singh | Technical Articles & Videos')
-    updateNameMetaTag('twitter:description', 'Technical articles on AI, system design, data structures, and software engineering. Plus video tutorials on system design fundamentals.')
-
-    // Standard meta tags
-    updateNameMetaTag('description', 'Technical articles on AI, system design, data structures, and software engineering. Plus video tutorials on system design fundamentals.')
-    updateNameMetaTag('keywords', 'software engineering, system design, AI, machine learning, data structures, algorithms, coding interviews, tutorials, harshpreet singh, backtracking, trees, concurrency, operating systems')
-    updateNameMetaTag('author', 'Harshpreet Singh')
-
-    return () => {
-      const scriptToRemove = document.getElementById('blog-structured-data')
-      if (scriptToRemove) {
-        scriptToRemove.remove()
+    const onKey = (e: KeyboardEvent) => {
+      const isMac = navigator.userAgent.toUpperCase().includes("MAC")
+      if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault()
+        setPaletteOpen((v) => !v)
       }
     }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
   }, [])
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Subtle grain texture overlay */}
-      <div className="fixed inset-0 opacity-[0.015] pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=')]"></div>
+    <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground">
+      {/* Swiss Grid Overlay (Subtle Guide) */}
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div key={i} className="h-full border-x border-foreground"></div>
+        ))}
+      </div>
 
-      {/* Header */}
-      <header className={`border-b border-border/50 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-16 py-12 sm:py-16">
-          <Link
-            href="/"
-            className="group inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-pink-400 transition-all duration-300 mb-12 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded"
-          >
-            <svg className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span className="font-mono tracking-wide">Back</span>
-          </Link>
-
-          <div className="space-y-6 max-w-3xl">
-            <div className="space-y-2">
-              <div className="text-xs font-mono text-muted-foreground tracking-widest uppercase">Writing & Videos</div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight">
-                Content
-              </h1>
-            </div>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Thoughts on software engineering, system design, and building products that scale.
-            </p>
+      <nav className="fixed top-0 left-0 w-full z-40 bg-background/90 backdrop-blur-sm border-b border-foreground px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-4">
+          <Link href="/" className="font-heading font-bold text-lg tracking-tighter hover:text-accent transition-colors">HS/25</Link>
+          <div className="hidden md:block w-px h-4 bg-foreground/20"></div>
+          <div className="hidden md:block">
+            <SwissClock />
           </div>
         </div>
-      </header>
+        <div className="flex gap-8 text-xs font-bold uppercase tracking-widest items-center">
+          <Link href="/#work" className="hover:text-accent transition-colors hidden sm:block">Work</Link>
+          <Link href="/#projects" className="hover:text-accent transition-colors hidden sm:block">Projects</Link>
+          <Link href="/#connect" className="hover:text-accent transition-colors hidden sm:block">Connect</Link>
+        </div>
+      </nav>
 
-      {/* Main Content */}
-      <main className={`max-w-6xl mx-auto px-6 sm:px-8 lg:px-16 py-16 sm:py-20 transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        {/* Tab Navigation */}
-        <div className="flex items-center gap-8 border-b border-border/30 mb-16">
-          <button
-            onClick={() => setContentTab("articles")}
-            className={`group pb-4 text-sm font-mono tracking-wide transition-all duration-300 relative focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded ${
-              contentTab === "articles"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            aria-label="View articles"
-          >
-            <span className="relative z-10">Articles</span>
-            <span className="ml-2 text-xs opacity-60">(4)</span>
-            {contentTab === "articles" && (
-              <>
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-red-400 via-pink-400 to-rose-400"></div>
-                <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-red-500/20 via-pink-500/20 to-rose-500/20 blur-sm"></div>
-              </>
-            )}
-          </button>
-          <button
-            onClick={() => setContentTab("videos")}
-            className={`group pb-4 text-sm font-mono tracking-wide transition-all duration-300 relative focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded ${
-              contentTab === "videos"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            aria-label="View videos"
-          >
-            <span className="relative z-10">Videos</span>
-            <span className="ml-2 text-xs opacity-60">(5)</span>
-            {contentTab === "videos" && (
-              <>
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-red-400 via-pink-400 to-rose-400"></div>
-                <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-red-500/20 via-pink-500/20 to-rose-500/20 blur-sm"></div>
-              </>
-            )}
-          </button>
+      <main className="pt-32 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+        {/* HEADER SECTION */}
+        <header className="min-h-[40vh] flex flex-col justify-end border-b border-foreground pb-12">
+          <div className="grid lg:grid-cols-12 gap-4">
+            <div className="lg:col-span-12">
+              <h1 className="text-huge font-heading font-bold uppercase leading-[0.8] tracking-tighter mb-8">
+                <div className="reveal-container">
+                  <div className="reveal-text" style={{ animationDelay: "0.1s" }}>Writing</div>
+                </div>
+                <div className="reveal-container">
+                  <div className="reveal-text text-foreground" style={{ animationDelay: "0.2s" }}>& Media</div>
+                </div>
+              </h1>
+            </div>
+          </div>
+          
+          <div className="grid lg:grid-cols-12 gap-4 items-end reveal-text" style={{ animationDelay: "0.4s" }}>
+            <div className="lg:col-span-4">
+               <div className="w-12 h-1 bg-accent mb-6"></div>
+               <p className="text-lg font-medium leading-tight max-w-xs">
+                Thoughts on software engineering,<br/>
+                system design, and scaling.
+               </p>
+            </div>
+          </div>
+        </header>
+
+        {/* TABS */}
+        <div className="sticky top-[73px] z-30 bg-background border-b border-foreground">
+          <div className="flex">
+            <button
+              onClick={() => setContentTab("articles")}
+              className={`flex-1 py-6 text-sm font-bold uppercase tracking-widest transition-colors ${
+                contentTab === "articles" 
+                  ? "bg-foreground text-background" 
+                  : "hover:bg-secondary/50"
+              }`}
+            >
+              Articles (4)
+            </button>
+            <div className="w-px bg-foreground"></div>
+            <button
+              onClick={() => setContentTab("videos")}
+              className={`flex-1 py-6 text-sm font-bold uppercase tracking-widest transition-colors ${
+                contentTab === "videos" 
+                  ? "bg-foreground text-background" 
+                  : "hover:bg-secondary/50"
+              }`}
+            >
+              Videos (5)
+            </button>
+          </div>
         </div>
 
-        {/* Medium Articles */}
-        {contentTab === "articles" && (
-          <div className="space-y-8 sm:space-y-12 animate-in fade-in duration-500">
-            {[
-              {
-                title: "Master Trees: The Complete Guide to Crush Your Coding Interviews",
-                excerpt: "From basic traversals to complex dynamic programming solutions trees can be found everywhere, yes even in your interviews.",
-                date: "Oct 27, 2024",
-                readTime: "10 min read",
-                url: "https://medium.com/@harshpreet0402/master-trees-the-complete-guide-to-crush-your-coding-interviews-binary-tree-bonus-interview-a362271544b4",
-                tags: ["Data Structures", "Interviews"]
-              },
-              {
-                title: "BACKTRACKING in 15 Minutes",
-                excerpt: "This is a ppt I made for the class I never got to present, but I felt it was worthwhile sharing :)!",
-                date: "Aug 27, 2024",
-                readTime: "15 min read",
-                url: "https://medium.com/@harshpreet0402/backtracking-in-15-minutes-800de323e00f",
-                tags: ["Algorithms"]
-              },
-              {
-                title: "The Hidden Genius of Event Based Concurrency",
-                excerpt: "In the world of concurrent programming, threads are king. We are taught to spin up threads to handle multiple tasks at once...",
-                date: "Jul 28, 2024",
-                readTime: "9 min read",
-                url: "https://medium.com/@harshpreet0402/the-hidden-genius-of-event-based-concurrency-3f2b81a0847e",
-                tags: ["Systems", "Concurrency"]
-              },
-              {
-                title: "All the Operating System Concepts You Need to Know",
-                excerpt: "This article gives you all the information you need to know about Operating Systems and the crucial concepts on them.",
-                date: "Feb 28, 2024",
-                readTime: "33 min read",
-                url: "https://medium.com/@harshpreet0402/all-the-operating-system-concepts-you-need-to-know-b697bfeb3f9f",
-                tags: ["Operating Systems"]
-              },
-            ].map((article, index) => (
-              <div
-                key={index}
-                className="group relative animate-in fade-in slide-in-from-bottom-4 fill-mode-backwards"
-                style={{ animationDelay: `${index * 150}ms`, animationDuration: '700ms' }}
-              >
-                {/* Aurora glow on hover */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-red-500/0 via-pink-500/0 to-rose-500/0 group-hover:from-red-500/10 group-hover:via-pink-500/10 group-hover:to-rose-500/10 rounded-2xl blur-xl transition-all duration-700 opacity-0 group-hover:opacity-100"></div>
-
+        {/* CONTENT LIST */}
+        <div className="min-h-[50vh]">
+          {contentTab === "articles" && (
+            <div className="space-y-0">
+              {[
+                {
+                  title: "Master Trees: The Complete Guide to Crush Your Coding Interviews",
+                  excerpt: "From basic traversals to complex dynamic programming solutions trees can be found everywhere.",
+                  date: "2024-10-27",
+                  readTime: "10 MIN",
+                  url: "https://medium.com/@harshpreet0402/master-trees-the-complete-guide-to-crush-your-coding-interviews-binary-tree-bonus-interview-a362271544b4",
+                  tags: ["DSA", "INTERVIEWS"]
+                },
+                {
+                  title: "BACKTRACKING in 15 Minutes",
+                  excerpt: "A comprehensive guide to understanding backtracking algorithms efficiently.",
+                  date: "2024-08-27",
+                  readTime: "15 MIN",
+                  url: "https://medium.com/@harshpreet0402/backtracking-in-15-minutes-800de323e00f",
+                  tags: ["ALGORITHMS"]
+                },
+                {
+                  title: "The Hidden Genius of Event Based Concurrency",
+                  excerpt: "Why threads aren't always the answer. Exploring event loops and async programming.",
+                  date: "2024-07-28",
+                  readTime: "09 MIN",
+                  url: "https://medium.com/@harshpreet0402/the-hidden-genius-of-event-based-concurrency-3f2b81a0847e",
+                  tags: ["SYSTEMS", "CONCURRENCY"]
+                },
+                {
+                  title: "All the Operating System Concepts You Need to Know",
+                  excerpt: "Crucial OS concepts explained simply for developers and students.",
+                  date: "2024-02-28",
+                  readTime: "33 MIN",
+                  url: "https://medium.com/@harshpreet0402/all-the-operating-system-concepts-you-need-to-know-b697bfeb3f9f",
+                  tags: ["OS", "CS FUNDAMENTALS"]
+                },
+              ].map((article, index) => (
                 <a
+                  key={index}
                   href={article.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative block focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg"
+                  className="group block border-b border-foreground py-12 hover:bg-foreground hover:text-background transition-colors duration-300"
                 >
-                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 py-8 border-b border-border/50 group-hover:border-border transition-all duration-500">
-                    {/* Number indicator */}
-                    <div className="hidden sm:block text-6xl font-light text-muted-foreground/20 group-hover:text-pink-500/30 group-hover:scale-110 transition-all duration-500 leading-none pt-2 min-w-[80px]">
-                      {String(index + 1).padStart(2, '0')}
+                  <div className="grid lg:grid-cols-12 gap-8 items-baseline">
+                    <div className="lg:col-span-2 font-mono text-sm text-muted-foreground group-hover:text-background/60 transition-colors">
+                      0{index + 1}
                     </div>
-
-                    <div className="flex-1 space-y-4">
-                      {/* Meta info */}
-                      <div className="flex items-center gap-3 text-xs font-mono text-muted-foreground">
-                        <span className="tracking-wide">{article.date}</span>
-                        <span className="opacity-50">•</span>
-                        <span className="tracking-wide">{article.readTime}</span>
+                    <div className="lg:col-span-7">
+                      <div className="flex items-center gap-4 mb-2 text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent transition-colors">
+                        <span>{article.date}</span>
+                        <span>•</span>
+                        <span>{article.readTime}</span>
                       </div>
-
-                      {/* Title */}
-                      <h3 className="text-2xl sm:text-3xl font-light tracking-tight group-hover:text-pink-400 transition-colors duration-500">
+                      <h3 className="text-3xl font-heading font-bold uppercase mb-4 leading-tight group-hover:translate-x-2 transition-transform duration-300">
                         {article.title}
                       </h3>
-
-                      {/* Excerpt */}
-                      <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                      <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl group-hover:text-background/80 transition-colors">
                         {article.excerpt}
                       </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {article.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 text-xs border border-border/50 rounded-full text-muted-foreground group-hover:border-pink-500/30 group-hover:text-pink-400/80 transition-all duration-500"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Read more */}
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-pink-400 transition-all duration-500 pt-2">
-                        <span className="font-mono tracking-wide">Read article</span>
-                        <svg
-                          className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                    </div>
+                    <div className="lg:col-span-3 flex flex-wrap gap-2 justify-end content-start">
+                      {article.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 text-xs font-mono border border-border text-muted-foreground group-hover:border-background group-hover:text-background transition-colors"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </div>
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </a>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
 
-        {/* YouTube Videos */}
-        {contentTab === "videos" && (
-          <div className="space-y-8 sm:space-y-12 animate-in fade-in duration-500">
-            {[
-              {
-                title: "Understanding Stateless vs Stateful Architecture Matters at Scale",
-                excerpt: "Why Architecture Matters at Scale - Deep dive into stateless vs stateful systems and their implications.",
-                duration: "11:03",
-                url: "https://youtube.com/@ThatNotesGuy",
-                tags: ["System Design", "Architecture"]
-              },
-              {
-                title: "Horizontal vs Vertical Scaling Explained with Real Examples",
-                excerpt: "System Design fundamentals: Learn the difference between horizontal and vertical scaling with practical examples.",
-                duration: "11:46",
-                url: "https://youtube.com/@ThatNotesGuy",
-                tags: ["System Design", "Scalability"]
-              },
-              {
-                title: "Functional vs Non-Functional Requirements Explained",
-                excerpt: "System Design basics: Understanding the critical difference between functional and non-functional requirements.",
-                duration: "7:23",
-                url: "https://youtube.com/@ThatNotesGuy",
-                tags: ["System Design"]
-              },
-              {
-                title: "I Explained Monolith vs Microservices Using Netflix & Uber",
-                excerpt: "Real-world examples of when to use monolithic architecture vs microservices, illustrated with Netflix and Uber.",
-                duration: "9:27",
-                url: "https://youtube.com/@ThatNotesGuy",
-                tags: ["Architecture", "Microservices"]
-              },
-              {
-                title: "Why Your Code Breaks at Scale",
-                excerpt: "The secret blueprint to understanding why code that works locally breaks at scale.",
-                duration: "11:37",
-                url: "https://youtube.com/@ThatNotesGuy",
-                tags: ["System Design", "Debugging"]
-              },
-            ].map((video, index) => (
-              <div
-                key={index}
-                className="group relative animate-in fade-in slide-in-from-bottom-4 fill-mode-backwards"
-                style={{ animationDelay: `${index * 150}ms`, animationDuration: '700ms' }}
-              >
-                {/* Aurora glow on hover */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-red-500/0 via-pink-500/0 to-rose-500/0 group-hover:from-red-500/10 group-hover:via-pink-500/10 group-hover:to-rose-500/10 rounded-2xl blur-xl transition-all duration-700 opacity-0 group-hover:opacity-100"></div>
-
+          {contentTab === "videos" && (
+            <div className="space-y-0">
+              {[
+                {
+                  title: "Stateless vs Stateful Architecture at Scale",
+                  excerpt: "Deep dive into stateless vs stateful systems and their implications for scaling.",
+                  duration: "11:03",
+                  url: "https://youtube.com/@ThatNotesGuy",
+                  tags: ["SYSTEM DESIGN", "ARCHITECTURE"]
+                },
+                {
+                  title: "Horizontal vs Vertical Scaling Explained",
+                  excerpt: "Learn the difference between horizontal and vertical scaling with practical examples.",
+                  duration: "11:46",
+                  url: "https://youtube.com/@ThatNotesGuy",
+                  tags: ["SCALABILITY"]
+                },
+                {
+                  title: "Functional vs Non-Functional Requirements",
+                  excerpt: "Understanding the critical difference between functional and non-functional requirements.",
+                  duration: "07:23",
+                  url: "https://youtube.com/@ThatNotesGuy",
+                  tags: ["BASICS"]
+                },
+                {
+                  title: "Monolith vs Microservices (Netflix & Uber)",
+                  excerpt: "Real-world examples of when to use monolithic architecture vs microservices.",
+                  duration: "09:27",
+                  url: "https://youtube.com/@ThatNotesGuy",
+                  tags: ["MICROSERVICES"]
+                },
+                {
+                  title: "Why Your Code Breaks at Scale",
+                  excerpt: "The secret blueprint to understanding why code that works locally breaks at scale.",
+                  duration: "11:37",
+                  url: "https://youtube.com/@ThatNotesGuy",
+                  tags: ["DEBUGGING"]
+                },
+              ].map((video, index) => (
                 <a
+                  key={index}
                   href={video.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative block focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg"
+                  className="group block border-b border-foreground py-12 hover:bg-foreground hover:text-background transition-colors duration-300"
                 >
-                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 py-8 border-b border-border/50 group-hover:border-border transition-all duration-500">
-                    {/* Number indicator */}
-                    <div className="hidden sm:block text-6xl font-light text-muted-foreground/20 group-hover:text-pink-500/30 group-hover:scale-110 transition-all duration-500 leading-none pt-2 min-w-[80px]">
-                      {String(index + 1).padStart(2, '0')}
+                  <div className="grid lg:grid-cols-12 gap-8 items-baseline">
+                    <div className="lg:col-span-2 font-mono text-sm text-muted-foreground group-hover:text-background/60 transition-colors">
+                      0{index + 1}
                     </div>
-
-                    <div className="flex-1 space-y-4">
-                      {/* Meta info */}
-                      <div className="flex items-center gap-3 text-xs font-mono text-muted-foreground">
-                        <span className="tracking-wide">{video.duration}</span>
-                        <span className="opacity-50">•</span>
-                        <span className="tracking-wide">Video</span>
+                    <div className="lg:col-span-7">
+                      <div className="flex items-center gap-4 mb-2 text-xs font-bold uppercase tracking-widest text-muted-foreground group-hover:text-accent transition-colors">
+                        <span>{video.duration}</span>
+                        <span>•</span>
+                        <span>VIDEO</span>
                       </div>
-
-                      {/* Title */}
-                      <h3 className="text-2xl sm:text-3xl font-light tracking-tight group-hover:text-pink-400 transition-colors duration-500">
+                      <h3 className="text-3xl font-heading font-bold uppercase mb-4 leading-tight group-hover:translate-x-2 transition-transform duration-300">
                         {video.title}
                       </h3>
-
-                      {/* Excerpt */}
-                      <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                      <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl group-hover:text-background/80 transition-colors">
                         {video.excerpt}
                       </p>
-
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {video.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 text-xs border border-border/50 rounded-full text-muted-foreground group-hover:border-pink-500/30 group-hover:text-pink-400/80 transition-all duration-500"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Watch link */}
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-pink-400 transition-all duration-500 pt-2">
-                        <span className="font-mono tracking-wide">Watch video</span>
-                        <svg
-                          className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                    </div>
+                    <div className="lg:col-span-3 flex flex-wrap gap-2 justify-end content-start">
+                      {video.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 text-xs font-mono border border-border text-muted-foreground group-hover:border-background group-hover:text-background transition-colors"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </div>
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </a>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* FOOTER */}
+        <footer className="py-24 border-t border-foreground mt-0">
+          <div className="grid lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-3">
+              <h2 className="text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2">
+                <span className="w-2 h-2 bg-accent rounded-full"></span>
+                Connect
+              </h2>
+            </div>
+            <div className="lg:col-span-9">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+                {[
+                  { name: "LinkedIn", url: "https://www.linkedin.com/in/harshpreet931/" },
+                  { name: "GitHub", url: "https://github.com/harshpreet931" },
+                  { name: "Medium", url: "https://medium.com/@harshpreet0402" },
+                  { name: "YouTube", url: "https://youtube.com/@ThatNotesGuy" }
+                ].map((link) => (
+                  <a 
+                    key={link.name} 
+                    href={link.url} 
+                    target="_blank"
+                    className="text-sm font-bold uppercase tracking-widest hover:text-accent transition-colors flex items-center gap-2 group"
+                  >
+                    {link.name}
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+                  </a>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        )}
+        </footer>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-border/30 mt-32">
-        <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-16 py-16">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
-            <div className="space-y-2">
-              <div className="text-sm font-mono text-muted-foreground">2025 Harshpreet Singh</div>
-            </div>
-            <div className="flex items-center gap-6">
-              <a
-                href="https://medium.com/@harshpreet0402"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-mono text-muted-foreground hover:text-pink-400 transition-colors duration-300"
-              >
-                Medium
-              </a>
-              <a
-                href="https://youtube.com/@ThatNotesGuy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-mono text-muted-foreground hover:text-pink-400 transition-colors duration-300"
-              >
-                YouTube
-              </a>
-              <Link
-                href="/"
-                className="text-sm font-mono text-muted-foreground hover:text-pink-400 transition-colors duration-300"
-              >
-                Home
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* Scroll to top button */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-8 right-8 p-4 rounded-full bg-background border border-border hover:border-pink-500/50 shadow-lg hover:shadow-pink-500/20 transition-all duration-500 group z-50 ${
-          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-        aria-label="Scroll to top"
-      >
-        <svg
-          className="w-5 h-5 text-muted-foreground group-hover:text-pink-400 transition-colors duration-300"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      <CommandPalette
+        open={paletteOpen}
+        onOpenChange={setPaletteOpen}
+        items={[
+          { id: "home", label: "HOME", onSelect: () => window.location.href = "/" },
+          { id: "articles", label: "ARTICLES", onSelect: () => setContentTab("articles") },
+          { id: "videos", label: "VIDEOS", onSelect: () => setContentTab("videos") },
+        ]}
+      />
+      
+      <div className="fixed bottom-8 right-8 z-50">
+        <button 
+          onClick={() => setPaletteOpen(true)}
+          className="bg-background text-foreground px-4 py-2 font-bold uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-colors border border-foreground shadow-sm"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-      </button>
+          Menu (⌘K)
+        </button>
+      </div>
     </div>
   )
 }
