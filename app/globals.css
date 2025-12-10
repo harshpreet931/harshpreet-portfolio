@@ -124,7 +124,7 @@
   }
   
   .text-huge {
-    font-size: 12vw;
+    font-size: clamp(3rem, 12vw, 180px);
     line-height: 0.9;
     letter-spacing: -0.04em;
     text-transform: uppercase;

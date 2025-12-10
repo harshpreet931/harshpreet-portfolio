@@ -203,15 +203,15 @@ export default function Home() {
           <div className="marquee-container">
             <div className="marquee-content text-4xl font-heading font-bold uppercase tracking-tight">
               {["PYTHON", "TYPESCRIPT", "RUST", "JAVA", "AI AGENTS", "MACHINE LEARNING", "SYSTEM DESIGN", "NEXT.JS", "POSTGRESQL"].map((tech, i) => (
-                <span key={i} className="flex items-center gap-8">
-                  {tech} <span className="text-accent">•</span>
+                <span key={i} className="whitespace-nowrap">
+                  {tech}<span className="text-accent mx-6">•</span>
                 </span>
               ))}
             </div>
             <div className="marquee-content text-4xl font-heading font-bold uppercase tracking-tight" aria-hidden="true">
               {["PYTHON", "TYPESCRIPT", "RUST", "JAVA", "AI AGENTS", "MACHINE LEARNING", "SYSTEM DESIGN", "NEXT.JS", "POSTGRESQL"].map((tech, i) => (
-                <span key={i} className="flex items-center gap-8">
-                  {tech} <span className="text-accent">•</span>
+                <span key={i} className="whitespace-nowrap">
+                  {tech}<span className="text-accent mx-6">•</span>
                 </span>
               ))}
             </div>
