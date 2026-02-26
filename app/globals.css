@@ -1,70 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  /* Swiss Style Palette: High Contrast, Minimal */
-  --background: #ffffff;
-  --foreground: #000000;
+  /* Sky Theme Palette: Beautiful Blues and Ethereal */
+  --background: #f0f7ff;
+  --foreground: #1a3a52;
   
   --card: #ffffff;
-  --card-foreground: #000000;
+  --card-foreground: #1a3a52;
   
   --popover: #ffffff;
-  --popover-foreground: #000000;
+  --popover-foreground: #1a3a52;
   
-  --primary: #000000;
+  --primary: #2563eb;
   --primary-foreground: #ffffff;
   
-  --secondary: #f0f0f0;
-  --secondary-foreground: #000000;
+  --secondary: #e0f2fe;
+  --secondary-foreground: #0c4a6e;
   
-  --muted: #f0f0f0;
-  --muted-foreground: #666666;
+  --muted: #cffafe;
+  --muted-foreground: #164e63;
   
-  --accent: #ff3b30; /* Swiss Red */
+  --accent: #06b6d4;
   --accent-foreground: #ffffff;
   
-  --destructive: #ff3b30;
+  --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   
-  --border: #000000;
-  --input: #000000;
-  --ring: #000000;
+  --border: #bae6fd;
+  --input: #2563eb;
+  --ring: #06b6d4;
   
-  --radius: 0px; /* No rounded corners */
+  --radius: 12px;
   
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
 }
 
 .dark {
-  /* Inverted Swiss: Stark Black/White */
-  --background: #000000;
-  --foreground: #ffffff;
+  /* Dark Sky: Deep blues and soft highlights */
+  --background: #0f1729;
+  --foreground: #e0f2fe;
   
-  --card: #000000;
-  --card-foreground: #ffffff;
+  --card: #1a3a52;
+  --card-foreground: #e0f2fe;
   
-  --popover: #000000;
-  --popover-foreground: #ffffff;
+  --popover: #1a3a52;
+  --popover-foreground: #e0f2fe;
   
-  --primary: #ffffff;
-  --primary-foreground: #000000;
+  --primary: #06b6d4;
+  --primary-foreground: #0f1729;
   
-  --secondary: #1a1a1a;
-  --secondary-foreground: #ffffff;
+  --secondary: #0c4a6e;
+  --secondary-foreground: #bae6fd;
   
-  --muted: #1a1a1a;
-  --muted-foreground: #a0a0a0;
+  --muted: #164e63;
+  --muted-foreground: #7dd3fc;
   
-  --accent: #ff3b30;
-  --accent-foreground: #ffffff;
+  --accent: #38bdf8;
+  --accent-foreground: #0f1729;
   
-  --destructive: #ff3b30;
-  --destructive-foreground: #ffffff;
+  --destructive: #f87171;
+  --destructive-foreground: #0f1729;
   
-  --border: #ffffff;
-  --input: #ffffff;
-  --ring: #ffffff;
+  --border: #0c4a6e;
+  --input: #06b6d4;
+  --ring: #38bdf8;
 }
 
 @theme inline {
@@ -87,10 +87,10 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
 }
@@ -100,15 +100,19 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans tabular-nums;
+    @apply bg-gradient-to-b from-background via-blue-50 to-background text-foreground font-sans tabular-nums;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading font-bold uppercase tracking-tight;
   }
 }
 
+.dark body {
+  @apply bg-gradient-to-b from-blue-950 via-slate-900 to-blue-950;
+}
+
 @layer utilities {
-  /* Swiss Grid Utilities */
+  /* Grid Utilities */
   .swiss-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -116,11 +120,11 @@
   }
   
   .swiss-border-t {
-    border-top: 1px solid var(--border);
+    border-top: 2px solid var(--border);
   }
   
   .swiss-border-b {
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
   }
   
   .text-huge {
@@ -128,12 +132,6 @@
     line-height: 0.9;
     letter-spacing: -0.04em;
     text-transform: uppercase;
-  }
-
-  .reveal-text {
-    animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 0;
-    transform: translateY(100%);
   }
 
   .reveal-text {
@@ -180,5 +178,33 @@
     to {
       transform: translateX(calc(-100% - 2rem));
     }
+  }
+
+  /* Sky Float Animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  /* Cloud glow effect */
+  .glow-sm {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+  }
+
+  .glow-md {
+    box-shadow: 0 0 40px rgba(37, 99, 235, 0.15);
+  }
+
+  /* Soft backdrop */
+  .backdrop-blur-xl {
+    backdrop-filter: blur(20px);
   }
 }

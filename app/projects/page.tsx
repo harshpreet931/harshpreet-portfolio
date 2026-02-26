@@ -100,7 +100,7 @@ export default function ProjectsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-gradient-to-b from-background via-blue-50 to-background text-foreground">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-16 py-20">
         <header className="mb-16">
           <h1 className="text-4xl sm:text-5xl font-light mb-4">Projects</h1>
@@ -114,7 +114,7 @@ export default function ProjectsPage() {
           {projects.map((project, index) => (
             <article
               key={index}
-              className="border border-border rounded-lg p-8 hover:border-muted-foreground/50 transition-all duration-300"
+              className="border border-border rounded-lg p-8 hover:border-accent hover:shadow-lg transition-all duration-300 bg-card/50 backdrop-blur-sm"
             >
               <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-4">

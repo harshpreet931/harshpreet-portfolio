@@ -56,7 +56,7 @@ export default function ExperiencePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-gradient-to-b from-background via-blue-50 to-background text-foreground">
       <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-16 py-20">
         <header className="mb-16">
           <h1 className="text-4xl sm:text-5xl font-light mb-4">Professional Experience</h1>
@@ -73,7 +73,7 @@ export default function ExperiencePage() {
               {experiences.map((exp, index) => (
                 <article
                   key={index}
-                  className="border border-border rounded-lg p-8 hover:border-muted-foreground/50 transition-all duration-300"
+                  className="border border-border rounded-lg p-8 hover:border-accent hover:shadow-lg transition-all duration-300 bg-card/50"
                 >
                   <div className="grid lg:grid-cols-4 gap-8">
                     <div className="lg:col-span-1">

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import CommandPalette from "../components/command-palette"
 import { SwissClock } from "../components/swiss-clock"
 import { RollingText } from "../components/rolling-text"
+import { AsciiClouds } from "../components/ascii-clouds"
 
 export default function Home() {
   const [isDark, setIsDark] = useState(true)
@@ -31,14 +32,15 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground">
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.06] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
+    <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground overflow-x-hidden">
+      <AsciiClouds />
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.08] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
         {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} className="h-full border-x border-foreground"></div>
+          <div key={i} className="h-full border-x border-border"></div>
         ))}
       </div>
 
-      <nav className="fixed top-0 left-0 w-full z-40 bg-background/90 backdrop-blur-sm border-b border-foreground px-6 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 w-full z-40 bg-background/80 backdrop-blur-xl border-b border-border px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <div className="font-heading font-bold text-lg tracking-tighter">HS/{new Date().getFullYear().toString().slice(-2)}</div>
           <div className="hidden md:block w-px h-4 bg-foreground/20"></div>
@@ -61,8 +63,8 @@ export default function Home() {
         </div>
       </nav>
 
-      <main className="pt-32 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-        <header className="min-h-[70vh] flex flex-col justify-between border-b border-foreground pb-12">
+      <main className="pt-32 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto relative z-10">
+        <header className="min-h-[70vh] flex flex-col justify-between border-b border-border pb-12">
           <div className="grid lg:grid-cols-12 gap-4">
             <div className="lg:col-span-12">
               <h1 className="text-huge font-heading font-bold uppercase leading-[0.8] tracking-tighter mb-4">
@@ -82,7 +84,7 @@ export default function Home() {
           
           <div className="grid lg:grid-cols-12 gap-4 items-end reveal-text" style={{ animationDelay: "0.4s" }}>
             <div className="lg:col-span-4">
-               <div className="w-12 h-1 bg-accent mb-6"></div>
+               <div className="w-12 h-1 bg-gradient-to-r from-accent to-primary rounded-full mb-6"></div>
                <p className="text-xl font-medium leading-tight max-w-xs">
                 Software Development Engineer.<br/>
                 Building agentic AI systems.
@@ -104,17 +106,17 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="work" className="py-24 border-b border-foreground">
+        <section id="work" className="py-24 border-b border-border">
           <div className="grid lg:grid-cols-12 gap-8 mb-16">
             <div className="lg:col-span-3">
               <h2 className="text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2">
-                <span className="w-2 h-2 bg-accent"></span>
+                <span className="w-2 h-2 bg-accent rounded-full"></span>
                 Experience
               </h2>
             </div>
           </div>
 
-          <div className="space-y-0 border-b border-foreground">
+          <div className="space-y-0 border-b border-border">
             {[
               {
                 year: "2025 — Present",
@@ -131,7 +133,7 @@ export default function Home() {
                 tags: ["ML", "ARIMA", "Python"]
               }
             ].map((job, i) => (
-              <div key={i} className="group border-t border-foreground py-12 px-6 hover:bg-foreground hover:text-background transition-colors duration-300">
+              <div key={i} className="group border-t border-border py-12 px-6 hover:bg-primary/5 transition-colors duration-300">
                 <div className="grid lg:grid-cols-12 gap-8">
                   <div className="lg:col-span-3 font-mono text-sm text-muted-foreground pt-1 group-hover:text-background/60 transition-colors">{job.year}</div>
                   <div className="lg:col-span-4">
@@ -142,7 +144,7 @@ export default function Home() {
                     <p className="text-lg text-muted-foreground leading-relaxed mb-4 group-hover:text-background/80 transition-colors">{job.desc}</p>
                     <div className="flex flex-wrap gap-2">
                       {job.tags.map(t => (
-                        <span key={t} className="text-xs font-mono border border-border px-2 py-1 text-muted-foreground group-hover:border-background group-hover:text-background transition-colors">{t}</span>
+                        <span key={t} className="text-xs font-mono border border-border px-2 py-1 text-muted-foreground group-hover:text-primary transition-colors rounded">{t}</span>
                       ))}
                     </div>
                   </div>
@@ -152,17 +154,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="projects" className="py-24 border-b border-foreground">
+        <section id="projects" className="py-24 border-b border-border">
           <div className="grid lg:grid-cols-12 gap-8 mb-16">
             <div className="lg:col-span-3">
                <h2 className="text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2">
-                <span className="w-2 h-2 bg-accent"></span>
+                <span className="w-2 h-2 bg-accent rounded-full"></span>
                 Selected Works
               </h2>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground border border-foreground">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               {
                 title: "Agent Spotlight",
@@ -180,16 +182,16 @@ export default function Home() {
                 tech: "C / ML"
               }
             ].map((project, i) => (
-              <div key={i} className="bg-background p-8 h-full hover:bg-foreground hover:text-background transition-colors duration-300 flex flex-col justify-between gap-12 group">
+              <div key={i} className="bg-card p-8 h-full rounded-lg border border-border hover:border-accent hover:shadow-lg transition-all duration-300 flex flex-col justify-between gap-12 group glow-sm">
                 <div>
                   <div className="flex justify-between items-start mb-8">
-                    <span className="font-mono text-xs text-muted-foreground group-hover:text-background/60 transition-colors">0{i+1}</span>
-                    <span className="font-mono text-xs text-muted-foreground group-hover:text-accent transition-colors">{project.tech}</span>
+                    <span className="font-mono text-xs text-muted-foreground group-hover:text-accent transition-colors">0{i+1}</span>
+                    <span className="font-mono text-xs text-primary group-hover:text-accent transition-colors">{project.tech}</span>
                   </div>
-                  <h3 className="text-3xl font-heading font-bold uppercase mb-4 leading-none">{project.title}</h3>
-                  <p className="text-base text-muted-foreground leading-relaxed group-hover:text-background/80 transition-colors">{project.desc}</p>
+                  <h3 className="text-3xl font-heading font-bold uppercase mb-4 leading-none text-foreground">{project.title}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors">{project.desc}</p>
                 </div>
-                <div className="w-8 h-8 border border-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:bg-accent group-hover:border-accent">
+                <div className="w-8 h-8 border border-primary flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all group-hover:bg-accent group-hover:border-accent rounded-md">
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 11L11 1M11 1H1M11 1V11" stroke="currentColor" strokeWidth="2"/>
                   </svg>
@@ -199,7 +201,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="border-b border-foreground py-8 overflow-hidden bg-foreground text-background">
+        <div className="border-b border-border py-8 overflow-hidden bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 text-foreground">
           <div className="marquee-container">
             <div className="marquee-content text-4xl font-heading font-bold uppercase tracking-tight">
               {["PYTHON", "TYPESCRIPT", "RUST", "JAVA", "AI AGENTS", "MACHINE LEARNING", "SYSTEM DESIGN", "NEXT.JS", "POSTGRESQL"].map((tech, i) => (
@@ -222,16 +224,16 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-8">
             <div className="lg:col-span-3">
               <h2 className="text-sm font-bold uppercase tracking-widest text-accent flex items-center gap-2">
-                <span className="w-2 h-2 bg-accent"></span>
+                <span className="w-2 h-2 bg-accent rounded-full"></span>
                 Contact
               </h2>
             </div>
             <div className="lg:col-span-9">
-              <a href="mailto:harshpreet.singh.0402@gmail.com" className="block text-4xl sm:text-6xl font-heading font-bold uppercase hover:text-accent transition-colors mb-16 leading-none">
+              <a href="mailto:harshpreet.singh.0402@gmail.com" className="block text-4xl sm:text-6xl font-heading font-bold uppercase hover:text-accent transition-colors mb-16 leading-none text-foreground">
                 harshpreet.singh<br/>.0402@gmail.com
               </a>
               
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 border-t border-foreground pt-8">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 border-t border-border pt-8">
                 {[
                   { name: "LinkedIn", url: "https://www.linkedin.com/in/harshpreet931/" },
                   { name: "GitHub", url: "https://github.com/harshpreet931" },
@@ -269,7 +271,7 @@ export default function Home() {
       <div className="fixed bottom-8 right-8 z-50">
         <button 
           onClick={() => setPaletteOpen(true)}
-          className="bg-background text-foreground px-4 py-2 font-bold uppercase tracking-widest hover:bg-accent hover:text-accent-foreground transition-colors border border-foreground shadow-sm"
+          className="bg-card text-foreground px-4 py-2 font-bold uppercase tracking-widest hover:bg-primary hover:text-primary-foreground transition-colors border border-border rounded-lg shadow-lg glow-sm"
         >
           Menu (⌘K)
         </button>

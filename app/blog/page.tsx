@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { SwissClock } from "../../components/swiss-clock"
 import CommandPalette from "../../components/command-palette"
+import { AsciiClouds } from "../../components/ascii-clouds"
 
 export default function Blog() {
   const [contentTab, setContentTab] = useState<"articles" | "videos">("articles")
@@ -22,14 +23,10 @@ export default function Blog() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground">
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02] hidden lg:grid grid-cols-12 gap-4 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} className="h-full border-x border-foreground"></div>
-        ))}
-      </div>
+    <div className="min-h-screen bg-background text-foreground relative selection:bg-accent selection:text-accent-foreground overflow-x-hidden">
+      <AsciiClouds />
 
-      <nav className="fixed top-0 left-0 w-full z-40 bg-background/90 backdrop-blur-sm border-b border-foreground px-6 py-4 flex justify-between items-center">
+      <nav className="fixed top-0 left-0 w-full z-40 bg-background/80 backdrop-blur-xl border-b border-border px-6 py-4 flex justify-between items-center relative z-10">
         <div className="flex items-center gap-4">
           <Link href="/" className="font-heading font-bold text-lg tracking-tighter hover:text-accent transition-colors">HS/{new Date().getFullYear().toString().slice(-2)}</Link>
           <div className="hidden md:block w-px h-4 bg-foreground/20"></div>
@@ -44,8 +41,8 @@ export default function Blog() {
         </div>
       </nav>
 
-      <main className="pt-32 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto">
-        <header className="min-h-[40vh] flex flex-col justify-end border-b border-foreground pb-12">
+      <main className="pt-32 px-6 sm:px-8 lg:px-12 max-w-[1600px] mx-auto relative z-10">
+        <header className="min-h-[40vh] flex flex-col justify-end border-b border-border pb-12">
           <div className="grid lg:grid-cols-12 gap-4">
             <div className="lg:col-span-12">
               <h1 className="text-huge font-heading font-bold uppercase leading-[0.8] tracking-tighter mb-8">
@@ -70,13 +67,13 @@ export default function Blog() {
           </div>
         </header>
 
-        <div className="sticky top-[73px] z-30 bg-background border-b border-foreground">
+        <div className="sticky top-[73px] z-30 bg-background/80 backdrop-blur-xl border-b border-border">
           <div className="flex">
             <button
               onClick={() => setContentTab("articles")}
               className={`flex-1 py-6 text-sm font-bold uppercase tracking-widest transition-colors ${
                 contentTab === "articles" 
-                  ? "bg-foreground text-background" 
+                  ? "bg-primary text-primary-foreground" 
                   : "hover:bg-secondary/50"
               }`}
             >
