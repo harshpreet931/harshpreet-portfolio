@@ -1,70 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  /* Swiss Style Palette: High Contrast, Minimal */
-  --background: #ffffff;
-  --foreground: #000000;
+  /* Clean & Minimal Light Palette */
+  --background: #fafaf8;
+  --foreground: #2a2a28;
   
   --card: #ffffff;
-  --card-foreground: #000000;
+  --card-foreground: #2a2a28;
   
   --popover: #ffffff;
-  --popover-foreground: #000000;
+  --popover-foreground: #2a2a28;
   
-  --primary: #000000;
-  --primary-foreground: #ffffff;
+  --primary: #2a2a28;
+  --primary-foreground: #fafaf8;
   
-  --secondary: #f0f0f0;
-  --secondary-foreground: #000000;
+  --secondary: #f0ede8;
+  --secondary-foreground: #2a2a28;
   
-  --muted: #f0f0f0;
-  --muted-foreground: #666666;
+  --muted: #e8e5e0;
+  --muted-foreground: #8a8682;
   
-  --accent: #ff3b30; /* Swiss Red */
+  --accent: #5b6d7c; /* Soft teal-gray */
   --accent-foreground: #ffffff;
   
-  --destructive: #ff3b30;
+  --destructive: #d97f6f;
   --destructive-foreground: #ffffff;
   
-  --border: #000000;
-  --input: #000000;
-  --ring: #000000;
+  --border: #e8e5e0;
+  --input: #ffffff;
+  --ring: #5b6d7c;
   
-  --radius: 0px; /* No rounded corners */
+  --radius: 4px; /* Subtle rounding */
   
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
 }
 
 .dark {
-  /* Inverted Swiss: Stark Black/White */
-  --background: #000000;
-  --foreground: #ffffff;
+  /* Clean & Minimal Dark Palette */
+  --background: #1a1916;
+  --foreground: #f0ede8;
   
-  --card: #000000;
-  --card-foreground: #ffffff;
+  --card: #252420;
+  --card-foreground: #f0ede8;
   
-  --popover: #000000;
-  --popover-foreground: #ffffff;
+  --popover: #252420;
+  --popover-foreground: #f0ede8;
   
-  --primary: #ffffff;
-  --primary-foreground: #000000;
+  --primary: #f0ede8;
+  --primary-foreground: #1a1916;
   
-  --secondary: #1a1a1a;
-  --secondary-foreground: #ffffff;
+  --secondary: #2a261f;
+  --secondary-foreground: #f0ede8;
   
-  --muted: #1a1a1a;
-  --muted-foreground: #a0a0a0;
+  --muted: #3a362f;
+  --muted-foreground: #b0ada8;
   
-  --accent: #ff3b30;
-  --accent-foreground: #ffffff;
+  --accent: #8fa8b8;
+  --accent-foreground: #1a1916;
   
-  --destructive: #ff3b30;
-  --destructive-foreground: #ffffff;
+  --destructive: #d97f6f;
+  --destructive-foreground: #1a1916;
   
-  --border: #ffffff;
-  --input: #ffffff;
-  --ring: #ffffff;
+  --border: #3a362f;
+  --input: #252420;
+  --ring: #8fa8b8;
 }
 
 @theme inline {
@@ -103,7 +103,10 @@
     @apply bg-background text-foreground font-sans tabular-nums;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold uppercase tracking-tight;
+    @apply font-heading font-semibold tracking-tight;
+  }
+  a {
+    @apply text-foreground transition-colors;
   }
 }
 
@@ -124,16 +127,9 @@
   }
   
   .text-huge {
-    font-size: clamp(3rem, 12vw, 180px);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
-  }
-
-  .reveal-text {
-    animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 0;
-    transform: translateY(100%);
+    font-size: clamp(2.5rem, 10vw, 120px);
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   .reveal-text {
