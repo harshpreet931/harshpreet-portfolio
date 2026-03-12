@@ -24,6 +24,14 @@ export const metadata: Metadata = {
   },
   description: "Software Development Engineer specializing in production-grade agentic AI systems, developer tooling, and data-driven solutions. Expert in Python, TypeScript, Rust, and Java with experience at Juspay.",
   keywords: [
+    "Harshpreet Singh",
+    "Harshpreet",
+    "Harsh",
+    "Harsh Singh",
+    "H. Singh",
+    "HS",
+    "harshpreet931",
+    "harshpreet0402",
     "SDE Intern @Juspay",
     "Full Stack Developer",
     "AI Engineer",
@@ -120,9 +128,13 @@ export const metadata: Metadata = {
   },
   category: "Technology",
   classification: "Portfolio Website",
-  alternates: {
-    canonical: "https://www.harshpreet.com",
-  },
+  other: {
+    "geo.region": "IN-KA",
+    "geo.placename": "Bengaluru",
+    "revisit-after": "7 days",
+    "rating": "general",
+    "distribution": "global",
+  }
 }
 
 export default function RootLayout({
@@ -134,8 +146,9 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Harshpreet Singh",
+    "alternateName": ["Harshpreet", "Harsh", "Harsh Singh", "H. Singh", "HS", "harshpreet931"],
     "url": "https://www.harshpreet.com",
-    "image": "https://www.harshpreet.com/og-image.jpg",
+    "image": "https://www.harshpreet.com/og-image.png",
     "jobTitle": "Software Development Engineer",
     "worksFor": {
       "@type": "Organization",
@@ -145,6 +158,7 @@ export default function RootLayout({
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Bengaluru",
+      "addressRegion": "Karnataka",
       "addressCountry": "India"
     },
     "email": "harshpreet.singh.0402@gmail.com",
