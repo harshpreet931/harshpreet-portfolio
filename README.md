@@ -1,23 +1,26 @@
-# harshpreet.com
+# my portfolio :)
 
-Personal portfolio showcasing my work as a Software Development Engineer.
+## Tech Stack
 
-## Stack
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Visuals**: [@paper-design/shaders-react](https://www.npmjs.com/package/@paper-design/shaders-react)
 
-- **Framework:** Next.js 15 (App Router)
-- **Styling:** Tailwind CSS
-- **Fonts:** Geist Sans & Geist Mono
-- **Analytics:** Vercel Analytics
-- **Deployment:** Vercel
+## Setup
 
-## Features
+```bash
+# Install dependencies
+npm install
 
-- Minimal, editorial design with smooth animations
-- SEO optimized with structured data
-- Fully responsive and accessible
-- Dark mode optimized
-- Command palette navigation (Command + K)
+# Run development server
+npm run dev
 
-## Made with love! 
+# Build for production
+npm run build
+```
 
-2025 Harshpreet Singh.
+## License
+
+[MIT](LICENSE)
