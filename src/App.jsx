@@ -285,7 +285,7 @@ export default function App() {
           )}
         </div>
 
-        <footer className="absolute bottom-0 left-0 right-0 z-10 flex flex-col p-6 max-sm:p-5" style={{ pointerEvents: view === 'home' ? 'auto' : 'none' }}>
+        <footer className="absolute bottom-0 left-0 right-0 z-10 flex flex-col p-6" style={{ pointerEvents: view === 'home' ? 'auto' : 'none' }}>
           <h1 className="font-display text-[8.4vw] font-extrabold leading-[0.78] tracking-[-0.04em] uppercase text-white w-full flex flex-col max-sm:text-[7.2vw] max-sm:leading-[0.9] max-sm:tracking-[-0.03em]" style={{ opacity: view === 'home' ? 1 : 0.05, transition: 'opacity 0.5s' }}>
             <motion.span
               className="headline-line"
