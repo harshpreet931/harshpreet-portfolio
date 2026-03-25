@@ -122,7 +122,7 @@ export function MeshBackground() {
       <MeshGradient
         width={1280}
         height={720}
-        style={{ width: '100vw', height: '100vh', transition: 'all 0.5s ease' }}
+        style={{ width: '100vw', height: '100dvh', transition: 'all 0.5s ease' }}
         colors={config.colors}
         distortion={0.3}
         swirl={0.35}

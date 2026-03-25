@@ -89,7 +89,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          <div className="relative w-screen h-screen flex flex-col overflow-hidden p-6 max-sm:p-4">
+          <div className="relative w-screen h-dvh flex flex-col overflow-hidden p-6 max-sm:p-4">
             <MeshBackground />
             <Navigation />
             <div className="relative z-10 mt-[4vh] grow">
