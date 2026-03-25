@@ -1,7 +1,9 @@
 {
   "name": "harshpreet-portfolio",
-  "private": true,
   "version": "1.0.0",
+  "description": "Personal portfolio website with monthly rotating themes",
+  "author": "Harshpreet Singh",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "next dev",
