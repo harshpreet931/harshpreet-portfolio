@@ -17,28 +17,28 @@ export function HomeContent() {
     >
       <div className="relative z-10 grid grid-cols-[1fr_1fr_2fr_1fr] gap-5 w-full max-md:grid-cols-2 max-md:gap-y-6 max-sm:grid-cols-1 max-sm:gap-5 max-sm:pb-10">
         <div className="flex flex-col">
-          <span className="text-[11px] text-white">BENGALURU</span>
-          <span className="text-[11px] text-white leading-tight font-normal">{time}</span>
+          <span className="text-[11px] ">BENGALURU</span>
+          <span className="text-[11px]  leading-tight font-normal">{time}</span>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-[11px] text-white">Harshpreet Singh</span>
-          <p className="text-[11px] text-white leading-tight font-normal">
+          <span className="text-[11px] ">Harshpreet Singh</span>
+          <p className="text-[11px]  leading-tight font-normal">
             Software Development Engineer.
           </p>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-[11px] text-white">Building AI-Native Systems</span>
-          <p className="text-[11px] text-white leading-tight font-normal">
+          <span className="text-[11px] ">Building AI-Native Systems</span>
+          <p className="text-[11px]  leading-tight font-normal">
             I build systems with<br />
             depth and design.
           </p>
         </div>
 
         <div className="flex flex-col">
-          <span className="text-[11px] text-white">CURRENTLY</span>
-          <p className="text-[11px] text-white leading-tight font-normal">SDE Intern @ JUSPAY</p>
+          <span className="text-[11px] ">CURRENTLY</span>
+          <p className="text-[11px]  leading-tight font-normal">SDE Intern @ JUSPAY</p>
         </div>
       </div>
     </motion.div>

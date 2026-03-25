@@ -3,6 +3,8 @@ import './globals.css';
 import { Navigation } from '@/components/Navigation';
 import { MeshBackground } from '@/components/MeshBackground';
 import { Footer } from '@/components/Footer';
+import { ThemeProvider } from '@/hooks/ThemeContext';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -86,14 +88,17 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <div className="relative w-screen h-screen flex flex-col overflow-hidden p-6 max-sm:p-4">
-          <MeshBackground />
-          <Navigation />
-          <div className="relative z-10 mt-[4vh] grow">
-            {children}
+        <ThemeProvider>
+          <div className="relative w-screen h-screen flex flex-col overflow-hidden p-6 max-sm:p-4">
+            <MeshBackground />
+            <Navigation />
+            <div className="relative z-10 mt-[4vh] grow">
+              {children}
+            </div>
+            <Footer />
+            <ThemeSwitcher />
           </div>
-          <Footer />
-        </div>
+        </ThemeProvider>
       </body>
     </html>
   );

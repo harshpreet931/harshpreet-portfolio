@@ -1,11 +1,61 @@
 @import "tailwindcss";
 
 @theme {
-  --color-dim: rgba(255, 255, 255, 0.7);
-  --color-dimmer: rgba(255, 255, 255, 0.35);
+  --color-dim: var(--dim-text);
+  --color-dimmer: var(--dimmer-text);
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-syne), sans-serif;
   --font-mono: var(--font-space-mono), monospace;
+}
+
+:root, [data-theme="sunshine"] {
+  /* Default to sunshine theme */
+  --bg-color: #f8fafc;
+  --text-color: #111111;
+  --dim-text: rgba(0, 0, 0, 0.6);
+  --dimmer-text: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --dim-text: rgba(255, 255, 255, 0.7);
+  --dimmer-text: rgba(255, 255, 255, 0.35);
+}
+
+[data-theme="oceanic"] {
+  --bg-color: #020617;
+  --text-color: #f0fdf4;
+  --dim-text: rgba(240, 253, 244, 0.7);
+  --dimmer-text: rgba(240, 253, 244, 0.4);
+}
+
+[data-theme="lavender"] {
+  --bg-color: #faf5ff;
+  --text-color: #2e1065;
+  --dim-text: rgba(46, 16, 101, 0.7);
+  --dimmer-text: rgba(46, 16, 101, 0.4);
+}
+
+[data-theme="sunset"] {
+  --bg-color: #2e090a;
+  --text-color: #ffffff;
+  --dim-text: rgba(255, 255, 255, 0.7);
+  --dimmer-text: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="emerald"] {
+  --bg-color: #022c22;
+  --text-color: #ecfdf5;
+  --dim-text: rgba(236, 253, 245, 0.7);
+  --dimmer-text: rgba(236, 253, 245, 0.4);
+}
+
+[data-theme="monochrome"] {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --dim-text: rgba(0, 0, 0, 0.6);
+  --dimmer-text: rgba(0, 0, 0, 0.4);
 }
 
 html, body {
@@ -16,10 +66,11 @@ html, body {
 
 body {
   font-family: var(--font-sans);
-  background: #000;
-  color: #fff;
+  background: var(--bg-color);
+  color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body::after {
