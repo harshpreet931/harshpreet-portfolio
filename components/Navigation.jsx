@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const navCls =
-  'bg-transparent border-none font-sans text-[11px]  no-underline font-medium cursor-pointer opacity-40 transition-opacity duration-300 p-0 uppercase hover:opacity-100';
+  'relative bg-transparent border-none font-sans text-[11px] no-underline font-medium cursor-pointer opacity-40 transition-opacity duration-500 ease-out p-0 uppercase hover:opacity-100 after:absolute after:bottom-[-2px] after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-500 after:ease-out after:bg-current';
 
 export function Navigation() {
   const pathname = usePathname();
@@ -40,11 +40,11 @@ export function Navigation() {
       </nav>
 
       <div className="flex justify-end gap-2 flex-1 max-sm:w-full max-sm:justify-start">
-        <a className="text-[8px]  no-underline font-medium" href="https://www.linkedin.com/in/harshpreet931" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LI</a>
-        <a className="text-[8px]  no-underline font-medium" href="https://github.com/harshpreet931" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
-        <a className="text-[8px]  no-underline font-medium" href="https://leetcode.com/harshpreet931" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">LC</a>
-        <a className="text-[8px]  no-underline font-medium" href="https://www.youtube.com/@ThatNotesGuy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
-        <a className="text-[8px]  no-underline font-medium" href="https://medium.com/@harshpreet0402" target="_blank" rel="noopener noreferrer" aria-label="Medium">MD</a>
+        <a className="text-[8px] no-underline font-medium opacity-40 hover:opacity-100 transition-all duration-500 ease-out hover:-translate-y-0.5" href="https://www.linkedin.com/in/harshpreet931" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LI</a>
+        <a className="text-[8px] no-underline font-medium opacity-40 hover:opacity-100 transition-all duration-500 ease-out hover:-translate-y-0.5" href="https://github.com/harshpreet931" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
+        <a className="text-[8px] no-underline font-medium opacity-40 hover:opacity-100 transition-all duration-500 ease-out hover:-translate-y-0.5" href="https://leetcode.com/harshpreet931" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">LC</a>
+        <a className="text-[8px] no-underline font-medium opacity-40 hover:opacity-100 transition-all duration-500 ease-out hover:-translate-y-0.5" href="https://www.youtube.com/@ThatNotesGuy" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
+        <a className="text-[8px] no-underline font-medium opacity-40 hover:opacity-100 transition-all duration-500 ease-out hover:-translate-y-0.5" href="https://medium.com/@harshpreet0402" target="_blank" rel="noopener noreferrer" aria-label="Medium">MD</a>
       </div>
     </header>
   );
