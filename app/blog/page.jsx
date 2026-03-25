@@ -1,6 +1,7 @@
 import { BLOG_DATA } from '@/data/blogs';
 import { BlogItem } from '@/components/BlogItem';
 import { PageTransition } from '@/components/PageTransition';
+import { FadeIn } from '@/components/FadeIn';
 
 export const metadata = {
   title: 'Blog',
@@ -22,13 +23,17 @@ export default function BlogPage() {
         <div className="grid grid-cols-2 gap-12 w-full max-md:grid-cols-1 max-sm:gap-10 pb-20">
           <div className="flex flex-col gap-10">
             {BLOG_DATA.slice(0, Math.ceil(BLOG_DATA.length / 2)).map((blog, idx) => (
-              <BlogItem key={idx} {...blog} />
+              <FadeIn key={idx} delay={0.1 + idx * 0.08}>
+                <BlogItem {...blog} />
+              </FadeIn>
             ))}
           </div>
 
           <div className="flex flex-col gap-10">
             {BLOG_DATA.slice(Math.ceil(BLOG_DATA.length / 2)).map((blog, idx) => (
-              <BlogItem key={idx} {...blog} />
+              <FadeIn key={idx} delay={0.14 + idx * 0.08}>
+                <BlogItem {...blog} />
+              </FadeIn>
             ))}
           </div>
         </div>

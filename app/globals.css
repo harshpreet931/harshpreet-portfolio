@@ -8,26 +8,18 @@
   --font-mono: var(--font-space-mono), monospace;
 }
 
-:root, [data-theme="sunshine"] {
-  /* Default to sunshine theme */
-  --bg-color: #f8fafc;
-  --text-color: #111111;
-  --dim-text: rgba(0, 0, 0, 0.6);
-  --dimmer-text: rgba(0, 0, 0, 0.4);
-}
-
-[data-theme="dark"] {
+:root, [data-theme="dark"] {
   --bg-color: #000000;
   --text-color: #ffffff;
   --dim-text: rgba(255, 255, 255, 0.7);
   --dimmer-text: rgba(255, 255, 255, 0.35);
 }
 
-[data-theme="oceanic"] {
-  --bg-color: #020617;
-  --text-color: #f0fdf4;
-  --dim-text: rgba(240, 253, 244, 0.7);
-  --dimmer-text: rgba(240, 253, 244, 0.4);
+[data-theme="sunshine"] {
+  --bg-color: #f8fafc;
+  --text-color: #111111;
+  --dim-text: rgba(0, 0, 0, 0.6);
+  --dimmer-text: rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="lavender"] {
@@ -37,25 +29,67 @@
   --dimmer-text: rgba(46, 16, 101, 0.4);
 }
 
-[data-theme="sunset"] {
-  --bg-color: #2e090a;
-  --text-color: #ffffff;
-  --dim-text: rgba(255, 255, 255, 0.7);
-  --dimmer-text: rgba(255, 255, 255, 0.4);
-}
-
-[data-theme="emerald"] {
-  --bg-color: #022c22;
-  --text-color: #ecfdf5;
-  --dim-text: rgba(236, 253, 245, 0.7);
-  --dimmer-text: rgba(236, 253, 245, 0.4);
-}
-
 [data-theme="monochrome"] {
   --bg-color: #ffffff;
   --text-color: #000000;
   --dim-text: rgba(0, 0, 0, 0.6);
   --dimmer-text: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="obsidian"] {
+  --bg-color: #14171D;
+  --text-color: #C9CED8;
+  --dim-text: rgba(201, 206, 216, 0.65);
+  --dimmer-text: rgba(201, 206, 216, 0.35);
+}
+
+[data-theme="cerulean"] {
+  --bg-color: #0A2540;
+  --text-color: #F6F9FC;
+  --dim-text: rgba(246, 249, 252, 0.7);
+  --dimmer-text: rgba(246, 249, 252, 0.4);
+}
+
+[data-theme="dawn"] {
+  --bg-color: #2A222E;
+  --text-color: #EEEFF1;
+  --dim-text: rgba(238, 239, 241, 0.65);
+  --dimmer-text: rgba(238, 239, 241, 0.35);
+}
+
+[data-theme="cyberpunk"] {
+  --bg-color: #0B0C10;
+  --text-color: #E0F7FA;
+  --dim-text: rgba(224, 247, 250, 0.65);
+  --dimmer-text: rgba(224, 247, 250, 0.35);
+}
+
+[data-theme="sand"] {
+  --bg-color: #F0EEE9;
+  --text-color: #2C2418;
+  --dim-text: rgba(44, 36, 24, 0.6);
+  --dimmer-text: rgba(44, 36, 24, 0.35);
+}
+
+[data-theme="rose"] {
+  --bg-color: #FFF5F5;
+  --text-color: #3B1A1A;
+  --dim-text: rgba(59, 26, 26, 0.6);
+  --dimmer-text: rgba(59, 26, 26, 0.35);
+}
+
+[data-theme="cocoa"] {
+  --bg-color: #1A1210;
+  --text-color: #EDE0D4;
+  --dim-text: rgba(237, 224, 212, 0.65);
+  --dimmer-text: rgba(237, 224, 212, 0.35);
+}
+
+[data-theme="arctic"] {
+  --bg-color: #F8FAFC;
+  --text-color: #0F172A;
+  --dim-text: rgba(15, 23, 42, 0.6);
+  --dimmer-text: rgba(15, 23, 42, 0.35);
 }
 
 html, body {
