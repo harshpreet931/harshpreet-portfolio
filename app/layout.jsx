@@ -1,4 +1,5 @@
 import { Inter, Syne, Space_Mono } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { Navigation } from '@/components/Navigation';
 import { MeshBackground } from '@/components/MeshBackground';
@@ -88,6 +89,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          strategy="afterInteractive"
+        />
         <ThemeProvider>
           <div className="relative w-screen h-dvh flex flex-col overflow-hidden p-6 max-sm:p-4">
             <MeshBackground />
