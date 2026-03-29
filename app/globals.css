@@ -3,9 +3,11 @@
 @theme {
   --color-dim: var(--dim-text);
   --color-dimmer: var(--dimmer-text);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-primary, var(--font-inter)), system-ui, sans-serif;
   --font-display: var(--font-syne), sans-serif;
   --font-mono: var(--font-space-mono), monospace;
+  --font-handwriting: var(--font-kalam), cursive;
+  --font-terminal: var(--font-vt323), monospace;
 }
 
 :root, [data-theme="dark"] {
@@ -92,6 +94,23 @@
   --dimmer-text: rgba(15, 23, 42, 0.35);
 }
 
+[data-theme="paper"] {
+  --bg-color: #fdf6e3;
+  --text-color: #3f4e5a;
+  --dim-text: rgba(63, 78, 90, 0.75);
+  --dimmer-text: rgba(63, 78, 90, 0.45);
+  --font-primary: var(--font-kalam);
+}
+
+[data-theme="terminal"] {
+  --bg-color: #050505;
+  --text-color: #33ff33;
+  --dim-text: rgba(51, 255, 51, 0.7);
+  --dimmer-text: rgba(51, 255, 51, 0.35);
+  --font-primary: var(--font-vt323);
+  text-shadow: 0 0 5px rgba(51, 255, 51, 0.5);
+}
+
 html, body {
   width: 100%;
   height: 100dvh;
@@ -114,11 +133,43 @@ body::after {
   left: -100%;
   width: 300%;
   height: 300%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3Base-in-out0.5 0.5 0 0 1 1 0z'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   opacity: 0.025;
   pointer-events: none;
   z-index: 999;
   animation: grain 8s steps(10) infinite;
+}
+
+[data-theme="paper"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: 
+    linear-gradient(transparent 95%, rgba(135, 206, 235, 0.6) 100%),
+    linear-gradient(90deg, transparent 60px, rgba(255, 99, 71, 0.4) 60px, rgba(255, 99, 71, 0.4) 62px, transparent 62px);
+  background-size: 100% 32px, 100% 100%;
+  background-position: 0 0, 0 0;
+  opacity: 0.8;
+}
+
+[data-theme="terminal"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 998;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.5;
+}
+
+[data-theme="terminal"]::after {
+  display: none;
 }
 
 @keyframes grain {

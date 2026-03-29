@@ -17,6 +17,8 @@ const THEMES = [
   { id: 'rose', label: 'Rose', color: '#DE5D83' },
   { id: 'arctic', label: 'Arctic', color: '#0070F3' },
   { id: 'monochrome', label: 'Monochrome', color: '#a3a3a3' },
+  { id: 'paper', label: 'Paper', color: '#fdf6e3' },
+  { id: 'terminal', label: 'Terminal', color: '#33ff33' },
 ];
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

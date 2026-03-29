@@ -1,4 +1,4 @@
-import { Inter, Syne, Space_Mono } from 'next/font/google';
+import { Inter, Syne, Space_Mono, Kalam, VT323 } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Navigation } from '@/components/Navigation';
@@ -24,6 +24,20 @@ const syne = Syne({
 const spaceMono = Space_Mono({
   subsets: ['latin'],
   variable: '--font-space-mono',
+  display: 'swap',
+  weight: ['400'],
+});
+
+const kalam = Kalam({
+  subsets: ['latin'],
+  variable: '--font-kalam',
+  display: 'swap',
+  weight: ['300', '400', '700'],
+});
+
+const vt323 = VT323({
+  subsets: ['latin'],
+  variable: '--font-vt323',
   display: 'swap',
   weight: ['400'],
 });
@@ -80,7 +94,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable} ${spaceMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${syne.variable} ${spaceMono.variable} ${kalam.variable} ${vt323.variable}`}>
       <head>
         <meta name="theme-color" content="#000000" />
         <script

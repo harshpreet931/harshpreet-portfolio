@@ -94,6 +94,20 @@ const themeConfig = {
     grainOverlay: 0.05,
     hasDarkOverlay: false,
   },
+  paper: {
+    colors: ['#fdf6e3', '#f5e8c7', '#eaf2d3', '#ffffff'],
+    bg: '#fdf6e3',
+    grainMixer: 0.05,
+    grainOverlay: 0.05,
+    hasDarkOverlay: false,
+  },
+  terminal: {
+    colors: ['#050505', '#0a0a0a', '#111111', '#001100'],
+    bg: '#050505',
+    grainMixer: 0.15,
+    grainOverlay: 0.15,
+    hasDarkOverlay: true,
+  },
 };
 
 function getCustomConfig(customColors) {
