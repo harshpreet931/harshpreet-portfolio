@@ -1,0 +1,223 @@
+---
+title: "Dijkstra's Algorithm is Actually Super Simple"
+date: "Jan 6, 2025"
+description: "in short: dijkstra is like BFS, but instead of a queue, we use a priority queue to always expand the node with the smallest current distance."
+tags: ["algorithms", "graphs", "java"]
+mediumUrl: "https://medium.com/@harshpreet0402/dijkstras-algorithm-is-actually-super-simple-72ad10e3b52b"
+---
+
+in short: dijkstra is like BFS, but instead of a queue, we use a priority queue to always expand the node with the smallest current distance. you can probably end reading here itself.
+
+in length: you know that feeling when you hear "Dijkstra's algorithm" and your brain immediately thinks "graphs, shortest paths, priority queues" sounds complicated on the surface! even intimidating if you're prepping for interviews or just diving into algorithms.
+
+once you peel back the layers, Dijkstra's is *super* straightforward. it's like BFS but with a smart way to always pick the "**cheapest**" next step. just greedy choices that work because of some clever math. its all about understanding the intuition.
+
+![Dijkstra's Algorithm Visualized and Explained by Carl the Person](/blog/dijkstras-algorithm/img-01.jpg)
+
+## how dijkstra came up with this gem of an algo.
+
+Edsger W. Dijkstra, a Dutch computer scientist, invented this algorithm in 1956. Legend has it, he was chilling in a café in Amsterdam, pondering the shortest route from Rotterdam to Groningen for a road trip. No computer involved he sketched it on paper in 20 minutes! He published it in 1959 as part of showcasing a new computer called ARMAC.
+
+Dijkstra was a brilliant, opinionated guy famous for "Go To Statement Considered Harmful" and structured programming. His algorithm solved the shortest path problem for graphs with non negative edge weights, building on ideas from Bellman Ford but making it efficient with a priority queue.
+
+## the intuition✨ why dijkstra works
+
+Imagine you're in a city (graph), starting at home (source node), wanting the shortest drive to everywhere. Roads have distances (weights). You don't want to explore far off places first you prioritize the closest unvisited spot.
+
+Start at source with distance 0. Use a priority queue to always expand the nearest node. "**Relax**" neighbors by checking if a shorter path exists through the current node. Mark visited once processed.
+
+Key assumptions:
+
+- Non-negative weights (no negative edges, or it'd fail use Bellman-Ford for that).
+- Graph is directed or undirected, but connected.
+
+It's greedy. Always picks the smallest distance next, and because weights are positive, once a node is popped, its distance is final (optimal substructure).
+
+Suppose graph: A (source) connected to B (1), C (4). B to C (2), D (6). C to D (3).
+
+1. Init: dist[A]=0, others=∞ (why ∞ cause we are blind to other paths currently) PQ: A(0).
+2. Pop A. Relax B(1), C(4). PQ: B(1), C(4).
+3. Pop B. Relax C (via B: 1+2=3 &lt;4, update), D(1+6=7). PQ: C(3), D(7).
+4. Pop C. Relax D (3+3=6 &lt;7, update). PQ: D(6).
+5. Pop D. Done.
+
+Shortest: A:0, B:1, C:3, D:6.
+
+See? Just update as you go, always picking closest.
+
+## pseudocode
+
+```
+function dijkstra(graph, source):
+
+    dist = array of size V, initialized to infinity
+
+    dist[source] = 0
+
+    prev = array to track path, optional
+
+    pq = priority_queue()  // min-heap by distance
+
+    pq.insert(source, 0)
+
+    visited = set()  // or array
+
+    while pq not empty:
+
+        u = pq.extract_min()  // node with smallest dist
+
+        if u in visited: continue
+
+        visited.add(u)
+
+        for each neighbor v of u:
+
+            alt = dist[u] + weight(u, v)
+
+            if alt < dist[v]:
+
+                dist[v] = alt
+
+                prev[v] = u
+
+                pq.insert_or_update(v, alt)  // decrease key if exists
+
+    return dist  // or reconstruct paths using prev
+```
+
+The "decrease key" is key, in Java, we use PriorityQueue, but it doesn't support decrease, so we add duplicates and skip visited.
+
+## java Implementation
+
+will use adjacency list for graph, PriorityQueue for minheap.
+
+```java
+import java.util.*;
+
+class Graph
+{
+    private int V;
+    private List<List<Node>> adj;
+
+    class Node
+    {
+        int vertex;
+        int weight;
+        Node(int v, int w) { vertex = v; weight = w; }
+    }
+
+    Graph(int vertices)
+    {
+        V = vertices;
+        adj = new ArrayList<>();
+        for (int i = 0; i < V; i++) adj.add(new ArrayList<>());
+    }
+
+    void addEdge(int u, int v, int w)
+    {
+        adj.get(u).add(new Node(v, w));
+        // adj.get(v).add(new Node(u, w)); // if undirected
+    }
+
+    int[] dijkstra(int source)
+    {
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[source] = 0;
+
+        PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.weight - b.weight);
+        pq.add(new Node(source, 0));
+
+        boolean[] visited = new boolean[V];
+
+        while (!pq.isEmpty())
+        {
+            Node curr = pq.poll();
+            int u = curr.vertex;
+
+            if (visited[u]) continue;
+            visited[u] = true;
+
+            for (Node neighbor : adj.get(u))
+            {
+                int v = neighbor.vertex;
+                int w = neighbor.weight;
+
+                if (!visited[v] && dist[u] + w < dist[v])
+                {
+                    dist[v] = dist[u] + w;
+                    pq.add(new Node(v, dist[v]));
+                }
+            }
+        }
+
+        return dist;
+    }
+}
+```
+
+Dijkstra shines in shortest path problems with costs.
+
+## Network Delay Time (LeetCode 743)
+
+Problem: Given times[][] (u, v, w), N nodes, K source. Find max time for signal to reach all nodes, or -1.
+
+Why Dijkstra? Classic single source shortest path for delays.
+
+Logic:
+
+- Graph: `List<List<int[]>>` with `[v, w]`.
+- PQ: `int[] {node, dist}`.
+- Skip if d > dist[u] (handles duplicates).
+- After Dijkstra, compute max(dist[1..n]), return -1 if any INF.
+
+Key Condition: `if (dist[u] + w < dist[v])` update and add to PQ.
+
+## Cheapest Flights Within K Stops (LeetCode 787)
+
+Problem: Find cheapest price from src to dst with at most K stops.
+
+Why Dijkstra? Shortest cost with hop limit and add stops to state.
+
+Logic:
+
+- PQ: `int[] {node, cost, stops}`.
+- Early return if u == dst: return cost.
+- Continue if stops > k.
+- Update dist[v] but add to PQ even if not visited (allow outdated for efficiency).
+
+Key Condition: `if (cost + w < dist[v])` update dist[v], but push old cost version.
+
+## Path With Minimum Effort (LeetCode 1631)
+
+Problem: Grid heights, min max-effort path (abs diff).
+
+Why Dijkstra? Model as graph, minimize max edge weight along path.
+
+Logic:
+
+- Directions: dx/dy for 4-neighbors.
+- dist[][] for grid.
+- Effort: `newEffort = Math.max(effort, abs(heights[x][y] - heights[nx][ny]))`.
+- PQ: `int[] {x, y, effort}`.
+- Early return if x,y == bottom-right: return effort.
+
+Key Condition: `if (newEffort < dist[nx][ny])` update and push.
+
+## Shortest Path Visiting All Nodes (LeetCode 847)
+
+Problem: Undirected graph, shortest path visiting every node (revisits ok).
+
+Why Dijkstra? This is BFS on an expanded state space, conceptually similar to shortest-path DP.
+
+Logic:
+
+- Target mask: `(1 << n) - 1`.
+- Queue: `int[] {node, mask, dist}` (use LinkedList for BFS, since costs=1).
+- visited[node][mask] to avoid revisits in state.
+- Multi-start: enqueue all nodes initially with their bit.
+- Return when mask == target.
+
+Key Condition: `newMask = mask | (1 << v); if (!visited[v][newMask])` enqueue.
+
+Note: This is BFS (not PQ) since edges=1, but Dijkstra-like with states. O(N² * 2^N).
