@@ -1,0 +1,548 @@
+---
+title: "Master Trees: The Complete Guide to Coding Interviews"
+date: "Oct 27, 2024"
+description: "From basic traversals to complex dynamic programming solutions, trees can be found everywhere, yes even in your interviews."
+tags: ["data structures", "trees", "java", "interview prep"]
+mediumUrl: "https://medium.com/@harshpreet0402/master-trees-the-complete-guide-to-crush-your-coding-interviews-binary-tree-bonus-interview-a362271544b4"
+---
+
+![All the images in this article are made by me :)](/blog/master-trees/img-01.png)
+*All the images in this article are made by me :)*
+
+From basic traversals to complex dynamic programming solutions trees can be found everywhere, yes even in your interviews 😊. Here is a guide to know all about what tress are, types of trees and the common questions.
+
+## What is a Tree?
+
+Its it a **hierarchical**, **non-linear data structure** that consists of nodes connected by edges and it doesn't contain any cycles! Otherwise, it would become a proper graph. (Tree is still a graph just with no cycles!). They resemble the natural trees we look at. Even though I think many programmers don't look at trees that often…
+
+## Common Tree Terminologies:
+
+**Node**: Building block of a tree. Each node contains data and references (or pointers) to its child nodes.
+
+**Root**: The topmost node in the tree. Every tree has exactly one root and is called a Rooted tree.
+
+**Edge**: The connection between two nodes.
+
+**Child**: A node that is a descendant of another node or parent.
+
+**Parent**: A node that has children.
+
+**Leaf**: A node that has no children.
+
+**Subtree**: A tree formed within a tree but with a different root.
+
+**Depth**: The number of edges from root to the node.
+
+**Height**: The number of edges from the node to the deepest leaf.
+
+## Types of Trees:
+
+**Binary Tree**: (Our most commonly used tree along with BSTs) Each node has at most 2 children, left and right.
+
+![Binary Tree](/blog/master-trees/img-02.png)
+
+**Binary Search Tree (BST):** A binary tree but with the additional property that the left subtree of a node contains only nodes with values less than the node's value and the right subtree contains nodes with values greater that the node's value.
+
+![Binary Search Tree](/blog/master-trees/img-03.png)
+
+**Balanced Trees:** These are a type of trees that ensure that the tree height (optimally ≤ 1) is kept low to maintain efficient operations like search, insertion and deletions. AVL trees maintain a STRICT balance, while Red Black are a little relaxed.
+
+![Balanced Trees](/blog/master-trees/img-04.png)
+
+**Heap:** A special binary tree used to implement Priority Queues, heaps are Min-heap or Max-heap, where the root node is minimum or maximum.
+
+![Heap](/blog/master-trees/img-05.png)
+
+**Trie (Prefix Tree):** A tree used to store strings where each node represents a character of the string. It's useful for fast lookups, autocomplete feature (yes really) and dictionary type problems.
+
+![Trie](/blog/master-trees/img-06.png)
+
+**Segment Tree:** Used to store intervals or segments. (Used in range problems)
+
+![Example taken from -> Segment Tree — Algorithms for Competitive Programming](/blog/master-trees/img-07.png)
+*Example taken from -> Segment Tree — Algorithms for Competitive Programming*
+
+**N-ary Tree:** Trees with n children. Like Trie can be a 26-ary Tree.
+
+## Tree Traversal Algorithms:
+
+**Pre-order Traversal (Root -> Left -> Right):**
+
+![Pre-order Traversal](/blog/master-trees/img-08.png)
+
+**In-order Traversal (Left -> Root -> Right):**
+
+![In-order Traversal](/blog/master-trees/img-09.png)
+
+**Post-order Traversal (Left -> Right -> Root):**
+
+![Post-order Traversal](/blog/master-trees/img-10.png)
+
+**Level-order Traversal (Breadth-First-Search):**
+
+![Level-order Traversal](/blog/master-trees/img-11.png)
+
+In this Article, I will discuss everything to know about Binary Search Trees… For the rest of the tree versions, I will make more Articles 😊!
+
+## Binary Tree
+
+A **binary tree** is a hierarchical data structure in which each node has at most two children. These children are referred to as the **left child** and the **right child**.
+
+## Key Properties
+
+- **Maximum Number of Nodes at Level 'L'**: A binary tree at level 'L' can have a maximum of 2^L nodes.
+- **Maximum Number of Nodes in a Binary Tree with Height 'h'**: The maximum number of nodes in a binary tree is 2^(h+1) − 1, where h is the height of the tree.
+- **Minimum Height of a Binary Tree with 'n' Nodes**: The minimum height of a binary tree with 'n' nodes is log_2(n+1)−1.
+- **Full Binary Tree**: Every node has either 0 or 2 children.
+
+![Full Binary Tree](/blog/master-trees/img-12.png)
+
+- **Complete Binary Tree**: All levels are fully filled except for possibly the last level, which is filled from left to right.
+
+![Complete Binary Tree](/blog/master-trees/img-13.png)
+
+- **Perfect Binary Tree**: All internal nodes have two children, and all leaves are at the same level.
+
+![Perfect Binary Tree](/blog/master-trees/img-14.png)
+
+- **Balanced Binary Tree**: The difference between the heights of the left and right subtrees of any node is not more than 1. A balanced tree ensures `O(log n)` time complexity for a few operations. Without balancing, a binary tree can degrade to a linked list, leading to `O(n)` operations.
+- **Degenerate Tree (Skewed Tree)**: A tree where each parent has only one child, resembling a linked list.
+
+## Applications of Binary Trees
+
+- BSTs
+- Heaps (Binary heaps)
+- Expression Trees
+- Huffman Trees
+- Tries
+- Decision Trees
+
+and more..
+
+## Construction of a Binary Tree
+
+```java
+class TreeNode
+{
+    int data;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int data)
+    {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+public class BinaryTree
+{
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        System.out.println("Preorder traversal of binary tree is ");
+        preorder(root);
+
+        System.out.println("Inorder traversal of binary tree is ");
+        inorder(root);
+
+        System.out.println("Postorder traversal of binary tree is ");
+        postorder(root);
+    }
+
+    public static void inorder(TreeNode root)
+    {
+        if(root == null) return;
+        inorder(root.left);
+        System.out.println(root.data);
+        inorder(root.right);
+    }
+
+    public static void preorder(TreeNode root)
+    {
+        if(root == null) return;
+        System.out.println(root.data);
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+    public static void postorder(TreeNode root)
+    {
+        if(root == null) return;
+        postorder(root.left);
+        postorder(root.right);
+        System.out.println(root.data);
+    }
+}
+```
+
+## Common Interview Questions
+
+**Invert Binary Tree — LeetCode**
+
+```java
+TreeNode invertTree(TreeNode node) {
+    if (node == null) return null;
+    TreeNode temp = node.left;
+    node.left = node.right;
+    node.right = temp;
+    invertTree(node.left);
+    invertTree(node.right);
+    return node;
+}
+```
+
+**Balanced Binary Tree — LeetCode**
+
+```java
+boolean isBalanced(TreeNode node) {
+    return height(node) != -1;
+}
+
+int height(TreeNode node) {
+    if (node == null) return 0;
+    int left = height(node.left);
+    int right = height(node.right);
+    if (left == -1 || right == -1 || Math.abs(left - right) > 1) return -1;
+    return Math.max(left, right) + 1;
+}
+```
+
+**Diameter of Binary Tree — LeetCode**
+
+```java
+int diameter(TreeNode root) {
+    int[] maxDiameter = new int[1];
+    height(root, maxDiameter);
+    return maxDiameter[0];
+}
+
+int height(TreeNode node, int[] maxDiameter) {
+    if (node == null) return 0;
+    int left = height(node.left, maxDiameter);
+    int right = height(node.right, maxDiameter);
+    maxDiameter[0] = Math.max(maxDiameter[0], left + right);
+    return Math.max(left, right) + 1;
+}
+```
+
+**Maximum Depth of Binary Tree — LeetCode**
+
+```java
+int maxDepth(TreeNode node) {
+    if (node == null) return 0;
+    return Math.max(maxDepth(node.left), maxDepth(node.right)) + 1;
+}
+```
+
+**Same Tree — LeetCode**
+
+```java
+boolean isSameTree(TreeNode p, TreeNode q) {
+    if (p == null && q == null) return true;
+    if (p == null || q == null || p.val != q.val) return false;
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+}
+```
+
+**Symmetric Tree — LeetCode**
+
+```java
+boolean isSameTree(TreeNode p, TreeNode q) {
+    if (p == null && q == null) return true;
+    if (p == null || q == null || p.val != q.val) return false;
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+}
+```
+
+**Subtree of Another Tree — LeetCode**
+
+```java
+boolean isSubtree(TreeNode s, TreeNode t) {
+    if (s == null) return false;
+    if (isSameTree(s, t)) return true;
+    return isSubtree(s.left, t) || isSubtree(s.right, t);
+}
+```
+
+**Binary Tree Level Order Traversal — LeetCode**
+
+```java
+List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        List<Integer> level = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            TreeNode node = queue.poll();
+            level.add(node.val);
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+        result.add(level);
+    }
+
+    return result;
+}
+```
+
+**Lowest Common Ancestor of a Binary Tree — LeetCode**
+
+```java
+TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null || root == p || root == q) return root;
+    TreeNode left = lowestCommonAncestor(root.left, p, q);
+    TreeNode right = lowestCommonAncestor(root.right, p, q);
+    if (left != null && right != null) return root;
+    return left != null ? left : right;
+}
+```
+
+**Binary Tree Right Side View — LeetCode**
+
+```java
+List<Integer> rightSideView(TreeNode root) {
+    List<Integer> result = new ArrayList<>();
+    if (root == null) return result;
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        for (int i = 0; i < size; i++) {
+            TreeNode node = queue.poll();
+            if (i == size - 1) result.add(node.val);
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+    }
+
+    return result;
+}
+```
+
+**Construct Binary Tree from Preorder and Inorder Traversal — LeetCode**
+
+```java
+TreeNode buildTree(int[] preorder, int[] inorder) {
+    return build(preorder, inorder, 0, 0, inorder.length - 1);
+}
+
+TreeNode build(int[] preorder, int[] inorder, int preStart, int inStart, int inEnd) {
+    if (preStart >= preorder.length || inStart > inEnd) return null;
+    TreeNode root = new TreeNode(preorder[preStart]);
+    int inIndex = 0;
+    for (int i = inStart; i <= inEnd; i++) {
+        if (inorder[i] == root.val) inIndex = i;
+    }
+    root.left = build(preorder, inorder, preStart + 1, inStart, inIndex - 1);
+    root.right = build(preorder, inorder, preStart + inIndex - inStart + 1, inIndex + 1, inEnd);
+    return root;
+}
+```
+
+**Path Sum II — LeetCode**
+
+```java
+List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+    List<List<Integer>> result = new ArrayList<>();
+    dfs(root, targetSum, new ArrayList<>(), result);
+    return result;
+}
+
+void dfs(TreeNode node, int target, List<Integer> path, List<List<Integer>> result) {
+    if (node == null) return;
+    path.add(node.val);
+    if (node.left == null && node.right == null && node.val == target) {
+        result.add(new ArrayList<>(path));
+    } else {
+        dfs(node.left, target - node.val, path, result);
+        dfs(node.right, target - node.val, path, result);
+    }
+    path.remove(path.size() - 1);
+}
+```
+
+**Maximum Width of Binary Tree — LeetCode**
+
+```java
+int widthOfBinaryTree(TreeNode root) {
+    if (root == null) return 0;
+    Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+    queue.add(new Pair<>(root, 0));
+    int maxWidth = 0;
+
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        int min = queue.peek().getValue();
+        int first = 0, last = 0;
+        for (int i = 0; i < size; i++) {
+            Pair<TreeNode, Integer> pair = queue.poll();
+            TreeNode node = pair.getKey();
+            int index = pair.getValue() - min;
+            if (i == 0) first = index;
+            if (i == size - 1) last = index;
+            if (node.left != null) queue.add(new Pair<>(node.left, 2 * index));
+            if (node.right != null) queue.add(new Pair<>(node.right, 2 * index + 1));
+        }
+        maxWidth = Math.max(maxWidth, last - first + 1);
+    }
+
+    return maxWidth;
+}
+```
+
+**Binary Tree Zigzag Level Order Traversal — LeetCode**
+
+```java
+List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+    boolean leftToRight = true;
+
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        LinkedList<Integer> level = new LinkedList<>();
+        for (int i = 0; i < size; i++) {
+            TreeNode node = queue.poll();
+            if (leftToRight) {
+                level.addLast(node.val);
+            } else {
+                level.addFirst(node.val);
+            }
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+        result.add(level);
+        leftToRight = !leftToRight;
+    }
+
+    return result;
+}
+```
+
+**Path Sum III — LeetCode**
+
+```java
+int pathSum(TreeNode root, int targetSum) {
+    if (root == null) return 0;
+    return countPaths(root, targetSum) + pathSum(root.left, targetSum) + pathSum(root.right, targetSum);
+}
+
+int countPaths(TreeNode node, int target) {
+    if (node == null) return 0;
+    int count = (node.val == target ? 1 : 0);
+    count += countPaths(node.left, target - node.val);
+    count += countPaths(node.right, target - node.val);
+    return count;
+}
+```
+
+**All Nodes Distance K in Binary Tree — LeetCode**
+
+```java
+List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
+    Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+    findParents(root, null, parentMap);
+    return findKDistanceNodes(target, K, parentMap);
+}
+
+void findParents(TreeNode node, TreeNode parent, Map<TreeNode, TreeNode> parentMap) {
+    if (node != null) {
+        parentMap.put(node, parent);
+        findParents(node.left, node, parentMap);
+        findParents(node.right, node, parentMap);
+    }
+}
+
+List<Integer> findKDistanceNodes(TreeNode target, int K, Map<TreeNode, TreeNode> parentMap) {
+    List<Integer> result = new ArrayList<>();
+    Set<TreeNode> visited = new HashSet<>();
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(target);
+    visited.add(target);
+    int currentLevel = 0;
+
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        if (currentLevel == K) {
+            for (TreeNode node : queue) result.add(node.val);
+            return result;
+        }
+        for (int i = 0; i < size; i++) {
+            TreeNode node = queue.poll();
+            if (node.left != null && visited.add(node.left)) queue.add(node.left);
+            if (node.right != null && visited.add(node.right)) queue.add(node.right);
+            TreeNode parent = parentMap.get(node);
+            if (parent != null && visited.add(parent)) queue.add(parent);
+        }
+        currentLevel++;
+    }
+
+    return result;
+}
+```
+
+**Serialize and Deserialize Binary Tree — LeetCode**
+
+```java
+// Serialize
+String serialize(TreeNode root) {
+    if (root == null) return "null,";
+    return root.val + "," + serialize(root.left) + serialize(root.right);
+}
+
+// Deserialize
+TreeNode deserialize(String data) {
+    Queue<String> nodes = new LinkedList<>(Arrays.asList(data.split(",")));
+    return buildTree(nodes);
+}
+
+TreeNode buildTree(Queue<String> nodes) {
+    String val = nodes.poll();
+    if (val.equals("null")) return null;
+    TreeNode node = new TreeNode(Integer.parseInt(val));
+    node.left = buildTree(nodes);
+    node.right = buildTree(nodes);
+    return node;
+}
+```
+
+**Binary Tree Maximum Path Sum — LeetCode**
+
+```java
+int maxPathSum(TreeNode root) {
+    int[] maxSum = new int[1];
+    maxSum[0] = Integer.MIN_VALUE;
+    findMax(root, maxSum);
+    return maxSum[0];
+}
+
+int findMax(TreeNode node, int[] maxSum) {
+    if (node == null) return 0;
+    int left = Math.max(0, findMax(node.left, maxSum));
+    int right = Math.max(0, findMax(node.right, maxSum));
+    maxSum[0] = Math.max(maxSum[0], node.val + left + right);
+    return node.val + Math.max(left, right);
+}
+```
+
+All these questions can be found in Grind75 as well :)!
+
+More articles to know deeper about Trees coming soon! Till then, Happy Diwali!
+
+Love you all,
+
+Harshpreet Singh
