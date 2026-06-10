@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { MotionConfig } from 'framer-motion';
 import { hexToRgb } from '@/utils/colorUtils';
 
 const ThemeContext = createContext();
@@ -30,7 +31,7 @@ function applyCustomColors(colors) {
   el.style.setProperty('--bg-color', colors.bg);
   el.style.setProperty('--text-color', colors.text);
   el.style.setProperty('--dim-text', `rgba(${tr}, ${tg}, ${tb}, 0.65)`);
-  el.style.setProperty('--dimmer-text', `rgba(${tr}, ${tg}, ${tb}, 0.35)`);
+  el.style.setProperty('--dimmer-text', `rgba(${tr}, ${tg}, ${tb}, 0.45)`);
 }
 
 function clearCustomColors() {
@@ -109,7 +110,11 @@ export function ThemeProvider({ children }) {
     monthlyTheme: getMonthlyTheme(),
   };
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </ThemeContext.Provider>
+  );
 }
 
 export function useTheme() {

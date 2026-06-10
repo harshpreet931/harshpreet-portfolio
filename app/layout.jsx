@@ -45,7 +45,7 @@ const vt323 = VT323({
 export const metadata = {
   metadataBase: new URL('https://harshpreet.com'),
   title: {
-    default: 'Harshpreet Singh: SDE Intern @Juspay',
+    default: 'Harshpreet Singh — Software Engineer',
     template: '%s: Harshpreet Singh',
   },
   description: 'Harshpreet Singh, Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
@@ -57,13 +57,13 @@ export const metadata = {
     locale: 'en_US',
     url: 'https://harshpreet.com',
     siteName: 'Harshpreet Singh',
-    title: 'Harshpreet Singh: SDE Intern @Juspay',
+    title: 'Harshpreet Singh — Software Engineer',
     description: 'Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Harshpreet Singh: SDE Intern @Juspay',
+    title: 'Harshpreet Singh — Software Engineer',
     description: 'Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
     images: ['/og-image.png'],
   },
@@ -73,6 +73,9 @@ export const metadata = {
   },
   alternates: {
     canonical: 'https://harshpreet.com',
+    types: {
+      'application/rss+xml': 'https://harshpreet.com/feed.xml',
+    },
   },
 };
 
@@ -82,7 +85,10 @@ const jsonLd = {
   name: 'Harshpreet Singh',
   url: 'https://harshpreet.com',
   jobTitle: 'Software Development Engineer',
-  alumniOf: 'Juspay',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Juspay',
+  },
   sameAs: [
     'https://linkedin.com/in/harshpreet931',
     'https://github.com/harshpreet931',
@@ -92,11 +98,17 @@ const jsonLd = {
   description: 'Software Development Engineer building agentic AI systems and high-performance applications.',
 };
 
+// Runs before first paint so the page never flashes the default theme
+// while ThemeProvider waits for hydration. Theme list must match
+// MONTHLY_THEMES in hooks/ThemeContext.jsx.
+const themeInitScript = `(function(){try{var m=['arctic','rose','lavender','sand','sunshine','cyberpunk','cerulean','dark','cocoa','dawn','obsidian','monochrome'];var t=m[new Date().getMonth()];var s=localStorage.getItem('theme-preference');if(s){var p=JSON.parse(s);if(p&&p.theme&&p.month===new Date().getMonth())t=p.theme;}var el=document.documentElement;el.setAttribute('data-theme',t);if(t==='custom'){var c=JSON.parse(localStorage.getItem('custom-theme'));if(c&&c.bg&&c.text){var n=parseInt(c.text.slice(1),16);var r=(n>>16)&255,g=(n>>8)&255,b=n&255;el.style.setProperty('--bg-color',c.bg);el.style.setProperty('--text-color',c.text);el.style.setProperty('--dim-text','rgba('+r+','+g+','+b+',0.65)');el.style.setProperty('--dimmer-text','rgba('+r+','+g+','+b+',0.45)');}}}catch(e){}})()`;
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable} ${spaceMono.variable} ${kalam.variable} ${vt323.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${syne.variable} ${spaceMono.variable} ${kalam.variable} ${vt323.variable}`}>
       <head>
         <meta name="theme-color" content="#000000" />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -109,12 +121,13 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
         <ThemeProvider>
+          <a href="#main" className="skip-link">Skip to content</a>
           <div className="relative w-screen h-dvh flex flex-col overflow-hidden p-6 max-sm:p-4">
             <MeshBackground />
             <Navigation />
-            <div className="relative z-10 mt-[4vh] grow">
+            <main id="main" className="relative z-10 mt-[4vh] grow">
               {children}
-            </div>
+            </main>
             <Footer />
             <ThemeSwitcher />
           </div>

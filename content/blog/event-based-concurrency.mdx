@@ -31,7 +31,7 @@ The answer is surprisingly simple. It's an architectural pattern known as the **
 
 Here is the entire philosophy captured in a few lines of pseudocode:
 
-![Event loop pseudocode](/blog/event-based-concurrency/img-01.png)
+![Event loop pseudocode](/blog/event-based-concurrency/img-01.webp)
 
 Breaking this down:-
 
@@ -44,7 +44,7 @@ This turns scheduling on its head. Instead of the OS deciding what runs next, **
 
 This can be visualized as a simple, diligent process.
 
-![A conceptual flowchart of the basic Event Loop.](/blog/event-based-concurrency/img-02.png)
+![A conceptual flowchart of the basic Event Loop.](/blog/event-based-concurrency/img-02.webp)
 *A conceptual flowchart of the basic Event Loop.*
 
 This model immediately solves our lock problem. With a single thread of execution, there is no shared memory concurrency. You cannot have a race condition if there's only one runner in the race. **No locks are needed.**
@@ -57,7 +57,7 @@ To implement an event loop, we need a mechanism to monitor multiple I/O sources 
 
 This is precisely what the **select()** and **poll()** system calls provide. They are the engine of the event loop. Let's examine select(), the classic API:
 
-![select() API signature](/blog/event-based-concurrency/img-03.png)
+![select() API signature](/blog/event-based-concurrency/img-03.webp)
 
 Don't be intimidated by the C declaration. The concept is straightforward:
 
@@ -76,7 +76,7 @@ You give select() three sets of file descriptors (which, in Unix, can represent 
 
 Here is a sequence diagram illustrating this flow for a web server handling two clients.
 
-![select() sequence diagram for a web server handling two clients](/blog/event-based-concurrency/img-04.png)
+![select() sequence diagram for a web server handling two clients](/blog/event-based-concurrency/img-04.webp)
 
 *The select() system call acts as the gatekeeper, waking the application only when there is work to do.*
 
@@ -112,14 +112,14 @@ Modern operating systems provide exactly these kinds of APIs. A typical flow loo
 
 This fundamental difference between synchronous and asynchronous I/O is the key to preserving the responsiveness of an event driven server.
 
-![Synchronous vs Asynchronous I/O comparison](/blog/event-based-concurrency/img-05.png)
+![Synchronous vs Asynchronous I/O comparison](/blog/event-based-concurrency/img-05.webp)
 *Asynchronous I/O is the antidote to the blocking call poison, allowing the event loop to remain active.*
 
 ## Manual Stack Management
 
 This asynchronous power comes at a cost, and it is a cognitive one. Consider a simple task in a threaded program: read from a file, then write that data to a network socket.
 
-![Threaded code for read-then-write](/blog/event-based-concurrency/img-06.png)
+![Threaded code for read-then-write](/blog/event-based-concurrency/img-06.webp)
 
 The state the socket_fd we need for the second step is implicitly saved on the thread's stack. When read() returns, the context is perfectly preserved.
 
@@ -135,7 +135,7 @@ This is what researchers call **manual stack management**. In a threaded model, 
 
 The solution is to create a **continuation**: a data structure that explicitly saves the state you'll need to *continue* the operation later.
 
-![Continuation data structure for manual stack management](/blog/event-based-concurrency/img-07.png)
+![Continuation data structure for manual stack management](/blog/event-based-concurrency/img-07.webp)
 
 This explicit state management is the price of control. It makes the code more complex and harder to follow than its simple, linear, threaded counterpart. This is the fundamental trade-off of the event-based model.
 
@@ -151,7 +151,7 @@ The pure, single threaded, lock free model is beautiful, but the world has chang
 
 Event based concurrency is not a silver bullet. It trades the implicit complexity of threads and schedulers for the explicit complexity of asynchronous logic and manual state management.
 
-![Event-based vs Thread-based comparison](/blog/event-based-concurrency/img-08.png)
+![Event-based vs Thread-based comparison](/blog/event-based-concurrency/img-08.webp)
 
 Despite its challenges, the event-based pattern has not only endured but thrived. It is the beating heart of **Node.js**, which brought event-driven programming to the masses. It is the secret to **Nginx's** ability to handle immense traffic with a tiny memory footprint. And its principles are now central to modern asynchronous frameworks in languages like Python (asyncio) and Rust (tokio).
 

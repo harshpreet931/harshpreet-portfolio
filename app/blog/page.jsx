@@ -1,4 +1,4 @@
-import { BLOG_DATA } from '@/data/blogs';
+import { getAllPosts } from '@/lib/blog';
 import { BlogItem } from '@/components/BlogItem';
 import { PageTransition } from '@/components/PageTransition';
 import { FadeIn } from '@/components/FadeIn';
@@ -16,23 +16,25 @@ export const metadata = {
   },
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getAllPosts();
+
   return (
     <PageTransition>
       <div className="absolute inset-0 overflow-y-auto pr-4 scrollbar-hide">
         <div className="grid grid-cols-2 gap-12 w-full max-md:grid-cols-1 max-sm:gap-10 pb-20">
           <div className="flex flex-col gap-10">
-            {BLOG_DATA.slice(0, Math.ceil(BLOG_DATA.length / 2)).map((blog, idx) => (
-              <FadeIn key={idx} delay={0.1 + idx * 0.08}>
-                <BlogItem {...blog} />
+            {posts.slice(0, Math.ceil(posts.length / 2)).map((post, idx) => (
+              <FadeIn key={post.slug} delay={0.1 + idx * 0.08}>
+                <BlogItem {...post} />
               </FadeIn>
             ))}
           </div>
 
           <div className="flex flex-col gap-10">
-            {BLOG_DATA.slice(Math.ceil(BLOG_DATA.length / 2)).map((blog, idx) => (
-              <FadeIn key={idx} delay={0.14 + idx * 0.08}>
-                <BlogItem {...blog} />
+            {posts.slice(Math.ceil(posts.length / 2)).map((post, idx) => (
+              <FadeIn key={post.slug} delay={0.14 + idx * 0.08}>
+                <BlogItem {...post} />
               </FadeIn>
             ))}
           </div>

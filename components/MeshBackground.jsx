@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useTheme } from '@/hooks/ThemeContext';
 import { generateMeshColors, isColorDark } from '@/utils/colorUtils';
@@ -125,13 +126,28 @@ function getCustomConfig(customColors) {
 
 export function MeshBackground() {
   const { theme, customColors } = useTheme();
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mq.matches);
+    const onChange = (e) => setReducedMotion(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   const config = theme === 'custom'
     ? getCustomConfig(customColors)
     : (themeConfig[theme] || themeConfig.dark);
 
   return (
-    <div className="bg absolute inset-0 z-0 transition-colors duration-500" style={{ backgroundColor: config.bg }}>
+    <div
+      className="bg absolute inset-0 z-0 transition-colors duration-500"
+      style={{
+        backgroundColor: config.bg,
+        backgroundImage: `radial-gradient(ellipse 120% 90% at 70% 20%, ${config.colors[2]} 0%, ${config.colors[1]} 45%, ${config.bg} 100%)`,
+      }}
+    >
       {config.hasDarkOverlay && <div className="absolute inset-0 z-[1]" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.8) 100%)' }} />}
       <MeshGradient
         width={1280}
@@ -142,7 +158,7 @@ export function MeshBackground() {
         swirl={0.35}
         grainMixer={config.grainMixer}
         grainOverlay={config.grainOverlay}
-        speed={0.8}
+        speed={reducedMotion ? 0 : 0.8}
         scale={1.4}
         rotation={240}
       />

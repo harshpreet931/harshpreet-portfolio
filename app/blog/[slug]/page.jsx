@@ -71,6 +71,9 @@ export default async function BlogPostPage({ params }) {
 
   const { content: renderedContent } = await compileMDX({
     source: content,
+    components: {
+      img: (props) => <img loading="lazy" decoding="async" {...props} />,
+    },
     options: {
       mdxOptions: {
         remarkPlugins: [remarkGfm],

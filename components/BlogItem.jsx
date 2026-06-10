@@ -11,7 +11,7 @@ export function BlogItem({ date, title, description, link, slug }) {
         {title}
         <span className="inline-block ml-1.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">→</span>
       </h3>
-      <p className="text-[11px] text-dim leading-snug transition-colors duration-500">{description}</p>
+      <p className="text-xs text-dim leading-snug transition-colors duration-500">{description}</p>
     </>
   );
 

@@ -6,7 +6,7 @@ tags: ["data structures", "trees", "java", "interview prep"]
 mediumUrl: "https://medium.com/@harshpreet0402/master-trees-the-complete-guide-to-crush-your-coding-interviews-binary-tree-bonus-interview-a362271544b4"
 ---
 
-![All the images in this article are made by me :)](/blog/master-trees/img-01.png)
+![All the images in this article are made by me :)](/blog/master-trees/img-01.webp)
 *All the images in this article are made by me :)*
 
 From basic traversals to complex dynamic programming solutions trees can be found everywhere, yes even in your interviews 😊. Here is a guide to know all about what tress are, types of trees and the common questions.
@@ -39,27 +39,27 @@ Its it a **hierarchical**, **non-linear data structure** that consists of nodes 
 
 **Binary Tree**: (Our most commonly used tree along with BSTs) Each node has at most 2 children, left and right.
 
-![Binary Tree](/blog/master-trees/img-02.png)
+![Binary Tree](/blog/master-trees/img-02.webp)
 
 **Binary Search Tree (BST):** A binary tree but with the additional property that the left subtree of a node contains only nodes with values less than the node's value and the right subtree contains nodes with values greater that the node's value.
 
-![Binary Search Tree](/blog/master-trees/img-03.png)
+![Binary Search Tree](/blog/master-trees/img-03.webp)
 
 **Balanced Trees:** These are a type of trees that ensure that the tree height (optimally ≤ 1) is kept low to maintain efficient operations like search, insertion and deletions. AVL trees maintain a STRICT balance, while Red Black are a little relaxed.
 
-![Balanced Trees](/blog/master-trees/img-04.png)
+![Balanced Trees](/blog/master-trees/img-04.webp)
 
 **Heap:** A special binary tree used to implement Priority Queues, heaps are Min-heap or Max-heap, where the root node is minimum or maximum.
 
-![Heap](/blog/master-trees/img-05.png)
+![Heap](/blog/master-trees/img-05.webp)
 
 **Trie (Prefix Tree):** A tree used to store strings where each node represents a character of the string. It's useful for fast lookups, autocomplete feature (yes really) and dictionary type problems.
 
-![Trie](/blog/master-trees/img-06.png)
+![Trie](/blog/master-trees/img-06.webp)
 
 **Segment Tree:** Used to store intervals or segments. (Used in range problems)
 
-![Example taken from -> Segment Tree — Algorithms for Competitive Programming](/blog/master-trees/img-07.png)
+![Example taken from -> Segment Tree — Algorithms for Competitive Programming](/blog/master-trees/img-07.webp)
 *Example taken from -> Segment Tree — Algorithms for Competitive Programming*
 
 **N-ary Tree:** Trees with n children. Like Trie can be a 26-ary Tree.
@@ -68,19 +68,19 @@ Its it a **hierarchical**, **non-linear data structure** that consists of nodes 
 
 **Pre-order Traversal (Root -> Left -> Right):**
 
-![Pre-order Traversal](/blog/master-trees/img-08.png)
+![Pre-order Traversal](/blog/master-trees/img-08.webp)
 
 **In-order Traversal (Left -> Root -> Right):**
 
-![In-order Traversal](/blog/master-trees/img-09.png)
+![In-order Traversal](/blog/master-trees/img-09.webp)
 
 **Post-order Traversal (Left -> Right -> Root):**
 
-![Post-order Traversal](/blog/master-trees/img-10.png)
+![Post-order Traversal](/blog/master-trees/img-10.webp)
 
 **Level-order Traversal (Breadth-First-Search):**
 
-![Level-order Traversal](/blog/master-trees/img-11.png)
+![Level-order Traversal](/blog/master-trees/img-11.webp)
 
 In this Article, I will discuss everything to know about Binary Search Trees… For the rest of the tree versions, I will make more Articles 😊!
 
@@ -95,15 +95,15 @@ A **binary tree** is a hierarchical data structure in which each node has at mos
 - **Minimum Height of a Binary Tree with 'n' Nodes**: The minimum height of a binary tree with 'n' nodes is log_2(n+1)−1.
 - **Full Binary Tree**: Every node has either 0 or 2 children.
 
-![Full Binary Tree](/blog/master-trees/img-12.png)
+![Full Binary Tree](/blog/master-trees/img-12.webp)
 
 - **Complete Binary Tree**: All levels are fully filled except for possibly the last level, which is filled from left to right.
 
-![Complete Binary Tree](/blog/master-trees/img-13.png)
+![Complete Binary Tree](/blog/master-trees/img-13.webp)
 
 - **Perfect Binary Tree**: All internal nodes have two children, and all leaves are at the same level.
 
-![Perfect Binary Tree](/blog/master-trees/img-14.png)
+![Perfect Binary Tree](/blog/master-trees/img-14.webp)
 
 - **Balanced Binary Tree**: The difference between the heights of the left and right subtrees of any node is not more than 1. A balanced tree ensures `O(log n)` time complexity for a few operations. Without balancing, a binary tree can degrade to a linked list, leading to `O(n)` operations.
 - **Degenerate Tree (Skewed Tree)**: A tree where each parent has only one child, resembling a linked list.

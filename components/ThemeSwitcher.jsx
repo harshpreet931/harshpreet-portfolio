@@ -58,8 +58,18 @@ export function ThemeSwitcher() {
         setShowCustom(false);
       }
     }
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+        setShowCustom(false);
+      }
+    }
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
   }, []);
 
   const isCustom = theme === 'custom';
@@ -172,6 +182,8 @@ export function ThemeSwitcher() {
         layout
         transition={{ layout: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
         aria-label="Toggle theme menu"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
         <span
           className="w-2 h-2 rounded-full shrink-0 max-sm:mr-0 mr-2 transition-colors duration-300"

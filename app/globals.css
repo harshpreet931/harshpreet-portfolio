@@ -14,84 +14,84 @@
   --bg-color: #000000;
   --text-color: #ffffff;
   --dim-text: rgba(255, 255, 255, 0.7);
-  --dimmer-text: rgba(255, 255, 255, 0.35);
+  --dimmer-text: rgba(255, 255, 255, 0.45);
 }
 
 [data-theme="sunshine"] {
   --bg-color: #f8fafc;
   --text-color: #111111;
   --dim-text: rgba(0, 0, 0, 0.6);
-  --dimmer-text: rgba(0, 0, 0, 0.4);
+  --dimmer-text: rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="lavender"] {
   --bg-color: #faf5ff;
   --text-color: #2e1065;
   --dim-text: rgba(46, 16, 101, 0.7);
-  --dimmer-text: rgba(46, 16, 101, 0.4);
+  --dimmer-text: rgba(46, 16, 101, 0.45);
 }
 
 [data-theme="monochrome"] {
   --bg-color: #ffffff;
   --text-color: #000000;
   --dim-text: rgba(0, 0, 0, 0.6);
-  --dimmer-text: rgba(0, 0, 0, 0.4);
+  --dimmer-text: rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="obsidian"] {
   --bg-color: #14171D;
   --text-color: #C9CED8;
   --dim-text: rgba(201, 206, 216, 0.65);
-  --dimmer-text: rgba(201, 206, 216, 0.35);
+  --dimmer-text: rgba(201, 206, 216, 0.45);
 }
 
 [data-theme="cerulean"] {
   --bg-color: #0A2540;
   --text-color: #F6F9FC;
   --dim-text: rgba(246, 249, 252, 0.7);
-  --dimmer-text: rgba(246, 249, 252, 0.4);
+  --dimmer-text: rgba(246, 249, 252, 0.45);
 }
 
 [data-theme="dawn"] {
   --bg-color: #2A222E;
   --text-color: #EEEFF1;
   --dim-text: rgba(238, 239, 241, 0.65);
-  --dimmer-text: rgba(238, 239, 241, 0.35);
+  --dimmer-text: rgba(238, 239, 241, 0.45);
 }
 
 [data-theme="cyberpunk"] {
   --bg-color: #0B0C10;
   --text-color: #E0F7FA;
   --dim-text: rgba(224, 247, 250, 0.65);
-  --dimmer-text: rgba(224, 247, 250, 0.35);
+  --dimmer-text: rgba(224, 247, 250, 0.45);
 }
 
 [data-theme="sand"] {
   --bg-color: #F0EEE9;
   --text-color: #2C2418;
   --dim-text: rgba(44, 36, 24, 0.6);
-  --dimmer-text: rgba(44, 36, 24, 0.35);
+  --dimmer-text: rgba(44, 36, 24, 0.45);
 }
 
 [data-theme="rose"] {
   --bg-color: #FFF5F5;
   --text-color: #3B1A1A;
   --dim-text: rgba(59, 26, 26, 0.6);
-  --dimmer-text: rgba(59, 26, 26, 0.35);
+  --dimmer-text: rgba(59, 26, 26, 0.45);
 }
 
 [data-theme="cocoa"] {
   --bg-color: #1A1210;
   --text-color: #EDE0D4;
   --dim-text: rgba(237, 224, 212, 0.65);
-  --dimmer-text: rgba(237, 224, 212, 0.35);
+  --dimmer-text: rgba(237, 224, 212, 0.45);
 }
 
 [data-theme="arctic"] {
   --bg-color: #F8FAFC;
   --text-color: #0F172A;
   --dim-text: rgba(15, 23, 42, 0.6);
-  --dimmer-text: rgba(15, 23, 42, 0.35);
+  --dimmer-text: rgba(15, 23, 42, 0.45);
 }
 
 [data-theme="paper"] {
@@ -106,7 +106,7 @@
   --bg-color: #050505;
   --text-color: #33ff33;
   --dim-text: rgba(51, 255, 51, 0.7);
-  --dimmer-text: rgba(51, 255, 51, 0.35);
+  --dimmer-text: rgba(51, 255, 51, 0.45);
   --font-primary: var(--font-vt323);
   text-shadow: 0 0 5px rgba(51, 255, 51, 0.5);
 }
@@ -516,4 +516,46 @@ body::after {
   .headline-line {
     transform: none !important;
   }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Accessibility ────────────────────────────────────────────── */
+:focus-visible {
+  outline: 1.5px solid var(--text-color);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1.5rem;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: var(--bg-color);
+  background: var(--text-color);
+  border-radius: 4px;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1.5rem;
 }
