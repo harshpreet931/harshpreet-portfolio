@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/ThemeContext';
 
@@ -45,23 +45,31 @@ export function ThemeSwitcher() {
   const [showCustom, setShowCustom] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
   const menuRef = useRef(null);
+  const triggerRef = useRef(null);
+  const firstItemRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowIntro(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
+  const closeMenu = useCallback((returnFocus) => {
+    setIsOpen(false);
+    setShowCustom(false);
+    if (returnFocus) triggerRef.current?.focus();
+  }, []);
+
   useEffect(() => {
+    if (!isOpen) return;
+
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false);
-        setShowCustom(false);
+        closeMenu(false);
       }
     }
     function handleEscape(event) {
       if (event.key === 'Escape') {
-        setIsOpen(false);
-        setShowCustom(false);
+        closeMenu(true);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -70,7 +78,13 @@ export function ThemeSwitcher() {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
     };
-  }, []);
+  }, [isOpen, closeMenu]);
+
+  // Move focus into the menu when it opens so forward Tab reaches the
+  // theme options instead of skipping past the widget entirely.
+  useEffect(() => {
+    if (isOpen) firstItemRef.current?.focus();
+  }, [isOpen]);
 
   const isCustom = theme === 'custom';
   const activeTheme = THEMES.find((t) => t.id === theme);
@@ -80,7 +94,43 @@ export function ThemeSwitcher() {
   const monthlyThemeLabel = THEMES.find((t) => t.id === monthlyTheme)?.label || 'Theme';
 
   return (
-    <div className="fixed bottom-6 right-6 max-sm:bottom-4 max-sm:right-4 z-50 flex flex-col items-end" ref={menuRef}>
+    <div className="fixed bottom-6 right-6 max-sm:bottom-4 max-sm:right-4 z-50 flex flex-col-reverse items-end" ref={menuRef}>
+      <motion.button
+        ref={triggerRef}
+        onClick={() => { setIsOpen(!isOpen); setShowIntro(false); }}
+        className="flex items-center rounded-full max-sm:w-8 max-sm:h-8 max-sm:justify-center max-sm:p-0 px-4 py-2 border text-[11px] font-mono transition-colors duration-500 opacity-70 hover:opacity-100 overflow-hidden"
+        style={{
+          borderColor: 'var(--border-color, rgba(128,128,128,0.2))',
+          backgroundColor: 'var(--bg-glass, rgba(255,255,255,0.1))',
+          backdropFilter: 'blur(10px)',
+        }}
+        layout
+        transition={{ layout: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
+        aria-label="Toggle theme menu"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        <span
+          className="w-2 h-2 rounded-full shrink-0 max-sm:mr-0 mr-2 transition-colors duration-300"
+          style={{ backgroundColor: activeThemeColor }}
+        />
+        <span className="whitespace-nowrap flex items-center overflow-hidden max-sm:hidden">
+          <motion.span
+            animate={{
+              width: showIntro ? 'auto' : 0,
+              opacity: showIntro ? 1 : 0,
+              marginRight: showIntro ? 4 : 0,
+            }}
+            initial={false}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="inline-block overflow-hidden whitespace-nowrap"
+          >
+            This month&apos;s theme is
+          </motion.span>
+          <span>{showIntro ? monthlyThemeLabel + '!' : activeThemeLabel}</span>
+        </span>
+      </motion.button>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -95,13 +145,14 @@ export function ThemeSwitcher() {
               backdropFilter: 'blur(16px)',
             }}
           >
-            {THEMES.map((t) => (
+            {THEMES.map((t, idx) => (
               <button
                 key={t.id}
+                ref={idx === 0 ? firstItemRef : null}
                 onClick={() => {
                   setTheme(t.id);
                   setShowCustom(false);
-                  setIsOpen(false);
+                  closeMenu(true);
                 }}
                 className={`flex items-center w-full px-4 py-2 text-left text-[11px] font-mono transition-all duration-300 ${theme === t.id ? 'font-bold' : 'opacity-70 hover:opacity-100 hover:bg-black/5 dark:hover:bg-white/5'}`}
               >
@@ -170,41 +221,6 @@ export function ThemeSwitcher() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <motion.button
-        onClick={() => { setIsOpen(!isOpen); setShowIntro(false); }}
-        className="flex items-center rounded-full max-sm:w-8 max-sm:h-8 max-sm:justify-center max-sm:p-0 px-4 py-2 border text-[11px] font-mono transition-colors duration-500 opacity-70 hover:opacity-100 overflow-hidden"
-        style={{
-          borderColor: 'var(--border-color, rgba(128,128,128,0.2))',
-          backgroundColor: 'var(--bg-glass, rgba(255,255,255,0.1))',
-          backdropFilter: 'blur(10px)',
-        }}
-        layout
-        transition={{ layout: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }}
-        aria-label="Toggle theme menu"
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-      >
-        <span
-          className="w-2 h-2 rounded-full shrink-0 max-sm:mr-0 mr-2 transition-colors duration-300"
-          style={{ backgroundColor: activeThemeColor }}
-        />
-        <span className="whitespace-nowrap flex items-center overflow-hidden max-sm:hidden">
-          <motion.span
-            animate={{
-              width: showIntro ? 'auto' : 0,
-              opacity: showIntro ? 1 : 0,
-              marginRight: showIntro ? 4 : 0,
-            }}
-            initial={false}
-            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-            className="inline-block overflow-hidden whitespace-nowrap"
-          >
-            This month&apos;s theme is
-          </motion.span>
-          <span>{showIntro ? monthlyThemeLabel + '!' : activeThemeLabel}</span>
-        </span>
-      </motion.button>
     </div>
   );
 }

@@ -7,11 +7,21 @@ import { FadeIn } from '@/components/FadeIn';
 
 export const metadata = {
   title: 'Work',
-  description: 'Experience and selected projects by Harshpreet Singh: SDE Intern at Juspay, building agentic AI systems, Rust tools, and ML pipelines.',
+  description: 'Experience and selected projects by Harshpreet Singh: ASDE at Juspay, building agentic AI systems, Rust tools, and ML pipelines.',
   openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Harshpreet Singh',
     title: 'Work: Harshpreet Singh',
     description: 'Experience and selected projects by Harshpreet Singh.',
     url: 'https://harshpreet.com/work',
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Work: Harshpreet Singh',
+    description: 'Experience and selected projects by Harshpreet Singh.',
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: 'https://harshpreet.com/work',
@@ -21,6 +31,7 @@ export const metadata = {
 export default function WorkPage() {
   return (
     <PageTransition>
+      <h1 className="sr-only">Work — Experience &amp; Projects</h1>
       <div className="absolute inset-0 overflow-y-auto pr-4 scrollbar-hide">
         <div className="grid grid-cols-2 gap-12 w-full max-md:grid-cols-1 max-sm:gap-10 pb-20">
           <div className="flex flex-col gap-10">
@@ -33,7 +44,7 @@ export default function WorkPage() {
 
           <div className="flex flex-col gap-10">
             <FadeIn delay={0.05}>
-              <span className="font-mono text-[9px] text-dimmer uppercase tracking-widest border-b border-dimmer/20 pb-2">Selected Works</span>
+              <h2 className="font-mono text-[9px] text-dimmer uppercase tracking-widest border-b border-dimmer/20 pb-2 font-normal">Selected Works</h2>
             </FadeIn>
             {PROJECTS_DATA.map((project, idx) => (
               <FadeIn key={idx} delay={0.15 + idx * 0.08}>

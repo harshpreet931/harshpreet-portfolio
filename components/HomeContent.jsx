@@ -62,7 +62,7 @@ export function HomeContent() {
 
         <motion.div variants={fadeUp} className="flex flex-col">
           <span className="text-xs">CURRENTLY</span>
-          <p className="text-xs leading-tight font-normal">SDE Intern @ JUSPAY</p>
+          <p className="text-xs leading-tight font-normal">ASDE @ JUSPAY</p>
         </motion.div>
       </motion.div>
     </motion.div>

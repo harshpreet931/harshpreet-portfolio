@@ -12,6 +12,9 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
   const [mounted, setMounted]       = useState(false);
   const containerRef                = useRef(null);
   const readingRef                  = useRef(null);
+  const overlayRef                  = useRef(null);
+  const exitButtonRef               = useRef(null);
+  const focusModeButtonRef          = useRef(null);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -39,8 +42,47 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
     setProgress(Math.min(100, isNaN(pct) ? 0 : pct));
   }, []);
 
-  const enterReading  = useCallback(() => { setIsReading(true);  setProgress(0); }, []);
+  const enterReading = useCallback(() => { setIsReading(true); setProgress(0); }, []);
   const exitReading   = useCallback(() => { setIsReading(false); setProgress(0); }, []);
+
+  // Dialog semantics for the reading overlay: move focus in on open, trap Tab
+  // inside it, close on Escape, and never leave it open once unmounted.
+  // Focus is returned to the trigger button in this effect's cleanup (which
+  // runs after the DOM has already re-rendered with `inert` removed from the
+  // background) rather than inside exitReading() itself — calling .focus()
+  // synchronously there raced the re-render and landed on a still-inert
+  // button, silently falling back to <body>.
+  useEffect(() => {
+    if (!isReading) return;
+    exitButtonRef.current?.focus();
+
+    function handleKeyDown(e) {
+      if (e.key === 'Escape') {
+        exitReading();
+        return;
+      }
+      if (e.key !== 'Tab' || !overlayRef.current) return;
+      const focusables = overlayRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      focusModeButtonRef.current?.focus();
+    };
+  }, [isReading, exitReading]);
 
   // ─── Shared pieces ────────────────────────────────────────────────────────
 
@@ -90,7 +132,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
 
   return (
     <>
-      <div ref={containerRef} onScroll={handleScroll} className="absolute inset-0 overflow-y-auto">
+      <div ref={containerRef} onScroll={handleScroll} className="absolute inset-0 overflow-y-auto" inert={isReading}>
 
         {/* Progress bar */}
         <div className="sticky top-0 left-0 right-0 z-50 h-[1.5px]"
@@ -123,6 +165,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
 
               {/* Reading mode toggle */}
               <button
+                ref={focusModeButtonRef}
                 onClick={enterReading}
                 className="reading-mode-btn"
                 title="Enter focus reading mode"
@@ -153,6 +196,10 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
           {isReading && (
             <motion.div
               key="reading-overlay"
+              ref={overlayRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Reading mode: ${frontmatter.title}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -198,6 +245,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
 
                   {/* Exit button */}
                   <motion.button
+                    ref={exitButtonRef}
                     onClick={exitReading}
                     className="reading-mode-exit-btn"
                     initial={{ opacity: 0, y: -8 }}
@@ -217,7 +265,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
                           textTransform: 'uppercase', letterSpacing: '0.1em',
                           padding: '4px 10px', borderRadius: '999px',
                           border: '1px solid rgba(255,255,255,0.1)',
-                          color: 'rgba(255,255,255,0.25)',
+                          color: 'rgba(255,255,255,0.55)',
                         }}>{tag}</span>
                       ))}
                     </div>
@@ -241,7 +289,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
                     <span style={{
                       fontFamily: 'var(--font-mono)', fontSize: '9px',
                       textTransform: 'uppercase', letterSpacing: '0.1em',
-                      color: 'rgba(255,255,255,0.22)',
+                      color: 'rgba(255,255,255,0.55)',
                     }}>
                       {frontmatter.date} · {readingTime}
                     </span>

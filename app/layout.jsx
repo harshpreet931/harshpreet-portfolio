@@ -67,10 +67,6 @@ export const metadata = {
     description: 'Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
     images: ['/og-image.png'],
   },
-  icons: {
-    icon: '/logo.svg',
-    apple: '/logo.svg',
-  },
   alternates: {
     canonical: 'https://harshpreet.com',
     types: {
@@ -101,7 +97,7 @@ const jsonLd = {
 // Runs before first paint so the page never flashes the default theme
 // while ThemeProvider waits for hydration. Theme list must match
 // MONTHLY_THEMES in hooks/ThemeContext.jsx.
-const themeInitScript = `(function(){try{var m=['arctic','rose','lavender','sand','sunshine','cyberpunk','cerulean','dark','cocoa','dawn','obsidian','monochrome'];var t=m[new Date().getMonth()];var s=localStorage.getItem('theme-preference');if(s){var p=JSON.parse(s);if(p&&p.theme&&p.month===new Date().getMonth())t=p.theme;}var el=document.documentElement;el.setAttribute('data-theme',t);if(t==='custom'){var c=JSON.parse(localStorage.getItem('custom-theme'));if(c&&c.bg&&c.text){var n=parseInt(c.text.slice(1),16);var r=(n>>16)&255,g=(n>>8)&255,b=n&255;el.style.setProperty('--bg-color',c.bg);el.style.setProperty('--text-color',c.text);el.style.setProperty('--dim-text','rgba('+r+','+g+','+b+',0.65)');el.style.setProperty('--dimmer-text','rgba('+r+','+g+','+b+',0.45)');}}}catch(e){}})()`;
+const themeInitScript = `(function(){try{var m=['arctic','rose','lavender','sand','sunshine','cyberpunk','cerulean','dark','cocoa','dawn','obsidian','monochrome'];var t=m[new Date().getMonth()];var s=localStorage.getItem('theme-preference');if(s){var p=JSON.parse(s);if(p&&p.theme&&p.month===new Date().getMonth())t=p.theme;}var el=document.documentElement;el.setAttribute('data-theme',t);if(t==='custom'){var c=JSON.parse(localStorage.getItem('custom-theme'));if(c&&c.bg&&c.text){var n=parseInt(c.text.slice(1),16);var r=(n>>16)&255,g=(n>>8)&255,b=n&255;el.style.setProperty('--bg-color',c.bg);el.style.setProperty('--text-color',c.text);el.style.setProperty('--dim-text','rgba('+r+','+g+','+b+',0.65)');el.style.setProperty('--dimmer-text','rgba('+r+','+g+','+b+',0.45)');}}var bg=getComputedStyle(el).getPropertyValue('--bg-color').trim();var mt=document.querySelector('meta[name="theme-color"]');if(mt&&bg)mt.setAttribute('content',bg);}catch(e){}})()`;
 
 export default function RootLayout({ children }) {
   return (

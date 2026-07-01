@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export function BlogItem({ date, title, description, link, slug }) {
+export function BlogItem({ date, title, description, link, slug, tags }) {
   const href = slug ? `/blog/${slug}` : link;
   const isInternal = Boolean(slug);
 
@@ -12,6 +12,15 @@ export function BlogItem({ date, title, description, link, slug }) {
         <span className="inline-block ml-1.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">→</span>
       </h3>
       <p className="text-xs text-dim leading-snug transition-colors duration-500">{description}</p>
+      {tags?.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mt-1">
+          {tags.map((tag) => (
+            <span key={tag} className="text-[9px] font-mono border border-dimmer/30 px-1.5 py-0.5 rounded text-dimmer uppercase">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
     </>
   );
 

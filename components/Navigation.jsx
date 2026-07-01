@@ -73,7 +73,7 @@ export function Navigation() {
         {SOCIALS.map(({ href, label, path }) => (
           <a
             key={label}
-            className="opacity-60 hover:opacity-100 transition-all duration-500 ease-out hover:-translate-y-0.5"
+            className="p-[5px] -m-[5px] opacity-60 hover:opacity-100 transition-all duration-500 ease-out hover:-translate-y-0.5"
             href={href}
             target="_blank"
             rel="noopener noreferrer"

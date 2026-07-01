@@ -42,41 +42,44 @@ function clearCustomColors() {
   el.style.removeProperty('--dimmer-text');
 }
 
+function updateThemeColorMeta() {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (!meta) return;
+  const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim();
+  if (bg) meta.setAttribute('content', bg);
+}
+
 const DEFAULT_CUSTOM = { bg: '#0B0C10', text: '#E0F7FA', accent: '#0ABDC6' };
 
-export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState(getMonthlyTheme);
-  const [customColors, setCustomColorsState] = useState(DEFAULT_CUSTOM);
-
-  useEffect(() => {
-    const savedCustom = localStorage.getItem('custom-theme');
-    if (savedCustom) {
-      try { setCustomColorsState(JSON.parse(savedCustom)); } catch {}
-    }
-
+// Determined synchronously at state-init time (not in an effect) so there's
+// a single source of truth for the initial theme — no race between a
+// "load from localStorage" effect and an "apply theme" effect that would
+// otherwise briefly apply/persist the wrong (default) theme first.
+function getInitialTheme() {
+  if (typeof window === 'undefined') return getMonthlyTheme();
+  try {
     const saved = localStorage.getItem('theme-preference');
-    if (!saved) {
-      setThemeState(getMonthlyTheme());
-      return;
-    }
+    if (!saved) return getMonthlyTheme();
+    const { theme: savedTheme, month: savedMonth } = JSON.parse(saved);
+    return savedMonth === new Date().getMonth() ? savedTheme : getMonthlyTheme();
+  } catch {
+    return getMonthlyTheme();
+  }
+}
 
-    try {
-      const { theme: savedTheme, month: savedMonth } = JSON.parse(saved);
-      const currentMonth = new Date().getMonth();
+function getInitialCustomColors() {
+  if (typeof window === 'undefined') return DEFAULT_CUSTOM;
+  try {
+    const saved = localStorage.getItem('custom-theme');
+    return saved ? JSON.parse(saved) : DEFAULT_CUSTOM;
+  } catch {
+    return DEFAULT_CUSTOM;
+  }
+}
 
-      if (savedMonth !== currentMonth) {
-        setThemeState(getMonthlyTheme());
-        localStorage.setItem('theme-preference', JSON.stringify({
-          theme: getMonthlyTheme(),
-          month: currentMonth,
-        }));
-      } else {
-        setThemeState(savedTheme);
-      }
-    } catch {
-      setThemeState(getMonthlyTheme());
-    }
-  }, []);
+export function ThemeProvider({ children }) {
+  const [theme, setThemeState] = useState(getInitialTheme);
+  const [customColors, setCustomColorsState] = useState(getInitialCustomColors);
 
   useEffect(() => {
     if (theme === 'custom') {
@@ -86,6 +89,7 @@ export function ThemeProvider({ children }) {
       clearCustomColors();
       document.documentElement.setAttribute('data-theme', theme);
     }
+    updateThemeColorMeta();
     localStorage.setItem('theme-preference', JSON.stringify({
       theme,
       month: new Date().getMonth(),
