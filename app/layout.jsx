@@ -45,7 +45,7 @@ const vt323 = VT323({
 export const metadata = {
   metadataBase: new URL('https://harshpreet.com'),
   title: {
-    default: 'Harshpreet Singh — Software Engineer',
+    default: 'Harshpreet Singh',
     template: '%s: Harshpreet Singh',
   },
   description: 'Harshpreet Singh, Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
@@ -57,13 +57,13 @@ export const metadata = {
     locale: 'en_US',
     url: 'https://harshpreet.com',
     siteName: 'Harshpreet Singh',
-    title: 'Harshpreet Singh — Software Engineer',
+    title: 'Harshpreet Singh',
     description: 'Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Harshpreet Singh — Software Engineer',
+    title: 'Harshpreet Singh',
     description: 'Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
     images: ['/og-image.png'],
   },
