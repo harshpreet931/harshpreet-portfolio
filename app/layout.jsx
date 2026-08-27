@@ -6,6 +6,7 @@ import { MeshBackground } from '@/components/MeshBackground';
 import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/hooks/ThemeContext';
 import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { PostHogProvider } from '@/components/PostHogProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -116,18 +117,20 @@ export default function RootLayout({ children }) {
           data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
           strategy="afterInteractive"
         />
-        <ThemeProvider>
-          <a href="#main" className="skip-link">Skip to content</a>
-          <div className="relative w-screen h-dvh flex flex-col overflow-hidden p-6 max-sm:p-4">
-            <MeshBackground />
-            <Navigation />
-            <main id="main" className="relative z-10 mt-[4vh] grow">
-              {children}
-            </main>
-            <Footer />
-            <ThemeSwitcher />
-          </div>
-        </ThemeProvider>
+        <PostHogProvider>
+          <ThemeProvider>
+            <a href="#main" className="skip-link">Skip to content</a>
+            <div className="relative w-screen h-dvh flex flex-col overflow-hidden p-6 max-sm:p-4">
+              <MeshBackground />
+              <Navigation />
+              <main id="main" className="relative z-10 mt-[4vh] grow">
+                {children}
+              </main>
+              <Footer />
+              <ThemeSwitcher />
+            </div>
+          </ThemeProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
