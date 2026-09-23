@@ -299,9 +299,29 @@
   margin-bottom: mod(100dvh - var(--hw-pad-top) - var(--hw-rule-y) - var(--hw-pad-bottom) - var(--hw-name-h) * var(--hw-name-descent), var(--hw-line));
 }
 
+/* Phones: at 30px a line the home text alone runs ~530px down, so a name
+   pinned to the bottom lands on top of it once browser toolbars eat the
+   height. Keep the name on one line, and put the text and the name in the
+   normal flow so they cannot overlap; a very short screen scrolls instead. */
 @media (max-width: 640px) {
-  [data-theme="handwritten"] .hw-name {
-    --hw-name-h: calc((100vw - var(--hw-pad-left) - var(--hw-pad-right)) / var(--hw-name-word-aspect));
+  [data-theme="handwritten"] main {
+    margin-top: var(--hw-line);
+  }
+
+  [data-theme="handwritten"] .home-content {
+    position: relative;
+    inset: auto;
+  }
+
+  [data-theme="handwritten"] .site-shell:has(.home-content) {
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  /* In the flow, the shell's own padding already frames the footer. */
+  [data-theme="handwritten"] .site-shell:has(.home-content) footer {
+    position: relative;
+    padding: 0;
   }
 }
 

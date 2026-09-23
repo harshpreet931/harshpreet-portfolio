@@ -32,7 +32,7 @@ export function HomeContent() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute inset-0"
+      className="home-content absolute inset-0"
     >
       <motion.div
         variants={stagger}
