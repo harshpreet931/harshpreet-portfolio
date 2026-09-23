@@ -125,7 +125,7 @@ function getCustomConfig(customColors) {
 }
 
 export function MeshBackground() {
-  const { theme, customColors } = useTheme();
+  const { theme, customColors, ready } = useTheme();
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -135,6 +135,10 @@ export function MeshBackground() {
     mq.addEventListener('change', onChange);
     return () => mq.removeEventListener('change', onChange);
   }, []);
+
+  if (!ready || theme === 'handwritten') {
+    return <div className="bg absolute inset-0 z-0" style={{ backgroundColor: 'var(--bg-color)' }} />;
+  }
 
   const config = theme === 'custom'
     ? getCustomConfig(customColors)

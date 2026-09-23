@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/ThemeContext';
 
 const THEMES = [
+  { id: 'handwritten', label: 'Handwritten', color: '#1f2f8c', hand: true },
   { id: 'dark', label: 'Midnight', color: '#0ea5e9' },
   { id: 'obsidian', label: 'Obsidian', color: '#0085FF' },
   { id: 'cerulean', label: 'Cerulean', color: '#635BFF' },
@@ -40,7 +41,7 @@ function ColorPicker({ label, value, onChange }) {
 }
 
 export function ThemeSwitcher() {
-  const { theme, setTheme, customColors, setCustomColors, monthlyTheme } = useTheme();
+  const { theme, setTheme, customColors, setCustomColors, monthlyTheme, ready } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [showCustom, setShowCustom] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
@@ -89,16 +90,17 @@ export function ThemeSwitcher() {
   const isCustom = theme === 'custom';
   const activeTheme = THEMES.find((t) => t.id === theme);
   const activeThemeLabel = isCustom ? 'Custom' : (activeTheme?.label || 'Theme');
-  const activeThemeColor = isCustom ? customColors.accent : (activeTheme?.color || '#a3a3a3');
+  const activeThemeColor = !ready ? 'transparent' : isCustom ? customColors.accent : (activeTheme?.color || '#a3a3a3');
   const currentMonthName = MONTH_NAMES[new Date().getMonth()];
   const monthlyThemeLabel = THEMES.find((t) => t.id === monthlyTheme)?.label || 'Theme';
+  const pillLabel = !ready ? '' : showIntro ? monthlyThemeLabel + '!' : activeThemeLabel;
 
   return (
     <div className="fixed bottom-6 right-6 max-sm:bottom-4 max-sm:right-4 z-50 flex flex-col-reverse items-end" ref={menuRef}>
       <motion.button
         ref={triggerRef}
         onClick={() => { setIsOpen(!isOpen); setShowIntro(false); }}
-        className="flex items-center rounded-full max-sm:w-8 max-sm:h-8 max-sm:justify-center max-sm:p-0 px-4 py-2 border text-[11px] font-mono transition-colors duration-500 opacity-70 hover:opacity-100 overflow-hidden"
+        className="theme-pill flex items-center rounded-full max-sm:w-8 max-sm:h-8 max-sm:justify-center max-sm:p-0 px-4 py-2 border text-[11px] font-mono transition-colors duration-500 opacity-70 hover:opacity-100 overflow-hidden"
         style={{
           borderColor: 'var(--border-color, rgba(128,128,128,0.2))',
           backgroundColor: 'var(--bg-glass, rgba(255,255,255,0.1))',
@@ -117,9 +119,9 @@ export function ThemeSwitcher() {
         <span className="whitespace-nowrap flex items-center overflow-hidden max-sm:hidden">
           <motion.span
             animate={{
-              width: showIntro ? 'auto' : 0,
-              opacity: showIntro ? 1 : 0,
-              marginRight: showIntro ? 4 : 0,
+              width: showIntro && ready ? 'auto' : 0,
+              opacity: showIntro && ready ? 1 : 0,
+              marginRight: showIntro && ready ? 4 : 0,
             }}
             initial={false}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
@@ -127,7 +129,7 @@ export function ThemeSwitcher() {
           >
             This month&apos;s theme is
           </motion.span>
-          <span>{showIntro ? monthlyThemeLabel + '!' : activeThemeLabel}</span>
+          <span>{pillLabel}</span>
         </span>
       </motion.button>
 
@@ -138,7 +140,7 @@ export function ThemeSwitcher() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 4 }}
             transition={{ duration: 0.15 }}
-            className="mb-2 flex flex-col items-stretch overflow-hidden rounded-xl border shadow-lg max-h-[70vh] overflow-y-auto scrollbar-hide min-w-[180px]"
+            className="theme-menu mb-2 flex flex-col items-stretch overflow-hidden rounded-xl border shadow-lg max-h-[70vh] overflow-y-auto scrollbar-hide min-w-[180px]"
             style={{
               borderColor: 'var(--border-color, rgba(128,128,128,0.2))',
               backgroundColor: 'var(--bg-glass, rgba(255,255,255,0.1))',
@@ -160,7 +162,7 @@ export function ThemeSwitcher() {
                   className="w-2 h-2 rounded-full shrink-0 mr-2.5"
                   style={{ backgroundColor: t.color }}
                 />
-                <span className="flex-1">{t.label}</span>
+                <span className={t.hand ? 'flex-1 font-hand text-[14px] leading-none' : 'flex-1'}>{t.label}</span>
                 {t.id === monthlyTheme && (
                   <span className="text-[8px] opacity-40 font-normal ml-3 shrink-0">{currentMonthName}</span>
                 )}

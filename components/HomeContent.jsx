@@ -38,7 +38,7 @@ export function HomeContent() {
         variants={stagger}
         initial="hidden"
         animate="show"
-        className="relative z-10 grid grid-cols-[1fr_1fr_2fr_1fr] gap-5 w-full max-md:grid-cols-2 max-md:gap-y-6 max-sm:grid-cols-1 max-sm:gap-5 max-sm:pb-10"
+        className="home-grid relative z-10 grid grid-cols-[1fr_1fr_2fr_1fr] gap-5 w-full max-md:grid-cols-2 max-md:gap-y-6 max-sm:grid-cols-1 max-sm:gap-5 max-sm:pb-10"
       >
         <motion.div variants={fadeUp} className="flex flex-col">
           <span className="text-xs">BENGALURU</span>
@@ -65,6 +65,11 @@ export function HomeContent() {
           <p className="text-xs leading-tight font-normal">ASDE @ JUSPAY</p>
         </motion.div>
       </motion.div>
+
+      <p className="hw-note">
+        every letter on this site is my handwriting, lifted from 120 pages of
+        my computer networks notes ↓
+      </p>
     </motion.div>
   );
 }

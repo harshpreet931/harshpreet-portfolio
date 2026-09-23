@@ -7,7 +7,7 @@ export function BlogItem({ date, title, description, link, slug, tags }) {
   const inner = (
     <>
       <span className="font-mono text-[9px] text-dimmer uppercase tracking-widest transition-colors duration-500">{date}</span>
-      <h3 className="text-sm font-semibold mb-0.5 tracking-tight uppercase transition-all duration-500 ease-out group-hover:translate-x-0.5">
+      <h3 className="item-title text-sm font-semibold mb-0.5 tracking-tight uppercase transition-all duration-500 ease-out group-hover:translate-x-0.5">
         {title}
         <span className="inline-block ml-1.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">→</span>
       </h3>
@@ -15,7 +15,7 @@ export function BlogItem({ date, title, description, link, slug, tags }) {
       {tags?.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mt-1">
           {tags.map((tag) => (
-            <span key={tag} className="text-[9px] font-mono border border-dimmer/30 px-1.5 py-0.5 rounded text-dimmer uppercase">
+            <span key={tag} className="tag-chip text-[9px] font-mono border border-dimmer/30 px-1.5 py-0.5 rounded text-dimmer uppercase">
               {tag}
             </span>
           ))}

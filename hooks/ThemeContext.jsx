@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useLayoutEffect, useState, useCallback } from 'react';
 import { MotionConfig } from 'framer-motion';
 import { hexToRgb } from '@/utils/colorUtils';
 
@@ -51,12 +51,7 @@ function updateThemeColorMeta() {
 
 const DEFAULT_CUSTOM = { bg: '#0B0C10', text: '#E0F7FA', accent: '#0ABDC6' };
 
-// Determined synchronously at state-init time (not in an effect) so there's
-// a single source of truth for the initial theme — no race between a
-// "load from localStorage" effect and an "apply theme" effect that would
-// otherwise briefly apply/persist the wrong (default) theme first.
-function getInitialTheme() {
-  if (typeof window === 'undefined') return getMonthlyTheme();
+function getSavedTheme() {
   try {
     const saved = localStorage.getItem('theme-preference');
     if (!saved) return getMonthlyTheme();
@@ -67,8 +62,7 @@ function getInitialTheme() {
   }
 }
 
-function getInitialCustomColors() {
-  if (typeof window === 'undefined') return DEFAULT_CUSTOM;
+function getSavedCustomColors() {
   try {
     const saved = localStorage.getItem('custom-theme');
     return saved ? JSON.parse(saved) : DEFAULT_CUSTOM;
@@ -78,10 +72,25 @@ function getInitialCustomColors() {
 }
 
 export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState(getInitialTheme);
-  const [customColors, setCustomColorsState] = useState(getInitialCustomColors);
+  // The first client render has to reproduce the server's HTML, and the server
+  // knows neither the saved theme nor today's month (pages are prerendered at
+  // build time). So state starts neutral and `ready` stays false until the
+  // layout effect below loads the real values, which happens before the first
+  // paint. Consumers render theme-neutral output while !ready. The CSS is right
+  // all along: themeInitScript in app/layout.jsx set data-theme before paint.
+  const [theme, setThemeState] = useState(getMonthlyTheme);
+  const [customColors, setCustomColorsState] = useState(DEFAULT_CUSTOM);
+  const [ready, setReady] = useState(false);
+
+  useLayoutEffect(() => {
+    setThemeState(getSavedTheme());
+    setCustomColorsState(getSavedCustomColors());
+    setReady(true);
+  }, []);
 
   useEffect(() => {
+    // Gated so the placeholder state is never applied or persisted.
+    if (!ready) return;
     if (theme === 'custom') {
       document.documentElement.setAttribute('data-theme', 'custom');
       applyCustomColors(customColors);
@@ -94,7 +103,7 @@ export function ThemeProvider({ children }) {
       theme,
       month: new Date().getMonth(),
     }));
-  }, [theme, customColors]);
+  }, [theme, customColors, ready]);
 
   const setTheme = useCallback((t) => {
     setThemeState(t);
@@ -112,6 +121,7 @@ export function ThemeProvider({ children }) {
     customColors,
     setCustomColors,
     monthlyTheme: getMonthlyTheme(),
+    ready,
   };
 
   return (

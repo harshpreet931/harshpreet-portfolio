@@ -1,0 +1,693 @@
+/* ── Handwritten theme ─────────────────────────────────────────────
+   Every letter is Harshpreet Hand, a font made from my Computer Networks
+   notes, written on ruled notebook paper in ballpoint blue.
+
+   The ruling is exact, not decorative: every line box is --hw-line tall and
+   the rules sit at --hw-rule-y inside it. With the font's metrics (ascent 950,
+   descent 550, no line gap) a line box of height L puts the baseline at
+   L/2 + 0.2 * font-size, so 30px lines put 15-19px text right on the rule.
+   Anything that is not text (images, code, tables) gets its height rounded
+   up to whole lines by BlogPostLayout, so the text after it lands back on.
+   ───────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Harshpreet Hand";
+  src: url("/fonts/harshpreet-hand-regular.v1.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  /* Block, not swap: a flash of Arial reads as a glitch in a theme that is
+     only its font, while entrance animations already cover a short wait. */
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Harshpreet Hand";
+  src: url("/fonts/harshpreet-hand-bold.v1.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+/* :root raises specificity above globals.css's `:root, [data-theme="dark"]`
+   defaults, which come later in the cascade. */
+:root[data-theme="handwritten"] {
+  --bg-color: #f7f8fc;
+  --text-color: #1f2f8c;
+  --dim-text: rgba(31, 47, 140, 0.8);
+  --dimmer-text: rgba(31, 47, 140, 0.72);  /* 4.96:1 on the paper; 0.66 was 4.2 */
+  --font-primary: var(--font-hand);
+  --font-display: var(--font-hand);
+  --font-mono: var(--font-hand);
+
+  --hw-line: 30px;
+  --hw-rule-y: 19px;
+  --hw-rule: rgba(84, 116, 196, 0.2);
+  --hw-margin: rgba(208, 86, 84, 0.5);
+  --hw-margin-x: 52px;
+  --hw-pad-top: 24px;
+  --hw-pad-left: calc(var(--hw-margin-x) + 22px);
+  --hw-pad-right: 24px;
+  --hw-pad-bottom: 24px;
+  --hw-red: #c2413f;
+  --hw-highlight: rgba(255, 229, 77, 0.55);
+  --hw-code: var(--font-space-mono), ui-monospace, monospace;
+
+  --reading-bg: var(--bg-color);
+  --reading-vignette: none;
+  --reading-title: var(--text-color);
+  --reading-dim: var(--dimmer-text);
+  --reading-line: rgba(31, 47, 140, 0.2);
+  --reading-track: rgba(31, 47, 140, 0.1);
+  --reading-bar: var(--text-color);
+
+  color-scheme: light;
+}
+
+@media (max-width: 640px) {
+  :root[data-theme="handwritten"] {
+    --hw-margin-x: 26px;
+    --hw-pad-top: 16px;
+    --hw-pad-left: calc(var(--hw-margin-x) + 14px);
+    --hw-pad-right: 16px;
+    --hw-pad-bottom: 16px;
+  }
+}
+
+[data-theme="handwritten"] body {
+  font-size: 17px;
+  font-feature-settings: "calt" 1, "kern" 1;
+  font-synthesis: none;
+  word-spacing: 0.04em;
+}
+
+[data-theme="handwritten"] * {
+  letter-spacing: normal;
+}
+
+[data-theme="handwritten"] .uppercase {
+  text-transform: none;
+}
+
+[data-theme="handwritten"] ::selection {
+  background: var(--hw-highlight);
+  color: var(--text-color);
+}
+
+/* ── The page: paper, a red margin, rules from the first line down ── */
+
+[data-theme="handwritten"] .site-shell {
+  padding: var(--hw-pad-top) var(--hw-pad-right) var(--hw-pad-bottom) var(--hw-pad-left);
+}
+
+[data-theme="handwritten"] .bg {
+  background:
+    linear-gradient(90deg, transparent calc(var(--hw-margin-x) - 1px), var(--hw-margin) calc(var(--hw-margin-x) - 1px) calc(var(--hw-margin-x) + 0.5px), transparent calc(var(--hw-margin-x) + 0.5px)),
+    linear-gradient(var(--bg-color), var(--bg-color)) 0 0 / 100% var(--hw-pad-top) no-repeat,
+    linear-gradient(to bottom, transparent var(--hw-rule-y), var(--hw-rule) var(--hw-rule-y) calc(var(--hw-rule-y) + 1px), transparent calc(var(--hw-rule-y) + 1px)) 0 var(--hw-pad-top) / 100% var(--hw-line),
+    var(--bg-color) !important;
+}
+
+/* The mesh never mounts in this theme; this covers the moment before React does. */
+[data-theme="handwritten"] .bg > * {
+  display: none;
+}
+
+/* Paper has tooth, but it does not crawl. */
+[data-theme="handwritten"] body::after {
+  animation: none;
+  opacity: 0.035;
+}
+
+/* ── Rhythm: every line of text is one ruled line ── */
+
+[data-theme="handwritten"] :is(header, .home-grid, .page-scroll, .hw-rhythm),
+[data-theme="handwritten"] :is(header, .home-grid, .page-scroll, .hw-rhythm) * {
+  line-height: var(--hw-line);
+}
+
+[data-theme="handwritten"] :is(.page-scroll, .hw-rhythm) * {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  row-gap: 0;
+}
+
+[data-theme="handwritten"] header {
+  margin-bottom: 0;
+  row-gap: 0;
+}
+
+[data-theme="handwritten"] main {
+  margin-top: calc(2 * var(--hw-line));
+}
+
+[data-theme="handwritten"] .home-grid {
+  row-gap: var(--hw-line);
+}
+
+/* Type sizes. The hand's x-height is 0.44em against Inter's 0.55em, so every
+   size goes up by about a quarter to read the same. */
+[data-theme="handwritten"] :is(.text-\[8px\], .text-\[9px\], .text-\[10px\], .text-\[11px\]) {
+  font-size: 15px;
+}
+
+[data-theme="handwritten"] .text-xs {
+  font-size: 17px;
+}
+
+[data-theme="handwritten"] .text-sm {
+  font-size: 19px;
+}
+
+/* ── Header: lowercase nav, social links written out ── */
+
+[data-theme="handwritten"] header nav a[href] {
+  text-transform: lowercase;
+  font-size: 17px;
+}
+
+[data-theme="handwritten"] header :is(nav a, a[target="_blank"]) {
+  opacity: 0.8;
+}
+
+[data-theme="handwritten"] header > a:first-child {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.hand-only {
+  display: none;
+}
+
+[data-theme="handwritten"] .hand-only {
+  display: revert;
+}
+
+[data-theme="handwritten"] .hand-hide {
+  display: none;
+}
+
+[data-theme="handwritten"] .social-word {
+  font-size: 15px;
+}
+
+/* Hover underline: drawn left to right like a pen, not scaled like a bar. */
+[data-theme="handwritten"] header nav a::after {
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  scale: 1;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="handwritten"] header nav a:hover::after {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ── Scrolling pages: the paper scrolls with the writing ── */
+
+[data-theme="handwritten"] .page-scroll {
+  left: calc(-1 * var(--hw-pad-left));
+  right: calc(-1 * var(--hw-pad-right));
+  bottom: calc(-1 * var(--hw-pad-bottom));
+  padding-left: var(--hw-pad-left);
+  padding-right: var(--hw-pad-right);
+  background:
+    linear-gradient(90deg, transparent calc(var(--hw-margin-x) - 1px), var(--hw-margin) calc(var(--hw-margin-x) - 1px) calc(var(--hw-margin-x) + 0.5px), transparent calc(var(--hw-margin-x) + 0.5px)),
+    linear-gradient(to bottom, transparent var(--hw-rule-y), var(--hw-rule) var(--hw-rule-y) calc(var(--hw-rule-y) + 1px), transparent calc(var(--hw-rule-y) + 1px)) 0 0 / 100% var(--hw-line),
+    var(--bg-color);
+  background-attachment: local;
+}
+
+[data-theme="handwritten"] .page-scroll .hw-stack {
+  row-gap: var(--hw-line);
+}
+
+[data-theme="handwritten"] .page-scroll .hw-columns {
+  row-gap: calc(2 * var(--hw-line));
+  padding-bottom: calc(3 * var(--hw-line));
+}
+
+[data-theme="handwritten"] .page-scroll .hw-tags {
+  margin-bottom: var(--hw-line);
+}
+
+/* Tags: a box drawn around a word. The uneven radii are the old trick for a
+   hand-drawn outline; the 1px borders are paid for out of the line height. */
+[data-theme="handwritten"] .tag-chip {
+  line-height: calc(var(--hw-line) - 2px);
+  padding: 0 7px;
+  border-color: rgba(31, 47, 140, 0.4);
+  border-radius: 14px 5px 12px 6px / 6px 12px 5px 14px;
+}
+
+[data-theme="handwritten"] a.tag-chip:hover {
+  border-color: currentColor;
+}
+
+/* Section labels are underlined in pen, not ruled off. */
+[data-theme="handwritten"] .section-label {
+  border-bottom: 0;
+  font-size: 17px;
+  color: var(--text-color);
+  text-decoration: underline 2px;
+  text-underline-offset: 4px;
+}
+
+[data-theme="handwritten"] :is(.item-title) {
+  font-size: 20px;
+}
+
+/* ── Home: the name, written live at the foot of the page ── */
+
+[data-theme="handwritten"] .headline-line {
+  transform: none;
+}
+
+[data-theme="handwritten"] .footer-name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[data-theme="handwritten"] footer {
+  padding: 0 var(--hw-pad-right) var(--hw-pad-bottom) var(--hw-pad-left);
+}
+
+.hw-name {
+  display: none;
+}
+
+[data-theme="handwritten"] .hw-name {
+  /* At most ~85% of the line so it clears the theme pill, and never taller
+     than a fifth of the screen on short, wide windows. */
+  --hw-name-h: min(calc((100vw - var(--hw-pad-left) - var(--hw-pad-right)) * 0.85 / var(--hw-name-aspect)), 21vh);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: calc(var(--hw-name-h) * var(--hw-name-gap));
+  /* Keep every line's baseline on a rule when the name wraps. */
+  row-gap: calc(round(up, var(--hw-name-h), var(--hw-line)) - var(--hw-name-h));
+  color: var(--text-color);
+  /* Lift the name by less than one line so its baseline lands on a rule.
+     Browsers without mod() drop this and leave it on the page's bottom edge. */
+  margin-bottom: mod(100dvh - var(--hw-pad-top) - var(--hw-rule-y) - var(--hw-pad-bottom) - var(--hw-name-h) * var(--hw-name-descent), var(--hw-line));
+}
+
+@media (max-width: 640px) {
+  [data-theme="handwritten"] .hw-name {
+    --hw-name-h: calc((100vw - var(--hw-pad-left) - var(--hw-pad-right)) / var(--hw-name-word-aspect));
+  }
+}
+
+[data-theme="handwritten"] .hw-name svg {
+  height: var(--hw-name-h);
+  width: auto;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-theme="handwritten"] .hw-name path {
+    /* pathLength is 1: the dash is the whole stroke, and the offset starts a
+       hair past it so the round cap does not leave a dot before the pen lands. */
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1.02;
+    animation-name: hw-write;
+    animation-timing-function: cubic-bezier(0.35, 0.05, 0.4, 1);
+    animation-fill-mode: both;
+  }
+}
+
+@keyframes hw-write {
+  to { stroke-dashoffset: 0; }
+}
+
+.hw-note {
+  display: none;
+}
+
+[data-theme="handwritten"] .hw-note {
+  display: block;
+  position: absolute;
+  right: 6%;
+  bottom: calc(var(--hw-pad-bottom) + 30vh);
+  max-width: 19rem;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--hw-red);
+  transform: rotate(-3deg);
+  transform-origin: right bottom;
+}
+
+@media (max-width: 767px) {
+  [data-theme="handwritten"] .hw-note {
+    display: none;
+  }
+}
+
+/* ── Blog post ── */
+
+/* Out of the flow (the bar would push every line 1.5px off its rule) and
+   drawn as a soft pen line across the top of the sheet. */
+[data-theme="handwritten"] .reading-progress {
+  height: 2px;
+  margin-bottom: -2px;
+  background: transparent !important;
+}
+
+[data-theme="handwritten"] .reading-progress > div {
+  border-radius: 2px;
+  background: var(--dimmer-text) !important;
+}
+
+[data-theme="handwritten"] .post-body {
+  padding-top: var(--hw-line);
+  padding-bottom: calc(4 * var(--hw-line));
+}
+
+[data-theme="handwritten"] .post-body > a:first-child {
+  margin-bottom: var(--hw-line);
+}
+
+[data-theme="handwritten"] .post-body header {
+  margin-bottom: var(--hw-line);
+}
+
+[data-theme="handwritten"] :is(.post-title, .nf-title) {
+  --fs: 36px;
+  font-size: var(--fs);
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: calc(2 * var(--hw-line));
+  /* Two lines per line of title; push its baseline down onto the second rule. */
+  position: relative;
+  top: calc(var(--hw-rule-y) - 0.5px - 0.2 * var(--fs));
+  margin-bottom: var(--hw-line);
+}
+
+@media (max-width: 640px) {
+  [data-theme="handwritten"] :is(.post-title, .nf-title) {
+    --fs: 28px;
+  }
+}
+
+[data-theme="handwritten"] .post-divider {
+  display: none;
+}
+
+[data-theme="handwritten"] .reading-mode-btn {
+  text-transform: none;
+  font-size: 15px;
+  line-height: calc(var(--hw-line) - 2px);
+  padding: 0 12px;
+  opacity: 0.85;
+  color: var(--text-color);
+  border-color: rgba(31, 47, 140, 0.4);
+  border-radius: 16px 6px 14px 7px / 7px 14px 6px 16px;
+}
+
+[data-theme="handwritten"] .post-prevnext {
+  margin-top: calc(3 * var(--hw-line));
+  border-top: 0 !important;
+}
+
+[data-theme="handwritten"] .post-prevnext .text-\[11px\] {
+  font-size: 19px;
+}
+
+/* Prose: flex so margins add instead of collapsing, which is what lets the
+   layout code round a figure up to whole lines with a bottom margin. */
+[data-theme="handwritten"] .page-scroll .blog-prose {
+  display: flex;
+  flex-direction: column;
+  font-size: 19px;
+  color: var(--text-color);
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose [data-rehype-pretty-code-figure] {
+  margin-bottom: 0;
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose > * + * {
+  margin-top: var(--hw-line);
+}
+
+[data-theme="handwritten"] .blog-prose :is(h1, h2, h3, h4) {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  color: var(--text-color);
+  opacity: 1;
+  border-bottom: 0;
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose h2 {
+  margin-top: calc(2 * var(--hw-line));
+  font-size: 25px;
+  text-decoration: underline 2px;
+  text-underline-offset: 5px;
+  text-decoration-skip-ink: none;
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose h1 {
+  margin-top: calc(2 * var(--hw-line));
+  font-size: 28px;
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose h3 {
+  font-size: 22px;
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose h4 {
+  font-size: 19px;
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose :is(h1, h2, h3, h4) + * {
+  margin-top: 0;
+}
+
+/* Emphasis the way it looks in notes: underline, and a highlighter for the
+   one thing that matters. */
+[data-theme="handwritten"] .blog-prose em {
+  font-style: normal;
+  color: inherit;
+  text-decoration: underline 1.5px;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(31, 47, 140, 0.55);
+}
+
+[data-theme="handwritten"] .blog-prose strong {
+  font-weight: 700;
+  color: inherit;
+  background: linear-gradient(100deg, transparent 0.2em, var(--hw-highlight) 0.35em, var(--hw-highlight) calc(100% - 0.3em), transparent calc(100% - 0.15em)) 0 0.45em / 100% 0.62em no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+[data-theme="handwritten"] .blog-prose a {
+  color: inherit;
+  text-decoration-color: rgba(31, 47, 140, 0.45);
+  text-underline-offset: 4px;
+}
+
+[data-theme="handwritten"] .blog-prose ul > li {
+  list-style-type: "→  ";
+}
+
+[data-theme="handwritten"] .blog-prose li li {
+  list-style-type: "–  ";
+}
+
+[data-theme="handwritten"] .blog-prose blockquote {
+  font-style: normal;
+  color: var(--dim-text);
+  border-left: 2px solid rgba(31, 47, 140, 0.35);
+  margin-left: 2px;
+}
+
+[data-theme="handwritten"] .blog-prose hr {
+  height: var(--hw-line);
+  border: 0;
+  opacity: 1;
+  background: var(--dimmer-text);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 12'%3E%3Cpath d='M3 8c9-6 14 3 23-2s12-4 20 0 13 3 22-2 13 2 25-1' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E") center 13px / 96px 12px no-repeat;
+}
+
+/* Code stays in a monospace font: it is code, not handwriting. */
+[data-theme="handwritten"] .blog-prose :is(code, pre, kbd, samp) {
+  font-family: var(--hw-code);
+}
+
+/* Space Mono is taller than the hand, so at a 30px line height inline code
+   (and the spans rehype-pretty-code nests inside it) would stretch its line
+   by a couple of pixels and knock every line after it off the rules. */
+[data-theme="handwritten"] .blog-prose :not(pre) > code,
+[data-theme="handwritten"] .blog-prose :not(pre) > code *,
+[data-theme="handwritten"] .blog-prose :is(sup, sub) {
+  line-height: 1;
+}
+
+[data-theme="handwritten"] .blog-prose :not(pre) > code {
+  font-size: 0.72em;
+  background: rgba(31, 47, 140, 0.07);
+  color: var(--text-color);
+}
+
+[data-theme="handwritten"] .blog-prose pre {
+  line-height: 1.6;
+  border: 1px solid rgba(31, 47, 140, 0.14);
+  box-shadow: 0 1px 0 rgba(31, 47, 140, 0.05);
+}
+
+[data-theme="handwritten"] .page-scroll .blog-prose pre {
+  padding: 1em 1.2em;
+}
+
+[data-theme="handwritten"] .blog-prose pre * {
+  line-height: 1.6;
+}
+
+[data-theme="handwritten"] .blog-prose pre,
+[data-theme="handwritten"] .blog-prose pre span {
+  background: var(--shiki-light-bg, #fff);
+  color: var(--shiki-light);
+}
+
+[data-theme="handwritten"] .blog-prose :is(th, td) {
+  border-color: rgba(31, 47, 140, 0.25);
+  line-height: calc(var(--hw-line) - 1px);
+  padding: 0 0.75em;
+}
+
+[data-theme="handwritten"] .blog-prose th {
+  font-family: var(--font-hand);
+  font-size: 1em;
+  font-weight: 700;
+  background: rgba(31, 47, 140, 0.05);
+}
+
+[data-theme="handwritten"] .blog-prose tr:nth-child(even) td {
+  background: transparent;
+}
+
+[data-theme="handwritten"] .blog-prose img {
+  border: 6px solid #fff;
+  box-shadow: 0 1px 3px rgba(31, 47, 140, 0.18);
+}
+
+/* Table of contents: a sticky note on the page. */
+[data-theme="handwritten"] .toc-note {
+  padding: 14px 16px 16px;
+  background: #fff3a6;
+  box-shadow: 0 1px 1px rgba(60, 50, 0, 0.08), 0 8px 18px -8px rgba(60, 50, 0, 0.25);
+  transform: rotate(1.2deg);
+  top: calc(var(--hw-line) * 2);
+}
+
+[data-theme="handwritten"] .toc-note * {
+  line-height: 1.5;
+}
+
+[data-theme="handwritten"] .toc-note p {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 6px;
+}
+
+[data-theme="handwritten"] .toc-note a {
+  font-size: 15px;
+  /* 0.35 disappears on yellow (0.75 is 5.3:1); the inline value is right for other themes. */
+  opacity: 0.75 !important;
+}
+
+[data-theme="handwritten"] .toc-note a[data-active] {
+  opacity: 1 !important;
+  font-weight: 700;
+}
+
+/* ── Focus mode: a clean, unruled sheet ── */
+
+[data-theme="handwritten"] .blog-prose--reading {
+  font-size: 21px;
+  line-height: 1.75;
+  color: var(--text-color);
+}
+
+[data-theme="handwritten"] .blog-prose--reading :is(h1, h2, h3, h4, strong, a) {
+  color: var(--text-color);
+}
+
+[data-theme="handwritten"] .blog-prose--reading em {
+  color: inherit;
+}
+
+[data-theme="handwritten"] .blog-prose--reading blockquote {
+  color: var(--dim-text);
+  border-left-color: rgba(31, 47, 140, 0.35);
+}
+
+[data-theme="handwritten"] .blog-prose--reading :not(pre) > code {
+  background: rgba(31, 47, 140, 0.07);
+  color: var(--text-color);
+}
+
+[data-theme="handwritten"] .blog-prose--reading :is(th, td) {
+  border-color: rgba(31, 47, 140, 0.25);
+}
+
+[data-theme="handwritten"] .blog-prose--reading th {
+  background: rgba(31, 47, 140, 0.05);
+  color: var(--text-color);
+}
+
+[data-theme="handwritten"] .blog-prose--reading pre,
+[data-theme="handwritten"] .blog-prose--reading pre span {
+  background: var(--shiki-light-bg, #fff) !important;
+  color: var(--shiki-light) !important;
+}
+
+[data-theme="handwritten"] .reading-label {
+  font-size: 15px !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+[data-theme="handwritten"] .reading-mode-exit-btn {
+  text-transform: none;
+  font-size: 15px;
+  color: var(--dimmer-text);
+}
+
+[data-theme="handwritten"] .reading-mode-exit-btn:hover {
+  color: var(--text-color);
+}
+
+[data-theme="handwritten"] .reading-title {
+  font-weight: 700 !important;
+  letter-spacing: normal !important;
+  font-size: clamp(2rem, 5vw, 2.6rem) !important;
+}
+
+/* ── Theme switcher: a note card ── */
+
+[data-theme="handwritten"] .theme-menu {
+  background: #fdfdfb !important;
+  backdrop-filter: none !important;
+  border-color: rgba(31, 47, 140, 0.18) !important;
+  box-shadow: 0 10px 24px -12px rgba(31, 47, 140, 0.35);
+}
+
+[data-theme="handwritten"] .theme-pill {
+  font-size: 15px;
+  background: rgba(247, 248, 252, 0.85) !important;
+  border-color: rgba(31, 47, 140, 0.3) !important;
+}

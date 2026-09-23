@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./handwritten.css";
 
 @theme {
   --color-dim: var(--dim-text);
@@ -8,6 +9,7 @@
   --font-mono: var(--font-space-mono), monospace;
   --font-handwriting: var(--font-kalam), cursive;
   --font-terminal: var(--font-vt323), monospace;
+  --font-hand: "Harshpreet Hand", cursive;
 }
 
 :root, [data-theme="dark"] {
