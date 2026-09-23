@@ -53,9 +53,9 @@ export default async function BlogTagPage({ params }) {
   return (
     <PageTransition>
       <h1 className="sr-only">Blog posts tagged {match.tag}</h1>
-      <div className="absolute inset-0 overflow-y-auto pr-4 scrollbar-hide">
+      <div className="page-scroll absolute inset-0 overflow-y-auto pr-4 scrollbar-hide">
         <FadeIn delay={0.02}>
-          <div className="flex items-center gap-3 mb-10">
+          <div className="hw-tags flex items-center gap-3 mb-10">
             <Link
               href="/blog"
               className="font-mono text-[9px] uppercase tracking-widest text-dimmer hover:text-dim transition-colors duration-400"
@@ -66,8 +66,8 @@ export default async function BlogTagPage({ params }) {
             <span className="font-mono text-[9px] uppercase tracking-widest text-dim">{match.tag}</span>
           </div>
         </FadeIn>
-        <div className="grid grid-cols-2 gap-12 w-full max-md:grid-cols-1 max-sm:gap-10 pb-20">
-          <div className="flex flex-col gap-10">
+        <div className="hw-columns grid grid-cols-2 gap-12 w-full max-md:grid-cols-1 max-sm:gap-10 pb-20">
+          <div className="hw-stack flex flex-col gap-10">
             {posts.slice(0, Math.ceil(posts.length / 2)).map((post, idx) => (
               <FadeIn key={post.slug} delay={0.1 + idx * 0.08}>
                 <BlogItem {...post} />
@@ -75,7 +75,7 @@ export default async function BlogTagPage({ params }) {
             ))}
           </div>
 
-          <div className="flex flex-col gap-10">
+          <div className="hw-stack flex flex-col gap-10">
             {posts.slice(Math.ceil(posts.length / 2)).map((post, idx) => (
               <FadeIn key={post.slug} delay={0.14 + idx * 0.08}>
                 <BlogItem {...post} />

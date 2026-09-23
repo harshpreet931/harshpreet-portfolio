@@ -5,9 +5,9 @@ import { FadeIn } from '@/components/FadeIn';
 export default function NotFound() {
   return (
     <PageTransition>
-      <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
+      <div className="hw-rhythm flex flex-col items-center justify-center h-full gap-4 text-center">
         <FadeIn delay={0.05}>
-          <h2 className="text-2xl font-display font-bold uppercase">Not Found</h2>
+          <h2 className="nf-title text-2xl font-display font-bold uppercase">Not Found</h2>
         </FadeIn>
         <FadeIn delay={0.12}>
           <p className="text-sm text-dim">The page you're looking for doesn't exist.</p>

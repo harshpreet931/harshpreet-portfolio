@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TableOfContents } from '@/components/TableOfContents';
+import { useTheme } from '@/hooks/ThemeContext';
 
 export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, headings, children }) {
   const [progress, setProgress]     = useState(0);
@@ -15,8 +16,35 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
   const overlayRef                  = useRef(null);
   const exitButtonRef               = useRef(null);
   const focusModeButtonRef          = useRef(null);
+  const articleRef                  = useRef(null);
+  const { theme }                   = useTheme();
+  const handwritten                 = theme === 'handwritten';
 
   useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    const article = articleRef.current;
+    if (!handwritten || !article) return;
+    const line = parseFloat(getComputedStyle(article).getPropertyValue('--hw-line')) || 30;
+    const snap = () => {
+      for (const el of article.children) {
+        const extra = (line - (el.getBoundingClientRect().height % line)) % line;
+        el.style.marginBottom = extra > 0.5 && line - extra > 0.5 ? `${extra}px` : '';
+      }
+    };
+    let frame = 0;
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(snap);
+    });
+    snap();
+    ro.observe(article);
+    return () => {
+      ro.disconnect();
+      cancelAnimationFrame(frame);
+      for (const el of article.children) el.style.marginBottom = '';
+    };
+  }, [handwritten]);
 
   // Keep body non-scrollable behind overlay (already true globally, but belt-and-suspenders)
   useEffect(() => {
@@ -92,7 +120,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
         {frontmatter.tags.map((tag) => (
           <span
             key={tag}
-            className="font-mono text-[8px] uppercase tracking-widest px-2 py-0.5 rounded-full border"
+            className="tag-chip font-mono text-[8px] uppercase tracking-widest px-2 py-0.5 rounded-full border"
             style={{ borderColor, color }}
           >
             {tag}
@@ -104,7 +132,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
   const prevNext = (dimColor, textColor, onClick) =>
     (prevPost || nextPost) && (
       <div
-        className="mt-20 pt-8 flex justify-between items-start gap-8"
+        className="post-prevnext mt-20 pt-8 flex justify-between items-start gap-8"
         style={{ borderTop: `1px solid ${dimColor}` }}
       >
         {prevPost ? (
@@ -132,16 +160,16 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
 
   return (
     <>
-      <div ref={containerRef} onScroll={handleScroll} className="absolute inset-0 overflow-y-auto" inert={isReading}>
+      <div ref={containerRef} onScroll={handleScroll} className="page-scroll absolute inset-0 overflow-y-auto" inert={isReading}>
 
         {/* Progress bar */}
-        <div className="sticky top-0 left-0 right-0 z-50 h-[1.5px]"
+        <div className="reading-progress sticky top-0 left-0 right-0 z-50 h-[1.5px]"
           style={{ background: 'var(--dimmer-text)' }}>
           <div className="h-full"
             style={{ width: `${progress}%`, background: 'var(--text-color)', transition: 'width 80ms linear' }} />
         </div>
 
-        <div className="max-w-215 mx-auto px-4 pb-24 pt-8">
+        <div className="post-body max-w-215 mx-auto px-4 pb-24 pt-8">
 
           <Link href="/blog"
             className="inline-flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest transition-opacity duration-300 hover:opacity-100 mb-10"
@@ -151,7 +179,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
 
           <header className="mb-8">
             {tagList()}
-            <h1 className="font-display font-bold text-2xl leading-tight tracking-tight mb-3 max-sm:text-xl"
+            <h1 className="post-title font-display font-bold text-2xl leading-tight tracking-tight mb-3 max-sm:text-xl"
               style={{ color: 'var(--text-color)' }}>
               {frontmatter.title}
             </h1>
@@ -175,12 +203,12 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
             </div>
           </header>
 
-          <div className="mb-10" style={{ borderTop: '1px solid var(--dimmer-text)', opacity: 0.3 }} />
+          <div className="post-divider mb-10" style={{ borderTop: '1px solid var(--dimmer-text)', opacity: 0.3 }} />
 
           <div className="flex gap-12 items-start">
-            <article className="blog-prose min-w-0 flex-1">{children}</article>
+            <article ref={articleRef} className="blog-prose min-w-0 flex-1">{children}</article>
             {headings.filter(h => h.level <= 2).length > 2 && (
-              <aside className="hidden lg:block w-45 shrink-0 sticky top-6">
+              <aside className="toc-note hidden lg:block w-45 shrink-0 sticky top-6">
                 <TableOfContents headings={headings.filter(h => h.level <= 3)} scrollContainerRef={containerRef} />
               </aside>
             )}
@@ -206,23 +234,23 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
               transition={{ duration: 0.38, ease: [0.25, 0.1, 0.25, 1] }}
               style={{
                 position: 'fixed', inset: 0, zIndex: 9999,
-                background: '#0a0a0a',
+                background: 'var(--reading-bg, #0a0a0a)',
               }}
             >
               {/* Vignette */}
               <div style={{
                 position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1,
-                background: 'radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%)',
+                background: 'var(--reading-vignette, radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%))',
               }} />
 
               {/* Reading progress */}
               <div style={{
                 position: 'absolute', top: 0, left: 0, right: 0,
-                height: '1.5px', background: 'rgba(255,255,255,0.07)', zIndex: 10,
+                height: '1.5px', background: 'var(--reading-track, rgba(255,255,255,0.07))', zIndex: 10,
               }}>
                 <div style={{
                   height: '100%', width: `${progress}%`,
-                  background: 'rgba(255,255,255,0.5)',
+                  background: 'var(--reading-bar, rgba(255,255,255,0.5))',
                   transition: 'width 80ms linear',
                 }} />
               </div>
@@ -260,22 +288,22 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
                   {frontmatter.tags?.length > 0 && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '18px' }}>
                       {frontmatter.tags.map(tag => (
-                        <span key={tag} style={{
+                        <span key={tag} className="reading-label" style={{
                           fontFamily: 'var(--font-mono)', fontSize: '8px',
                           textTransform: 'uppercase', letterSpacing: '0.1em',
                           padding: '4px 10px', borderRadius: '999px',
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          color: 'rgba(255,255,255,0.55)',
+                          border: '1px solid var(--reading-line, rgba(255,255,255,0.1))',
+                          color: 'var(--reading-dim, rgba(255,255,255,0.55))',
                         }}>{tag}</span>
                       ))}
                     </div>
                   )}
 
                   {/* Title */}
-                  <h1 style={{
+                  <h1 className="reading-title" style={{
                     fontFamily: 'var(--font-display)', fontWeight: 800,
                     fontSize: 'clamp(1.45rem, 3.5vw, 2rem)',
-                    color: '#f2f2f2', lineHeight: 1.2,
+                    color: 'var(--reading-title, #f2f2f2)', lineHeight: 1.2,
                     letterSpacing: '-0.025em', marginBottom: '12px',
                   }}>
                     {frontmatter.title}
@@ -286,17 +314,17 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
                     display: 'flex', alignItems: 'center',
                     justifyContent: 'space-between', marginBottom: '40px',
                   }}>
-                    <span style={{
+                    <span className="reading-label" style={{
                       fontFamily: 'var(--font-mono)', fontSize: '9px',
                       textTransform: 'uppercase', letterSpacing: '0.1em',
-                      color: 'rgba(255,255,255,0.55)',
+                      color: 'var(--reading-dim, rgba(255,255,255,0.55))',
                     }}>
                       {frontmatter.date} · {readingTime}
                     </span>
                   </div>
 
                   {/* Divider */}
-                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', marginBottom: '44px' }} />
+                  <div style={{ borderTop: '1px solid var(--reading-track, rgba(255,255,255,0.07))', marginBottom: '44px' }} />
 
                   {/* Prose */}
                   <article className="blog-prose blog-prose--reading">
@@ -304,7 +332,7 @@ export function BlogPostLayout({ frontmatter, readingTime, prevPost, nextPost, h
                   </article>
 
                   {/* Prev / Next */}
-                  {prevNext('rgba(255,255,255,0.1)', 'rgba(255,255,255,0.55)', exitReading)}
+                  {prevNext('var(--reading-line, rgba(255,255,255,0.1))', 'var(--reading-dim, rgba(255,255,255,0.55))', exitReading)}
 
                 </div>
               </motion.div>

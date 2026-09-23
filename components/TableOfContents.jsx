@@ -72,6 +72,7 @@ export function TableOfContents({ headings, scrollContainerRef }) {
             key={id}
             ref={(el) => { itemRefs.current[id] = el; }}
             href={`#${id}`}
+            data-active={activeId === id || undefined}
             className="block font-mono text-[8px] uppercase tracking-wide leading-relaxed transition-all duration-300 hover:opacity-100"
             style={{
               paddingLeft: level === 3 ? '0.75rem' : '0',

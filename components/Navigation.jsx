@@ -79,9 +79,10 @@ export function Navigation() {
             rel="noopener noreferrer"
             aria-label={label}
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-3.5 h-3.5">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="hand-hide w-3.5 h-3.5">
               <path d={path} />
             </svg>
+            <span className="hand-only social-word" aria-hidden="true">{label.toLowerCase()}</span>
           </a>
         ))}
       </div>

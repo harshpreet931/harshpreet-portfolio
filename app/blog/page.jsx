@@ -33,15 +33,15 @@ export default async function BlogPage() {
   return (
     <PageTransition>
       <h1 className="sr-only">Blog</h1>
-      <div className="absolute inset-0 overflow-y-auto pr-4 scrollbar-hide">
+      <div className="page-scroll absolute inset-0 overflow-y-auto pr-4 scrollbar-hide">
         {tags.length > 0 && (
           <FadeIn delay={0.02}>
-            <div className="flex flex-wrap gap-2 mb-10">
+            <div className="hw-tags flex flex-wrap gap-2 mb-10">
               {tags.map(({ slug, tag }) => (
                 <Link
                   key={slug}
                   href={`/blog/tag/${slug}`}
-                  className="text-[9px] font-mono border border-dimmer/30 px-1.5 py-0.5 rounded text-dimmer uppercase hover:border-current hover:text-dim transition-all duration-400 ease-out"
+                  className="tag-chip text-[9px] font-mono border border-dimmer/30 px-1.5 py-0.5 rounded text-dimmer uppercase hover:border-current hover:text-dim transition-all duration-400 ease-out"
                 >
                   {tag}
                 </Link>
@@ -49,8 +49,8 @@ export default async function BlogPage() {
             </div>
           </FadeIn>
         )}
-        <div className="grid grid-cols-2 gap-12 w-full max-md:grid-cols-1 max-sm:gap-10 pb-20">
-          <div className="flex flex-col gap-10">
+        <div className="hw-columns grid grid-cols-2 gap-12 w-full max-md:grid-cols-1 max-sm:gap-10 pb-20">
+          <div className="hw-stack flex flex-col gap-10">
             {posts.slice(0, Math.ceil(posts.length / 2)).map((post, idx) => (
               <FadeIn key={post.slug} delay={0.1 + idx * 0.08}>
                 <BlogItem {...post} />
@@ -58,7 +58,7 @@ export default async function BlogPage() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-10">
+          <div className="hw-stack flex flex-col gap-10">
             {posts.slice(Math.ceil(posts.length / 2)).map((post, idx) => (
               <FadeIn key={post.slug} delay={0.14 + idx * 0.08}>
                 <BlogItem {...post} />

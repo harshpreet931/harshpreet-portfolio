@@ -4,7 +4,7 @@ export function ProjectItem({ id, tech, title, description, link }) {
       <span className="font-mono text-xs text-dimmer pt-1 transition-colors duration-500">{id}</span>
       <div className="flex flex-col">
         <span className="text-[9px] font-mono text-dimmer uppercase mb-1 transition-colors duration-500">{tech}</span>
-        <h3 className="text-sm font-semibold mb-1 uppercase tracking-tight transition-all duration-500 ease-out group-hover:translate-x-0.5">
+        <h3 className="item-title text-sm font-semibold mb-1 uppercase tracking-tight transition-all duration-500 ease-out group-hover:translate-x-0.5">
           {title}
           <span className="inline-block ml-1.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out">→</span>
         </h3>

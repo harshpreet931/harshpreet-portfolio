@@ -2,14 +2,17 @@
 
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useTheme } from '@/hooks/ThemeContext';
+import { HandwrittenName } from '@/components/handwriting/HandwrittenName';
 
 export function Footer() {
   const pathname = usePathname();
+  const { theme, ready } = useTheme();
   const isHome = pathname === '/';
 
   return (
     <footer className="absolute bottom-0 left-0 right-0 z-10 flex flex-col p-6" style={{ pointerEvents: isHome ? 'auto' : 'none' }}>
-      <h1 className="font-display text-[8.4vw] font-extrabold leading-[0.78] tracking-[-0.04em] uppercase w-full flex flex-col max-sm:text-[7.2vw] max-sm:leading-[0.9] max-sm:tracking-[-0.03em]" style={{ opacity: isHome ? 1 : 0.05, transition: 'opacity 0.5s' }} aria-hidden={!isHome}>
+      <h1 className="footer-name font-display text-[8.4vw] font-extrabold leading-[0.78] tracking-[-0.04em] uppercase w-full flex flex-col max-sm:text-[7.2vw] max-sm:leading-[0.9] max-sm:tracking-[-0.03em]" style={{ opacity: isHome ? 1 : 0.05, transition: 'opacity 0.5s' }} aria-hidden={!isHome}>
         <motion.span
           className="headline-line"
           initial={{ opacity: 0, y: 50 }}
@@ -27,6 +30,7 @@ export function Footer() {
           Singh
         </motion.span>
       </h1>
+      {isHome && ready && theme === 'handwritten' && <HandwrittenName />}
     </footer>
   );
 }
