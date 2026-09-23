@@ -83,7 +83,9 @@ export function ThemeProvider({ children }) {
   const [ready, setReady] = useState(false);
 
   useLayoutEffect(() => {
-    setThemeState(getSavedTheme());
+    // The init script already resolved month, saved choice and ?theme= link;
+    // reading its answer keeps them in step even if localStorage is blocked.
+    setThemeState(document.documentElement.getAttribute('data-theme') || getSavedTheme());
     setCustomColorsState(getSavedCustomColors());
     setReady(true);
   }, []);

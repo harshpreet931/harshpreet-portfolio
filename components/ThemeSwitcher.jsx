@@ -3,24 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '@/hooks/ThemeContext';
-
-const THEMES = [
-  { id: 'handwritten', label: 'Handwritten', color: '#1f2f8c', hand: true },
-  { id: 'dark', label: 'Midnight', color: '#0ea5e9' },
-  { id: 'obsidian', label: 'Obsidian', color: '#0085FF' },
-  { id: 'cerulean', label: 'Cerulean', color: '#635BFF' },
-  { id: 'dawn', label: 'Dawn', color: '#A84376' },
-  { id: 'cyberpunk', label: 'Cyberpunk', color: '#0ABDC6' },
-  { id: 'cocoa', label: 'Cocoa', color: '#D4A574' },
-  { id: 'sunshine', label: 'Sunshine', color: '#FFB6C1' },
-  { id: 'lavender', label: 'Lavender', color: '#e9d5ff' },
-  { id: 'sand', label: 'Sand', color: '#C8956C' },
-  { id: 'rose', label: 'Rose', color: '#DE5D83' },
-  { id: 'arctic', label: 'Arctic', color: '#0070F3' },
-  { id: 'monochrome', label: 'Monochrome', color: '#a3a3a3' },
-  { id: 'paper', label: 'Paper', color: '#fdf6e3' },
-  { id: 'terminal', label: 'Terminal', color: '#33ff33' },
-];
+import { THEMES } from '@/data/themes';
 
 const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
