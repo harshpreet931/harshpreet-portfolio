@@ -50,8 +50,8 @@ export const metadata = {
     default: 'Harshpreet Singh',
     template: '%s: Harshpreet Singh',
   },
-  description: 'Harshpreet Singh, Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
-  keywords: ['Harshpreet Singh', 'SDE', 'Software Engineer', 'Portfolio', 'AI', 'Machine Learning', 'Juspay', 'Agentic AI', 'Bengaluru'],
+  description: 'Harshpreet Singh, software engineer at Juspay building AI agents and agent frameworks (Xyne Spaces, jaf-py), and working on LLM inference.',
+  keywords: ['Harshpreet Singh', 'Software Engineer', 'AI Engineer', 'AI Agents', 'LLM Inference', 'MCP', 'Juspay', 'Xyne Spaces', 'jaf-py', 'Portfolio', 'Bengaluru'],
   authors: [{ name: 'Harshpreet Singh' }],
   creator: 'Harshpreet Singh',
   openGraph: {
@@ -60,13 +60,13 @@ export const metadata = {
     url: 'https://harshpreet.com',
     siteName: 'Harshpreet Singh',
     title: 'Harshpreet Singh',
-    description: 'Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
+    description: 'Software engineer at Juspay building AI agents and agent frameworks (Xyne Spaces, jaf-py), and working on LLM inference.',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Harshpreet Singh',
-    description: 'Software Development Engineer building agentic AI systems. Explore my work in AI, ML, and high-performance systems.',
+    description: 'Software engineer at Juspay building AI agents and agent frameworks (Xyne Spaces, jaf-py), and working on LLM inference.',
     images: ['/og-image.png'],
   },
   alternates: {
@@ -87,13 +87,19 @@ const jsonLd = {
     '@type': 'Organization',
     name: 'Juspay',
   },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Chitkara University',
+  },
+  knowsAbout: ['AI agents', 'LLM inference', 'Model Context Protocol', 'TypeScript', 'React', 'Python'],
   sameAs: [
     'https://linkedin.com/in/harshpreet931',
     'https://github.com/harshpreet931',
+    'https://leetcode.com/harshpreet931',
     'https://youtube.com/@ThatNotesGuy',
     'https://medium.com/@harshpreet0402',
   ],
-  description: 'Software Development Engineer building agentic AI systems and high-performance applications.',
+  description: 'Software engineer at Juspay building AI agents and agent frameworks, and working on LLM inference.',
 };
 
 // Runs before first paint so the page never flashes the default theme

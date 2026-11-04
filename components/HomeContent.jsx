@@ -53,10 +53,10 @@ export function HomeContent() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="flex flex-col">
-          <span className="text-xs">Building AI-Native Systems</span>
+          <span className="text-xs">AI Agents &amp; LLM Inference</span>
           <p className="text-xs leading-tight font-normal">
-            I build systems with<br />
-            depth and design.
+            I build agent frameworks<br />
+            and the products on them.
           </p>
         </motion.div>
 
