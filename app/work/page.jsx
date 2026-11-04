@@ -7,7 +7,7 @@ import { FadeIn } from '@/components/FadeIn';
 
 export const metadata = {
   title: 'Work',
-  description: 'Experience and selected projects by Harshpreet Singh: ASDE at Juspay, building agentic AI systems, Rust tools, and ML pipelines.',
+  description: 'Experience and selected projects by Harshpreet Singh: ASDE at Juspay, top contributor to Xyne Spaces, author of jaf-py, and LLM inference experiments.',
   openGraph: {
     type: 'website',
     locale: 'en_US',
