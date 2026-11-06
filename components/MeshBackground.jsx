@@ -2,13 +2,18 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
 import { useTheme } from '@/hooks/ThemeContext';
 import { generateMeshColors, isColorDark } from '@/utils/colorUtils';
+import { isContentRoute } from '@/utils/contentRoute';
 
 const MeshGradient = dynamic(
   () => import('@paper-design/shaders-react').then(mod => mod.MeshGradient),
   { ssr: false }
 );
+
+// How much of the theme background covers the mesh on content pages.
+const CONTENT_SCRIM = 0.9;
 
 const themeConfig = {
   dark: {
@@ -126,6 +131,7 @@ function getCustomConfig(customColors) {
 
 export function MeshBackground() {
   const { theme, customColors, ready } = useTheme();
+  const pathname = usePathname();
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -167,6 +173,15 @@ export function MeshBackground() {
         rotation={240}
       />
       {config.hasDarkOverlay && <div className="absolute inset-0 z-[2] bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0)_0%,rgba(0,0,0,0.4)_100%)]" />}
+      {/* --bg-color, not config.bg: it comes from the same [data-theme] as the text colour. */}
+      <div
+        className="absolute inset-0 z-[3] pointer-events-none"
+        style={{
+          backgroundColor: 'var(--bg-color)',
+          opacity: isContentRoute(pathname) ? CONTENT_SCRIM : 0,
+          transition: 'opacity 0.5s',
+        }}
+      />
     </div>
   );
 }
